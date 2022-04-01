@@ -12,7 +12,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           {/* Edit <code>src/App.js</code> and save to reload. */}
-          안녕하세요
+          얼른 배워서 뭐 만들어보자
         </p>
         <a
           className="App-link"
