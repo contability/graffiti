@@ -1,3 +1,10 @@
+# javaScript는 많이 다뤄봤지만
+FrontEnd로 결정했지만 업무상 javaScript, jQuery 및 openLayers 라이브러리 정도를 다루는 상황으로 
+
+현재 SPA 프레임워크 중 점유율이 가장 높은 React를 학습하고 빠르게 무언가를 만들어보는 것을 목표로 하자
+
+정보처리기사 실기는 필기 합격 후 1년까지 가능하므로 잠시 미루고 React 학습을 선행으로 우선 순위를 변경한다.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
