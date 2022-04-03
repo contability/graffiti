@@ -19,6 +19,13 @@ body{
   padding: 20px;
   font-weight: 600;
   font-size: 20px;
+  box-sizing: border-box;
+}
+
+.list{
+  text-align: left;
+  padding: 0px 20px 0px 20px;
+  margin-top: 20px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
