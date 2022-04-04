@@ -51,7 +51,7 @@ function App() {
   }
 
   return (
-    /* 
+/* 
     1. 현재 작성하는 문법은 HTML처럼 생겼지만 JSX라는 문법이다
       React에서는 HTML이 아니라 JSX라는걸 쓴다
       그래서 class가 아니라 className임
@@ -217,7 +217,11 @@ function App() {
                                       /// 숫자형에서 문자형은 되는거 같던데....
       (3) 일단 기존 state 카피본 만들고 -> 카피본에 수정사항 반영하고 -> 변경함수()에 집어넣기
 
-    */
+    9. 컴포넌트
+      이건 따로 아래 설명.
+      
+
+*/
     
     <div className="App">
       <div className="black-nav">
@@ -245,7 +249,93 @@ function App() {
         <p>2월 19일 발행</p>
         <hr/>
       </div>
+
+      <Modal />
+
     </div>
+
+  );
+}
+
+/*
+
+  return (
+    <어쩌구>
+  );
+    
+  이런 식으로 짜고 있는건데
+
+  return (
+    <div></div>
+    <div></div>
+    <div></div>
+  );
+
+  이런식으로 최상위 div 여러 개를 연속해서 만든다거나 하는건 불가능이다.
+
+  return 안에는 하나의 html 태그만 시작하고 끝나야한다.
+
+  여러개 쓰고 싶으면 하나의 태그로 감싸서 써야함
+
+  여튼 자주 느끼지만 div 막 여러개 있고 그러면 보기 싫고 복잡하고 어렵기도 하고 뭐 그렇다.
+
+  리액트에서는 HTML을 한 단어로 줄여서 쓸 수 있는 방법을 제공한다.
+  Component문법이라고 한다.
+
+  밑에 <Modal></Modal> 마냥 나만의 단어로 태그를 만듦.
+  나중에 다른 사람이 찾기도 쉽겠고 component안에 component도 가능하고 뭐 여러 장점이 있음
+
+  - 컴포넌트 만드는 법
+
+    지금 밑에 여러가지 HTML 태그를 Modal이라는 단어로 치환한거다
+
+    그러곤 위에 Modal이라는 이름으로 태그를 사용할 수 있음
+
+    1. 함수 만들고 이름 짓고
+    2. 축약을 원하는 HTML 넣고
+    이렇게 하면 됨.
+    3. function 만드는 위치는 function App()이랑 나란히 만들면 됨
+      가만 보면 function App도 Component인거임
+
+
+  - Component 유의 사항
+
+    1. 이름은 대문자로 시작.
+    2. 위에서 언급했듯 return (); 안에 여러개의 최상위 node가 들어갈수 없고 단 하나만 가능.
+      즉, 태그 하나로 묶어야함. 
+
+      근데 뭐 return 내부를 묶을 때 최상위에 의미 없는 div 같은거 써서 하나로 묶기가 싫다?
+
+      그럼 그냥
+      <>
+        <div></div>
+        <div></div>
+        <div></div>
+      </>
+
+      이런식으로 써도 됨. Fragment라고 함.
+
+  - 어떤걸 Component로 만들까?
+
+    마음에 드는 부분을 잘라서 Component를 만들어도 전혀 상관없지만
+
+      1. list처럼 반복출현하는 HTML 덩어리들
+      2. 자주 변경되는 HTML UI들(재랜더링이 많이 일어나는 애들. 성능적인 이점이 있음.)
+      3. 다른 페이지 만들 때도 컴포넌트로 만듦
+
+  - Component 많이 만들면 단점은?
+
+    Component 안에 state 쓸 때 복잡해짐. state가 자동으로 공유가 안됨.
+    상위 Component에서 만든 state 쓰려면 props 문법 이용해야함.
+    
+*/
+function Modal(){
+  return (
+    <div className="modal">
+          <h2>제목</h2>
+          <p>날짜</p>
+          <p>상세내용</p>
+      </div>
   );
 }
 

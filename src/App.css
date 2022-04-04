@@ -7,6 +7,12 @@
   pointer-events: none;
 }
 
+.modal{
+  padding: 20px;
+  margin-top: 20px;
+  background: #eee;
+}
+
 body{
   font-family: 'nanumsquare';
 }
