@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+/* eslint-disable */
+
+import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -21,11 +23,32 @@ function App() {
   }
   let postsStyle = {color : 'blue', fontSize : '30px'};
 
-  let [글제목, 글제목변경] = useState(["남자 코트 추천", "강남 우동 맛집"]);
-  let [글제목2, 글제목변경2] = useState("글제목2");
-  let [글제목3, 글제목변경3] = useState("글제목3");
-  let [글제목4, 글제목변경4] = useState("글제목4");
+  let [글제목, 글제목변경] = useState(["남자 코트 추천", "강남 우동 맛집", "파이썬독학"]);
 
+  let [따봉, 따봉변경] = useState(0);
+
+  function 제목바꾸기(){
+    // 글제목이 배열이므로 배열로 변경되어야 함
+    let newArr = [...글제목];
+
+    if(newArr[0] == '남자 코트 추천'){
+      newArr[0] = '여자 코트 추천';
+    }else{
+      newArr[0] = '남자 코트 추천';
+    }
+
+    글제목변경(newArr);
+  }
+
+  function 순서바꾸기(){
+    let newArr2 = [...글제목];
+
+    newArr2.sort((a, b) => {
+        return a < b ? -1 : a > b ? 1 : 0;
+    });
+
+    글제목변경(newArr2);
+  }
 
   return (
     /* 
@@ -129,6 +152,71 @@ function App() {
 
         자주 바뀌는. 혹은 중요한 데이터는 변수 말고 state로 저장해서 쓰자
 
+    5. npm start 하고 나면 터미널에 compiled with warnings. 해가지고 워닝 사항들 띄우는데
+      eslint가 잡아주는 문법 체크사항이다.
+
+      잘못된 코딩 관습을 바로 잡아주는 라이브러리인데 기본적으로 설치됨.
+
+      warning을 제거하고 싶으면 맨 위에 주석으로 eslint-disalbe 해주면 사라짐
+
+    6. 클릭 이벤트
+      기존 자바스크립트 문법은 <span onclick=""></span> 이렇게 했는데
+      React에서는 <span onClick={}></span> 이렇게 씀
+        (1) 일단 C가 대문자임
+        (2) 중괄호 써야함
+        (3) onClick={클릭될 때 실행할 함수}
+        (4)onClick={ () => {실행할 내용} } 이렇게도 가능(ES6 Arraow function)
+            - Arrow Function
+              기존에는 
+              addEventListener('click', function(){
+
+              }); 이렇게 썼는데
+              
+              이제 이렇게 씀. 똑같은 의미
+              addEventListener('click', () => {
+
+              });
+
+    7. state 변경은 그냥은 안되고 변경 방법이 따로 있음.
+    useState하면 변수가 배열 2개로 나오는데 1번째 변수로 바꿈. 이 변수는 함수임.
+
+    단, 그냥 쓰면 재랜더링 무한루프 뭐시기 에러 난다.
+    에러 내용과 해결 방법은 저장해둔거 참고.
+
+    useState 1번째 변수로 변경해야만 재랜더링이 일어난다.
+
+    ex) 따봉변경('ㄱㄴㄷ');
+    ex) 따봉변경(따봉 + 1);
+    
+
+    8. state 변경할 때 
+      특히 state가 Array, Object 자료형이면 수정된 데이터를 만든다.
+      리액트적인 관습.
+
+      당연히 얕은 복사는 안되고 깊은 복사로 해야한다.
+                        이건 javascript 개념 그대로 생각하면 될 듯.
+
+      단, ES6에서 깊은 복사는 이렇게 가능하다
+
+      ex) let newArr = [...글제목];
+      ex) let newObj = {...글제목};
+
+      spreadOperator라는 신문법임.
+      
+      글제목이라는 애의 []든 {}든 다 제거하고 다시 담는 격
+
+      리액트에서는 데이터가 이런 식으로 다뤄진다
+
+      state 데이터는 immutable 해야한다. 직접 수정돼선 안된다고 권장됨.
+
+      결론. Array, Object state 데이터 수정 방법
+      (1) 일단 변경함수 써야함
+      (2) 변경함수(대체할 데이터)
+              (2-1) 대체할 데이터는  초기 값과 유사한 자료형을 사용.
+                Array -> Array, Object -> Object
+                                      /// 숫자형에서 문자형은 되는거 같던데....
+      (3) 일단 기존 state 카피본 만들고 -> 카피본에 수정사항 반영하고 -> 변경함수()에 집어넣기
+
     */
     
     <div className="App">
@@ -137,25 +225,24 @@ function App() {
         {/* <div style={ postsStyle }>개발 Blog</div> */}
         <div>개발 Blog</div>
       </div>
+      <button onClick={ 제목바꾸기 } >제목바꾸기</button>   {/* 제목바꾸기() 하면 바로 실행돼서 무한 재랜더링됨  */}
+      <button onClick={ 순서바꾸기 }>순서바꾸기</button>
       {/* <img src={ logo }/> */}
       {/* <div>{ posts }</div> */}
       {/* <div>{ 함수() }</div> */}
       <div className="list">
-        <h3>{ 글제목[0] }</h3>
+        <h3>{ 글제목[0] } <span onClick={ () => { 따봉변경(따봉 + 1) } }>👍</span> {따봉} </h3>
         <p>2월 17일 발행</p>
         <hr/>
       </div>
       <div className="list">
-        <h3>{ 글제목2 }</h3>
-        <p>날짜</p>
+        <h3>{ 글제목[1] }</h3>
+        <p>2월 18일 발행</p>
         <hr/>
-      </div><div className="list">
-        <h3>{ 글제목3 }</h3>
-        <p>날짜</p>
-        <hr/>
-      </div><div className="list">
-        <h3>{ 글제목4 }</h3>
-        <p>날짜</p>
+      </div>
+      <div className="list">
+        <h3>{ 글제목[2] }</h3>
+        <p>2월 19일 발행</p>
         <hr/>
       </div>
     </div>
