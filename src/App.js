@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Hello from './component/Hello';        //끝에 .js는 빼고 적어도 됨
-import Welcome from './component/Welcome';
+//import Welcome from './component/Welcome';
 import styles from './App.module.css';
 
 //이렇게 함수로 만들어진 컴포넌트를 함수형 컴포넌트라고 함.
