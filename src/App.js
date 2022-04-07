@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import Hello from './component/Hello';        //끝에 .js는 빼고 적어도 됨
+import Hello from './component/Hello_props';        //끝에 .js는 빼고 적어도 됨
 //import Welcome from './component/Welcome';
 import styles from './App.module.css';
 
@@ -15,7 +15,10 @@ function App() {
   };
   return (
     <div className="App">
-      <Hello/>
+      <h3>props : properties</h3>
+      <Hello age={10}/>
+      <Hello age={20}/>
+      <Hello age={30}/>
       <div className={styles.box}>App</div>
     </div>
   );
