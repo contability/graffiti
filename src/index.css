@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+ol, ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+  color: #333;
+}
+
+.App {
+  width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  position: relative;
+}
