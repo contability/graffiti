@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import dummy from "../db/data.json";
+
 export default function DayList(){
-    console.log(dummy);
     return(
         <ul className="list_day">
             {/* 날짜만큼 반복문 써서 li로 뿌려줄건데 이 때 map을 쓰면 편하다 
@@ -8,7 +9,7 @@ export default function DayList(){
             */}
             {dummy.days.map(day => (
                 <li key={day.id}>
-                    Day {day.day}
+                    <Link to={`/day/${day.day}`}>Day {day.day}</Link>    {/* html은 a href지만 JSX는 Link to다. 저렇게 쓰면 a tag로 랜더링 됨. */}
                 </li>
             ))}
         </ul>
