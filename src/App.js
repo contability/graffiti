@@ -53,6 +53,7 @@ function App() {
 
               다른 Route들 보다 맨 위에 있으면 어떤 요청을 하던 EmptyPage가 뜰거기 때문에 주의
               맨 아래 두는게 낫겠다.
+                                                      // switch case의 default 마냥
             */}
             <Route path="*" element={<EmptyPage/>}/>
         </Routes>
