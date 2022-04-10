@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
 
 
 export default function DayList(){
-    const [days, setDays] = useState([]);
     const [count, setCount] = useState(0);
+    const [day, setDay] = useState([]);
 
     // function onclick(){
     //     setCount(count + 1);
@@ -14,16 +15,17 @@ export default function DayList(){
     //     setDays([...days, {id: Math.random(), day: 1}]);
     // };
 
-    useEffect( () => {
-        fetch('http://localhost:3001/days')
-        .then(res => {
-            return res.json();
-        })
-        .then(data => {
-            setDays(data);
-        });
-    }, []);
+    // useEffect( () => {
+    //     fetch('http://localhost:3001/days')
+    //     .then(res => {
+    //         return res.json();
+    //     })
+    //     .then(data => {
+    //         setDays(data);
+    //     });
+    // }, []);
 
+    const days = useFetch('http://localhost:3001/days');
     
     return(
         <>
