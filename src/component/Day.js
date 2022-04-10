@@ -34,6 +34,7 @@ export default function Day() {
             setWords(data);
         });
     }, [day]);
+    
     return (
         <>
         <h2>Day {paramDay}</h2>
