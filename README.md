@@ -1,4 +1,4 @@
-# React로 간단한거 만들어보는 중
+# Toeic 공부하는 친구를 위해 간단한거 만들어보는 중
 
 # Getting Started with Create React App
 
