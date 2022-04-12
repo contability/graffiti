@@ -9,6 +9,7 @@ import Day from './component/Day';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {useParams} from "react-router-dom";
 import EmptyPage from './component/EmptyPage';
+import CreateWord from './component/CreateWord';
 
 //이렇게 함수로 만들어진 컴포넌트를 함수형 컴포넌트라고 함.
 //모든 컴포넌트는 대문자로 시작a.
@@ -35,7 +36,8 @@ function App() {
         <Header/>   {/* 이 헤더는 모든 페이지에 나와야 하니까 이 밑에 부터 Switch로 감싼다 */}
         <Routes>    {/* 이렇게 하면 이 Switch 내부는 url에 따라 각각 다른 페이지를 보여줄거임 */}
           <Route path='/' element={<DayList/>}/>  {/* 첫 페이지는 DayList를 보여주면 되겠다 */}
-          <Route path='/day/:day' element={<Day/>}/>  {/*
+          <Route path='/day/:day' element={<Day/>}/>  
+          {/*
                     다이나믹한 url을 처리할 때는 ":"으로 처리.
 
                     Day 컴포넌트에서 day 1로 들어왔을 때
@@ -55,6 +57,7 @@ function App() {
               맨 아래 두는게 낫겠다.
                                                       // switch case의 default 마냥
             */}
+            <Route path='/create_word' element={<CreateWord/>}/>
             <Route path="*" element={<EmptyPage/>}/>
         </Routes>
       </div>
