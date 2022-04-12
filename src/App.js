@@ -10,6 +10,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {useParams} from "react-router-dom";
 import EmptyPage from './component/EmptyPage';
 import CreateWord from './component/CreateWord';
+import CreateDay from './component/CreateDay';
 
 //이렇게 함수로 만들어진 컴포넌트를 함수형 컴포넌트라고 함.
 //모든 컴포넌트는 대문자로 시작a.
@@ -29,7 +30,7 @@ function App() {
   //     <div className={styles.box}>App</div>
   //   </div>
   // );
-
+  
   return (
     <BrowserRouter>
       <div className="App">
@@ -58,6 +59,7 @@ function App() {
                                                       // switch case의 default 마냥
             */}
             <Route path='/create_word' element={<CreateWord/>}/>
+            <Route path='/create_day' element={<CreateDay/>}/>
             <Route path="*" element={<EmptyPage/>}/>
         </Routes>
       </div>

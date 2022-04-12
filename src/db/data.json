@@ -11,6 +11,10 @@
     {
       "id": 3,
       "day": 3
+    },
+    {
+      "day": 4,
+      "id": 4
     }
   ],
   "words": [
@@ -62,6 +66,34 @@
       "kor": "사과",
       "isDone": false,
       "id": 12
+    },
+    {
+      "day": "2",
+      "eng": "trh",
+      "kor": "rth",
+      "isDone": false,
+      "id": 13
+    },
+    {
+      "day": "3",
+      "eng": "house",
+      "kor": "집",
+      "isDone": false,
+      "id": 14
+    },
+    {
+      "day": "1",
+      "eng": "테스트",
+      "kor": "시험",
+      "isDone": false,
+      "id": 16
+    },
+    {
+      "day": "4",
+      "eng": "computer",
+      "kor": "컴퓨터",
+      "isDone": false,
+      "id": 17
     }
   ]
 }
