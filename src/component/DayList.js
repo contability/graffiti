@@ -15,6 +15,7 @@ export default function DayList(){
     //     setDays([...days, {id: Math.random(), day: 1}]);
     // };
 
+
     // useEffect( () => {
     //     fetch('http://localhost:3001/days')
     //     .then(res => {
@@ -27,6 +28,12 @@ export default function DayList(){
 
     const days = useFetch('http://localhost:3001/days');
     
+    // 네트워크가 느린 상태라면 랜더링 되는데 시간이 걸린다.
+    // days의 값이 아직 들어오기 전까지 Loading...이라는 글자로 처리중임을 명시할 수 있음.
+                            // 비슷한 상황에 이런 식으로 응용해서 사용할 수도 있겠다.
+    if(days.length === 0){
+        return <span>Loading...</span>
+    }
     
     return(
         <>

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
-import Word from "./Word";
+import Word from "./Word.tsx";
 
 export default function Day() {
     // dummy.words
@@ -50,6 +50,7 @@ export default function Day() {
     return (
         <>
         <h2>Day {paramDay}</h2>
+        {words.length === 0 && <span>Loading...</span>}
             <table>
                 <tbody>
                     {words.map(word => (

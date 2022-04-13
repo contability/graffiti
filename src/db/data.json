@@ -94,6 +94,20 @@
       "kor": "컴퓨터",
       "isDone": false,
       "id": 17
+    },
+    {
+      "day": "2",
+      "eng": "Cafe",
+      "kor": "카페",
+      "isDone": false,
+      "id": 18
+    },
+    {
+      "day": "3",
+      "eng": "apple",
+      "kor": "사과",
+      "isDone": false,
+      "id": 19
     }
   ]
 }

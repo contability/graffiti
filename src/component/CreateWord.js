@@ -1,5 +1,5 @@
 import useFetch from "../hooks/useFetch";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -13,6 +13,10 @@ export default function CreateWord(){
 
     const navigate = useNavigate();
 
+    // isLoading이 false일 때만 onSubmit 로직 실행
+    // 통신중일 땐 버튼 클릭해도 이벤트 진행 안되게 막기 위함
+    const [isLoading, setIsLoading] = useState(false);
+
     function onSubmit(e){
         e.preventDefault();         // 기본 이벤트 막음.
         
@@ -24,8 +28,10 @@ export default function CreateWord(){
         // console.log(korRef.current.value);
         // console.log(dayRef.current.value);
 
-        // CREATE
-        fetch(`http://localhost:3001/words`,{
+        if(!isLoading){
+            setIsLoading(true);
+             // CREATE
+            fetch(`http://localhost:3001/words`,{
             method : 'POST',
             headers : {
                 "Content-Type" : "application/json"
@@ -40,12 +46,12 @@ export default function CreateWord(){
         }).then(res => {
             if(res.ok){
                 alert('생성이 완료 되었습니다');
-                navigate(`/day/${dayRef.current.value}`);
+                navigate(`/day/` + dayRef.current.value);
+                setIsLoading(false);
             }
         });
+        }
     }
-
-    
 
     return (
         <form onSubmit={onSubmit}>
@@ -65,7 +71,9 @@ export default function CreateWord(){
                     ))}
                 </select>
             </div>
-            <button>저장</button>
+            <button style={{opacity : isLoading ? 0.3 : 1}}>
+                {isLoading ? "Saving..." : "저장"}
+            </button>
         </form>
     );
 }
