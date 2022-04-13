@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
-import Word from "./Word.tsx";
+//import useFetch from "../hooks/useFetch.ts";
+import Word, { IWord } from "./Word";
 
 export default function Day() {
     // dummy.words
 
     // useParams 이렇게 써도 되고
-    const a = useParams();
+    const a = useParams<{day : string}>();
     const day = a.day;
 
     //이렇게 써도 되고
@@ -35,7 +36,7 @@ export default function Day() {
     //     });
     // }, [day]);
 
-    const words = useFetch(`http://localhost:3001/words?day=${day}`);
+    const words : IWord[] = useFetch(`http://localhost:3001/words?day=${day}`);
 
     // useEffect(() => {
     //     fetch(`http://localhost:3001/words?day=${day}`)

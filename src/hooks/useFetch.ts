@@ -13,6 +13,6 @@ export default function useFetch(url){
         });
     }, []);
 
-    // custome Hook. data Return.
+    // custom Hook. data Return.
     return data;
 };

@@ -9,7 +9,8 @@ interface IProps{
 }
 
 // 인터페이스는 여러개의 프로퍼티에 각각 다른 타입으로 입력해줄 수 있다.
-interface IWord{
+// 앞에 export 붙이면 다른 컴포넌트에서도 사용 가능
+export interface IWord{
     // 타입스크립트 적용하고 밑에 setWord하려면 프로퍼티들 다 정의해줘야 함.
     // 그럴 때 ? 붙이면 optional 해짐. 즉 setWord할 때 ? 안붙은 id 값만 정의해줘도 된다는 뜻.
     // 단 이게 에러는 사라지지만 그닥 좋은 방법은 아니다
