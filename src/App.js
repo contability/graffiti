@@ -4,13 +4,13 @@ import Hello from './component/Hello_props';        //끝에 .js는 빼고 적�
 //import Welcome from './component/Welcome';
 import styles from './App.module.css';
 import Header from './component/Header';
-import DayList from './component/DayList';
-import Day from './component/Day';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {useParams} from "react-router-dom";
 import EmptyPage from './component/EmptyPage';
-import CreateWord from './component/CreateWord';
 import CreateDay from './component/CreateDay';
+import DayList from './component/DayList';
+import Day from './component/Day';
+import CreateWord from './component/CreateWord';
 
 //이렇게 함수로 만들어진 컴포넌트를 함수형 컴포넌트라고 함.
 //모든 컴포넌트는 대문자로 시작a.
