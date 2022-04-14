@@ -1,7 +1,7 @@
 # TOEIC 공부하는 친구를 위해 간단한거 만들어보는 중
 
 typeScript 적용 후 module not found Error 발생.
-ts, tsx 확장자를 자동으로 못읽어주는건가? 하는 의심이 들었음
+ts, tsx 확장자를 자동으로 못읽어주는건가? 하는 의심이 들었음.
 그럼 설정일 것 같은데
 
 1. dependency 다 밀고 다시 npm install 해봄 -> 실패
