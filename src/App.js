@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import './style.css';
 import { useState } from 'react';
-import { createStore } from 'redux';
+import { createStore} from 'redux';
 import {Provider, useSelector, useDispatch, connect} from 'react-redux';
 //스토어를 생성할 때 반드시 주입해줘야 하는 것. reducer
 function reducer(currentState, action){     // 스토어 안에 state를 어떻게 바꿀 것인가를 결정하는게 reducer. 그래서 현재 state값, 바꿀 값 이렇게 2개를 인자로 받는다.
@@ -11,13 +11,13 @@ function reducer(currentState, action){     // 스토어 안에 state를 어떻�
       number : 1          // 기본 state값을 return
     }
   }
-  const newState = {...currentState};   // 과거의 state를 불변하게 두고 대신에 복제하여 새로운 state을 수정한다.
+  const newState = {...currentState};   // 과거의 state를 불변하게 두고 대신에 복제하여 새로운 state를 수정한다.
+  if(action.type === 'PLUS'){         // useDispatch로 온거 
+    newState.number++;
+  }
   return newState;
 }
 const store = createStore();      // store는 변하면 안됨
-
-
-
 
 function App() {
   const[number, setNumber] = useState(1);
@@ -80,10 +80,15 @@ function Right2(props){
 }
 
 function Right3(props){
+  console.log('3');
+  const number = useSelector((state) => state.number);  //useSelector
+  const dispatch = useDispatch();
   return(
     <div>
-      <h1>Right3</h1>
-      <input type="button" value="+" onClick={() => {props.onIncrease();}}/>
+      <h1>Right3 : {number}</h1>
+      <input type="button" value="+" onClick={() => {
+        dispatch({ type : 'PLUS' });                    // PLUS라는 Action을 전달하는데 useDispatch는 reducer를 불러온다
+      }}/>
     </div>
   );
 }
