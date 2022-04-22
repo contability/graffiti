@@ -79,8 +79,7 @@ function Right2(props){
   );
 }
 
-function Right3(props){
-  console.log('3');
+function Right3(){
   const number = useSelector((state) => state.number);  //useSelector
   const dispatch = useDispatch();
   return(
@@ -92,38 +91,4 @@ function Right3(props){
     </div>
   );
 }
-
-////////////////////////////////////// 기존 props 방식.
-// function Right1(props){
-//   return(
-//     <div>
-//       <h1>Right1</h1>
-//       <Right2 onIncrease={()=>{
-//         props.onIncrease();
-//       }}/>
-//     </div>
-//   );
-// }
-
-// function Right2(props){
-//   return(
-//     <div>
-//       <h1>Right2</h1>
-//       <Right3 onIncrease={()=>{
-//         props.onIncrease();
-//       }}/>
-//     </div>
-//   );
-// }
-
-// function Right3(props){
-//   return(
-//     <div>
-//       <h1>Right3</h1>
-//       <input type="button" value="+" onClick={() => {props.onIncrease();}}/>
-//     </div>
-//   );
-// }
-
-
 export default App;
