@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
-import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Header from './components/Header';
 import HookUseState from './components/HookUseState';
 import RootComponent from './components/RootComponent';
 
+/*
+   
+  App.js(or ts)는 메인페이지에 들어갈 HTML 짜는 곳
+  실제 메인페이지는 public/index.html 이다
+  이 안에 있는 내용을 index.html에 #root 태그에 넣는 것
+  이렇게 박아 넣는 역할은 src/index.js에서 하고 있다
 
+*/
+
+// function App(){} 요거는 그냥 js 문법인데
 function App() {
 
   const [sysDate, setSysDate] = useState(new Date);
   const dateStr: string = sysDate+"";
 
+  // return () 안에다가 HTML 쌩으로 작성해도 되는게 특이
   return (
-    <BrowserRouter>
+    <BrowserRouter>           {/*아예 App 밖에 감싸줘야함*/}
       <div className="App">
         <Header/>
           <Routes>
