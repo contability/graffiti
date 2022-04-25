@@ -113,20 +113,13 @@ export default function HookUseState(){
     const dateStr : string = sysDate+"";
 
     function refreshDate(){
-        setSysDate(new Date);
+        setTimeout(function(){
+            setSysDate(new Date);
+        }, 1000);
+        //setSysDate(new Date);
     }
 
-
-
-
-
-
-
-
-
-
-
-
+    refreshDate();
 
 
     return (
@@ -155,7 +148,7 @@ export default function HookUseState(){
 
             <h1>useState Example 2</h1>
             <div>{dateStr}</div>
-            <button onClick={refreshDate}>Refresh</button>
+            {/* <button onClick={refreshDate}>Refresh</button> */}
         </div>
     );
 }

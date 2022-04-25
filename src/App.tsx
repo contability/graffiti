@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Header from './components/Header';
+import HookUseEffect from './components/HookUseEffect';
+import HookUseEffectTwo from './components/HookUseEffectTwo';
 import HookUseState from './components/HookUseState';
 import RootComponent from './components/RootComponent';
 
@@ -26,7 +28,9 @@ function App() {
         <Header/>
           <Routes>
             <Route path='/' element={<RootComponent/>}/>
-            <Route path="/useState" element={<HookUseState/>}/>
+            <Route path='/useState' element={<HookUseState/>}/>
+            <Route path='/useEffect' element={<HookUseEffect/>}/>
+            <Route path='/useEffectTwo' element={<HookUseEffectTwo/>}/>
           </Routes>
       </div>
     </BrowserRouter>
