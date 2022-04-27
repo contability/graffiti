@@ -1,7 +1,10 @@
 
-// UseRef
+
 
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
+
+//////////////////////////////////////////////////// UseRef
 
 // const ref = useRef(value);
 // 함수형 컴포넌트에서 useRef를 부르면 Ref Object를 반환한다.
@@ -49,6 +52,14 @@ export default function HookUseRef(){
             <p>Ref : {countRef.current}</p>
             <button onClick={increaseCountState}>State 올려</button>
             <button onClick={increaseCountRef}>Ref 올려</button>
+            <p>
+                <Link to={'/useRefTwo'}>
+                    <button>useRefTwo</button>
+                </Link>
+                <Link to={'/useRefThree'}>
+                    <button>useRefThree</button>
+                </Link>
+            </p>
         </div>
     );
 }
