@@ -60,6 +60,9 @@ export default function HookUseRef(){
                     <button>useRefThree</button>
                 </Link>
             </p>
+            <p>
+                <Link to={'/useRefDom'}>useRefDom</Link>
+            </p>
         </div>
     );
 }
