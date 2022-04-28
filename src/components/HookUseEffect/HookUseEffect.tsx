@@ -65,6 +65,7 @@ export default function HookUseEffect(){
 
     return (
         <div>
+            
             <div>
                 <button onClick={handleCountUpdate}>Update</button>
                 <span>count : {count}</span>

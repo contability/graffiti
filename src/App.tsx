@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Header from './components/Header';
+import HookUseContext from './components/HookUseContext/HookUseContext';
 import HookUseEffect from './components/HookUseEffect/HookUseEffect';
 import HookUseEffectTwo from './components/HookUseEffect/HookUseEffectTwo';
 import HookUseRef from './components/HookUseRef/HookUseRef';
@@ -39,6 +40,7 @@ function App() {
             <Route path='/useRefTwo' element={<HookUseRefTwo/>}/>
             <Route path='/useRefThree' element={<HookUseRefThree/>}/>
             <Route  path='/useRefDom' element={<HookUseRefDom/>}/>
+            <Route  path='/useContext' element={<HookUseContext/>}/>
           </Routes>
       </div>
     </BrowserRouter>
