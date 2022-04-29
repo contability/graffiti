@@ -4,6 +4,7 @@ import Header from './components/Header';
 import HookUseContext from './components/HookUseContext/HookUseContext';
 import HookUseEffect from './components/HookUseEffect/HookUseEffect';
 import HookUseEffectTwo from './components/HookUseEffect/HookUseEffectTwo';
+import HookUseMemo from './components/HookUseMemo/HookUseMemo';
 import HookUseRef from './components/HookUseRef/HookUseRef';
 import HookUseRefDom from './components/HookUseRef/HookUseRefDom';
 import HookUseRefThree from './components/HookUseRef/HookUseRefThree';
@@ -41,6 +42,7 @@ function App() {
             <Route path='/useRefThree' element={<HookUseRefThree/>}/>
             <Route  path='/useRefDom' element={<HookUseRefDom/>}/>
             <Route  path='/useContext' element={<HookUseContext/>}/>
+            <Route  path='/useMemo' element={<HookUseMemo/>}/>
           </Routes>
       </div>
     </BrowserRouter>
