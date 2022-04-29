@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ThemeContext } from "./context/ThemeContext";
+import { UserContext } from "./context/UserContext";
 import HookUseContextPage from "./HookUseContextPage";
 
 /*
@@ -23,13 +24,33 @@ import HookUseContextPage from "./HookUseContextPage";
     Component Composition(컴포넌트 합성)을 먼저 고려해보라 권장한다.
 */
 
+export interface IsDark{
+    isDark : boolean;
+    setIsDark : any;
+}
+
 export default function HookUseContext(){
     const [isDark, setIsDark] = useState(false);            // 전역적인 state인 isDark. 만약 이 앱이 굉장히 컸다면 수많은 컴포넌트들이 이 isDark라는 데이터를 필요로 할 거다
-
+    
     return (
-        <ThemeContext.Provider value ={{isDark, setIsDark}}>                 {/* context의 provider는 value라는 prop을 하나 받는다.  그리고 이 value라는애한테  다른 컴포넌트들한테 전달하고자 하는 데이터를 보내면 됨*/}
-            <HookUseContextPage isDark={isDark} setIsDark={setIsDark} />;        // props로 isDark, setIsDark 넘겨줌
-        </ThemeContext.Provider>
+
+        ////// 기존 prop 방식
+        //<HookUseContextPage isDark={isDark} setIsDark={setIsDark} />       {/* props로 isDark, setIsDark 넘겨줌*/}
+        //////
+
+        /*
+            context 사용하는 방법임. 
+
+            context의 provider는 value라는 prop을 하나 받는다. 
+            그리고 이 value라는애한테  다른 컴포넌트들한테 전달하고자 하는 데이터를 집어 넣어주면 됨
+
+            여기서는 isDark, setIsDark 둘 다 전달해야하니까 value prop에 object로 isDark, setIsDark 둘 다 보냄
+         */
+        <UserContext.Provider value={'사용자'}>
+            <ThemeContext.Provider value ={{isDark, setIsDark}}>                 {/* 이걸로 감싸진 하위 컴포넌트들은 이제 props를 사용하지 않고 isDark와 setIsDark에 접근할 수 있게 됨. */}
+                <HookUseContextPage />
+            </ThemeContext.Provider>
+        </UserContext.Provider>
     );
     
 }
