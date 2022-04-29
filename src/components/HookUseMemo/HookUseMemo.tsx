@@ -36,25 +36,54 @@
 
     값을 재활용 하기 위해 메모리에 싣는거라
     필요 없는 자잘한 것까지 해두면 오히려 성능 저하를 일으킨다
+
+    easyCalculate는 너무 간단하고 빠르게 끝날 수 있는 함수인데 이걸 실행함에도 렌더링 될 때 hardCalculate도 다시 실행 되기 때문에 오래걸려버림
+
+    이럴 때 useMemo 사용
  */
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
-const hardCalculate = (number : number) => {
+const hardCalculate : any = (number : number) => {
     console.log('어려운 계산!');
     for(let i = 0; i < 999999999; i++){}    // 생각하는 시간
     return number + 10000;
 }
 
+const easyCalculate : any = (number : number) => {
+    console.log('과하게 쉬운 계산!');
+    return number + 1;
+}      
+
 export default function HookUseMemo(){
     const [hardNumber, setHardNumber] = useState(1);
-    const hardSum = hardCalculate(hardNumber);
+    const [easyNumber, setEasyNumber] = useState(1);
+
+    // 이 컴포넌트가 얘 떄문에 렌더링이 느려짐. 그래서 useMemo를 사용한다
+    //const hardSum = hardCalculate(hardNumber);
+
+    const hardSum = useMemo(()=>{
+        return hardCalculate(hardNumber);
+    }, [hardNumber])
+    // 이렇게 짜면 hardNumber가 변화할 때만 오래걸리지 easyCalculate는 바로바로 반응한다.
+
+    const easySum = easyCalculate(easyNumber);
 
     return (
         <div>
             <h3>어려운 계산기</h3>
-            <input type="number" value={hardNumber} onChange={(e) => setHardNumber(parseInt(e.target.value))} />
+            <input type="number" 
+                value={hardNumber}
+                onChange={(e) => setHardNumber(parseInt(e.target.value))} 
+            />
             <span> + 10000 = {hardSum}</span>
+
+            <h3>쉬운 계산기</h3>
+            <input type="number" 
+                value={easyNumber}
+                onChange={(e) => setEasyNumber(parseInt(e.target.value))}       /*  */
+            />
+            <span> + 1 = {easySum}</span>
         </div>
     );
 }

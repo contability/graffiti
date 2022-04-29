@@ -5,23 +5,23 @@ export default function RootComponent(){
         <div>
             <span>Hook List</span>
             <div>
-                <ul>
+                <ol>
                     <li>
-                        <Link to='/useState'>1. useState</Link>
+                        <Link to='/useState'>useState</Link>
                     </li>
                     <li>
-                        <Link to='/useEffect'>2. useEffect</Link>
+                        <Link to='/useEffect'>useEffect</Link>
                     </li>
                     <li>
-                        <Link to='/useRef'>3. useRef</Link>
+                        <Link to='/useRef'>useRef</Link>
                     </li>
                     <li>
-                        <Link to='/useContext'>4. useContext</Link>
+                        <Link to='/useContext'>useContext</Link>
                     </li>
                     <li>
-                        <Link to='/useMemo'>5. useMemo</Link>
+                        <Link to='/useMemo'>useMemo</Link>
                     </li>
-                </ul>
+                </ol>
             </div>
         </div>
     );
