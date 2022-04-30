@@ -21,6 +21,9 @@ export default function RootComponent(){
                     <li>
                         <Link to='/useMemo'>useMemo</Link>
                     </li>
+                    <li>
+                        <Link to='/useCallback'>useCallback</Link>
+                    </li>
                 </ol>
             </div>
         </div>
