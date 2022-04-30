@@ -43,6 +43,7 @@
  */
 
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
 const hardCalculate : any = (number : number) => {
     console.log('어려운 계산!');
@@ -84,6 +85,12 @@ export default function HookUseMemo(){
                 onChange={(e) => setEasyNumber(parseInt(e.target.value))}       /*  */
             />
             <span> + 1 = {easySum}</span>
+            <p>
+                <Link to={'/useMemoTwo'}>
+                    <button>useMemoTwo</button>
+                </Link>
+
+            </p>
         </div>
     );
 }
