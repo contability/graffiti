@@ -24,6 +24,9 @@ export default function RootComponent(){
                     <li>
                         <Link to='/useCallback'>useCallback</Link>
                     </li>
+                    <li>
+                        <Link to='/useReducer'>useReducer</Link>
+                    </li>
                 </ol>
             </div>
         </div>

@@ -8,6 +8,8 @@ import HookUseEffect from './components/HookUseEffect/HookUseEffect';
 import HookUseEffectTwo from './components/HookUseEffect/HookUseEffectTwo';
 import HookUseMemo from './components/HookUseMemo/HookUseMemo';
 import HookUseMemoTwo from './components/HookUseMemo/HookUseMemoTwo';
+import HookUseReducer from './components/HookUseReducer/HookUseReducer';
+import HookUseReducerTwo from './components/HookUseReducer/HookUseReducerTwo';
 import HookUseRef from './components/HookUseRef/HookUseRef';
 import HookUseRefDom from './components/HookUseRef/HookUseRefDom';
 import HookUseRefThree from './components/HookUseRef/HookUseRefThree';
@@ -49,6 +51,8 @@ function App() {
             <Route  path='/useMemoTwo' element={<HookUseMemoTwo/>}/>
             <Route  path='/useCallback' element={<HookUseCallback/>}/>
             <Route  path='/useCallbackTwo' element={<HookUseCallbackTwo/>}/>
+            <Route  path='/useReducer' element={<HookUseReducer/>}/>
+            <Route  path='/useReducerTwo' element={<HookUseReducerTwo/>}/>
           </Routes>
       </div>
     </BrowserRouter>

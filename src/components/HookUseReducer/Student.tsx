@@ -1,0 +1,12 @@
+const Student = ({name, dispatch, id} : any) => {
+    return (
+        <div>
+            <span>{name}</span>
+            <button onClick={()=>{
+                dispatch({type : 'delete-student', payload:{id}});
+            }}>삭제</button>
+        </div>
+    );
+}
+
+export default Student;
