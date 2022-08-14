@@ -62,8 +62,24 @@ const RootContents : Function = () => {
         }       
     };
 
-    const statusChange = (e : ChangeEvent) => {
-        console.log(e);
+    const statusChange = (e : ChangeEvent, id: number, chkVal: boolean) => {
+        let tasksVal : taskListInterface[] = [];
+        let changedObj : taskListInterface | any = taskList?.filter(task => {
+            return task.id === id;
+        })
+
+        changedObj[0].isChked = chkVal;
+
+        taskList?.map((v, i) => {
+            let tempValue = v;
+            if(tempValue.id === id){
+                tempValue.isChked = chkVal;
+            }
+            tasksVal.push(tempValue);
+        });
+        console.log(changedObj);
+
+        setTaskList(tasksVal);
     };
 
     const clearList = () => {
@@ -81,7 +97,7 @@ const RootContents : Function = () => {
                 isChked: false,
                 title: addTaskVal,
                 registDate: "string"
-            }]) 
+            }]);
         }
     };
 
@@ -122,7 +138,7 @@ const RootContents : Function = () => {
                                     className={v.isChked ? "chked" : ""} 
                                     type="checkbox" 
                                     checked={v.isChked} 
-                                    onChange={(e) => statusChange(e)}
+                                    onChange={(e) => statusChange(e, v.id, !v.isChked)}
                                     />
                                 <label htmlFor={v.id + ""} className={v.isChked ? "chkedLabel" : "notChkedLabel"}></label>
                                 <p className={v.isChked ? "cancelText" : ""}>{v.title}</p>
