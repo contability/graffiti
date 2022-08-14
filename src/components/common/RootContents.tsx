@@ -2,12 +2,14 @@ import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { taskData, taskListInterface } from "../../data/D_TaskList";
+import { lpad } from "../../utils/common";
 
 const RootContents : Function = () => {
 
-    const [dayStr, setDayStr] = useState<string>();
-    const [date, setDate] = useState<number>();
-    const [month, setMonth] = useState<string>();
+    const [dayStr, setDayStr] = useState<string>("");
+    const [date, setDate] = useState<number>(0);
+    const [time, setTime] = useState<string>("");
+    const [month, setMonth] = useState<string>("");
     const [taskList, setTaskList] = useState<taskListInterface[] | null>();
     const [addTaskVal, setAddTaskVal] = useState<string>("");
 
@@ -21,6 +23,12 @@ const RootContents : Function = () => {
                 setDate(currentTime.getDate());
                 setMonth(currentTime.toLocaleString('en-us', {month: 'long'}));
                 convertDayOfweek(res.data.day_of_week);
+
+                let hour = currentTime.getHours();
+                let minutes = currentTime.getMinutes();
+                let amPm = currentTime.getHours() > 12 ? "PM" : "AM";
+                
+                setTime(`${hour}:${lpad(minutes+"", 2, "0")} ${amPm}`);
             }
         })
         .catch(
@@ -91,12 +99,14 @@ const RootContents : Function = () => {
     };
 
     const addTask = () => {
+        getCurrentTime();
+        
         if(taskList){
             setTaskList([...taskList, {
-                id: 99,
+                id: taskList.length + 1,
                 isChked: false,
                 title: addTaskVal,
-                registDate: "string"
+                registDate: time
             }]);
         }
     };
@@ -260,11 +270,12 @@ const RootContentsBox = styled.div`
             align-items: center;
 
             .taskTitle{
-                width: 25%;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 color: #7e7f99;
+                justify-content: flex-start;
+                gap: 15px;
 
                 input[type="checkbox"]{
                     display: none;
@@ -272,8 +283,8 @@ const RootContentsBox = styled.div`
 
                 input[type="checkbox"] + label[class="chkedLabel"]{
                     display: inline-block;
-                    width: 15px;
-                    height: 15px;
+                    width: 20px;
+                    height: 20px;
                     position: relative;
                 }
 
