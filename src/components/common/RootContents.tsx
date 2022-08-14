@@ -64,15 +64,25 @@ const RootContents : Function = () => {
 
     const statusChange = (e : ChangeEvent) => {
         console.log(e);
-        
     };
 
     const clearList = () => {
-        alert("clearList");
+        setTaskList([]);
+    };
+
+    const enterEvent = (e : any) => {
+        if(e.key === "Enter") addTask();
     };
 
     const addTask = () => {
-        alert("addTask " + addTaskVal);
+        if(taskList){
+            setTaskList([...taskList, {
+                id: 99,
+                isChked: false,
+                title: addTaskVal,
+                registDate: "string"
+            }]) 
+        }
     };
 
     const getTaskList = () => {
@@ -86,7 +96,6 @@ const RootContents : Function = () => {
 
     return(
         <RootContentsBox>
-            
             <article>
                 <header className="defaultP">
                     <div>
@@ -102,7 +111,7 @@ const RootContents : Function = () => {
                 </header>
                 <section className="taskSec">
                     <button className="addTaskBtn" onClick={addTask}>+</button>
-                    <input className="addTask" type="text" placeholder="Type your task" onChange={(e : any) => setAddTaskVal(e.target.value)}/>
+                    <input className="addTask" type="text" placeholder="Type your task" onChange={(e : any) => setAddTaskVal(e.target.value)} onKeyPress={(e) =>  enterEvent(e)}/>
                 </section>
                 <section className="secSec">
                     {taskList? taskList.map((v, i) => (
