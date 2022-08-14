@@ -9,7 +9,7 @@ const RootContents : Function = () => {
     const [date, setDate] = useState<number>();
     const [month, setMonth] = useState<string>();
     const [taskList, setTaskList] = useState<taskListInterface[] | null>();
-
+    const [addTaskVal, setAddTaskVal] = useState<string>("");
 
     const getCurrentTime = () => {
         axios.get(`https://worldtimeapi.org/api/timezone/Asia/Seoul`)
@@ -67,6 +67,14 @@ const RootContents : Function = () => {
         
     };
 
+    const clearList = () => {
+        alert("clearList");
+    };
+
+    const addTask = () => {
+        alert("addTask " + addTaskVal);
+    };
+
     const getTaskList = () => {
         setTaskList(taskData);
     };
@@ -82,27 +90,35 @@ const RootContents : Function = () => {
             <article>
                 <header className="defaultP">
                     <div>
-                        <p>{dayStr}, {date}</p>
-                        <p>{taskList ? taskList.length : 0 } Tasks</p>
+                        <p><span className="fw500">{dayStr},</span> {date}</p>
+                        <p className="fw500" style={{color:"#7e7f99"}}>{taskList ? taskList.length : 0 } Tasks</p>
                     </div>
                     <div>
-                        <p>{month}</p>
+                        <p style={{color:"#abaace"}}>{month}</p>
                         <p>
-                            <button>CLEAR LIST</button>
+                            <button onClick={clearList}>CLEAR LIST</button>
                         </p>
                     </div>
                 </header>
-                <section className="defaultP">
-                    <input className="addTask" type="text" placeholder="+    Type your task"/>
+                <section className="taskSec">
+                    <button className="addTaskBtn" onClick={addTask}>+</button>
+                    <input className="addTask" type="text" placeholder="Type your task" onChange={(e : any) => setAddTaskVal(e.target.value)}/>
                 </section>
-                <section className="defaultP secSec">
+                <section className="secSec">
                     {taskList? taskList.map((v, i) => (
                         <div className="task" key={i}>
-                            <div className="taskTitle">
-                                <input type="checkbox" checked={v.isChked} onChange={(e) => statusChange(e)}/>
-                                <p>{v.title}</p>
+                            <div className="taskTitle fw500">
+                                <input 
+                                    id={v.id+""} 
+                                    className={v.isChked ? "chked" : ""} 
+                                    type="checkbox" 
+                                    checked={v.isChked} 
+                                    onChange={(e) => statusChange(e)}
+                                    />
+                                <label htmlFor={v.id + ""} className={v.isChked ? "chkedLabel" : "notChkedLabel"}></label>
+                                <p className={v.isChked ? "cancelText" : ""}>{v.title}</p>
                             </div>
-                            <div>
+                            <div className="taskDate">
                                 <p>{v.registDate}</p>
                             </div>
                         </div>
@@ -113,9 +129,9 @@ const RootContents : Function = () => {
                     
                 </section>
                 <footer>
-                    <p>
+                    <p className="fw500">
                         <span>Inspired by </span>
-                        <span>Ennio Dybeli</span>
+                        <span style={{color:"#ff7070"}}>Ennio Dybeli</span>
                     </p>
                 </footer>
             </article>
@@ -130,20 +146,76 @@ const RootContentsBox = styled.div`
     border-radius: 15px;
 
     .defaultP{
-        padding: 0 30px;
+        padding: 30px;
+    }
+
+    .fw500{
+        font-weight: 500;
+    }
+
+    .cancelText{
+        text-decoration: line-through;
     }
 
     header{
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-direction: column;
+        background: #faf9ff;
+
+        >div{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 2.1rem;
+        }
+
+        > div:first-child{
+            > p:first-child{
+                color: #5d61ea;
+                font-size: 1.8em;
+            }
+        }
+
+        button{
+            background: #fb6f70;
+            border: none;
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            cursor: pointer;
+        }
     }
 
     section{
-        border-top: 1px solid gray;
+        border-top: 1px solid #D3D3D3;
+        
+    }
+
+    .taskSec{
+        display: flex;
+        align-items: center;
+        padding: 10px 30px;
+        .addTaskBtn{
+            background: inherit;
+            border: none;
+            color: #D3D3D3;
+            font-size: 32px;
+            padding: 0;
+            padding-right: 0.4em;
+        }
+
         .addTask{
-            width: 100%;
+            width: 90%;
             border: 0;
+
+            &::placeholder{
+                font-size: 18px;
+                color: #D3D3D3;
+            }
         }
     }
 
@@ -152,27 +224,67 @@ const RootContentsBox = styled.div`
         justify-content: flex-start;
         flex-direction: column;
         align-items: center;
-        height: 433px;
+        height: 324px;
         overflow-y: auto;
+        padding: 10px 30px;
 
         .task{
             display: flex;
             width: 100%;
             justify-content: space-between;
             align-items: center;
-            
 
             .taskTitle{
                 width: 25%;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                color: #7e7f99;
+
+                input[type="checkbox"]{
+                    display: none;
+                }
+
+                input[type="checkbox"] + label[class="chkedLabel"]{
+                    display: inline-block;
+                    width: 15px;
+                    height: 15px;
+                    position: relative;
+                }
+
+                input[type="checkbox"] + label[class="notChkedLabel"]{
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+                    border:1px solid #707070;
+                    border-radius: 5px;
+                    position: relative;
+                }
+
+                input[class="chked"]:checked + label::after{
+                    content:'✔';
+                    color: white;
+                    font-size: 15px;
+                    width: 20px;
+                    height: 20px;
+                    text-align: center;
+                    position: absolute;
+                    background: #fb6f70;
+                    border-radius: 5px;
+                    left: 0;
+                    top:0;
+                }
+
+            }
+
+            .taskDate{
+                color: #abaace;
             }
         }
     }
 
     footer{
-        border-top: 1px solid gray;
+        color: #abaace;
     }
 `;
 
