@@ -151,7 +151,7 @@ const RootContents : Function = () => {
                                     onChange={(e) => statusChange(e, v.id, !v.isChked)}
                                     />
                                 <label htmlFor={v.id + ""} className={v.isChked ? "chkedLabel" : "notChkedLabel"}></label>
-                                <p className={v.isChked ? "cancelText" : ""}>{v.title}</p>
+                                <p className={v.isChked ? "cancelText" : ""} title={v.title}>{v.title}</p>
                             </div>
                             <div className="taskDate">
                                 <p>{v.registDate}</p>
@@ -193,6 +193,7 @@ const RootContentsBox = styled.div`
     }
 
     header{
+        border-radius: 15px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -259,7 +260,7 @@ const RootContentsBox = styled.div`
         justify-content: flex-start;
         flex-direction: column;
         align-items: center;
-        height: 324px;
+        height: calc(89vh - 204.19px);
         overflow-y: auto;
         padding: 10px 30px;
 
@@ -311,16 +312,27 @@ const RootContentsBox = styled.div`
                     top:0;
                 }
 
+                > p{
+                    width: 15vw;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-align: left;
+                }
             }
 
             .taskDate{
-                color: #abaace;
+                > p{
+                    color: #abaace;
+                    width: 75px;
+                }
             }
         }
     }
 
     footer{
         color: #abaace;
+        border-radius: 15px;
     }
 `;
 
