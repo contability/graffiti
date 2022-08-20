@@ -8,6 +8,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import Pheader from './components/header/Pheader';
 import Theader from './components/header/Theader';
 import Mheader from './components/header/Mheader';
+import GlobalStyle from './GlobalStyle';
 
 function App() {
   const deviceType = useSelector((state : any) => state.common.deviceType);
@@ -19,6 +20,7 @@ function App() {
   return (
     <AppBox>
       <HashRouter>
+        <GlobalStyle/>
         <EventListener/>
         {deviceType === "P" && (<Pheader/>)}
         {deviceType === "T" && (<Theader/>)}
