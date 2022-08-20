@@ -1,29 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import styled from 'styled-components';
 import Main from './routers/Main';
+import { useEffect } from 'react';
+import EventListener from './utils/EventHandler';
+import { useSelector } from 'react-redux';
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import Pheader from './components/header/Pheader';
+import Theader from './components/header/Theader';
+import Mheader from './components/header/Mheader';
 
 function App() {
+  const deviceType = useSelector((state : any) => state.common.deviceType);
+
+  useEffect(() => {
+    console.log(deviceType);
+  });
+
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.tsx</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
     <AppBox>
-      <Main/>
+      <HashRouter>
+        <EventListener/>
+        {deviceType === "P" && (<Pheader/>)}
+        {deviceType === "T" && (<Theader/>)}
+        {deviceType === "M" && (<Mheader/>)}
+        <Routes>
+          <Route path="/" element={<Main/>}/>
+        </Routes>
+      </HashRouter>
     </AppBox>
   );
 }
