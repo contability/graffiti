@@ -7,8 +7,9 @@ import Icon_subNick from "../../assets/icon/Icon_subNick.png";
 import Icon_subOrgName from "../../assets/icon/Icon_subOrgName.png";
 import Icon_search from "../../assets/icon/Icon_search.png";
 import Icon_filter from "../../assets/icon/Icon_filter.svg";
+import Pagination from "../common/Pagination";
 
-interface usersInterface{
+export interface usersInterface{
     nickname: string;
     oname: string;
     building_count: number;
@@ -20,9 +21,17 @@ const Users: Function = () => {
     const getUsersList = async () => {
         await axios.get(`https://raw.githubusercontent.com/jejodo-dev-team/open-api/main/frontend.json`)
         .then(( { data } ) => {
+
+            // 2022.08.20
             // return 되는 배열 마지막에 comma 때문에 데이터 가공하여 파싱
-            const usersList = JSON.parse(data.slice(0, data.length -3) + "]");
-            console.log(userList);
+            
+            // 2022.08.21 
+            // 데이터 신텍스 수정 확인 완료 -> 가공 필요 없어짐
+
+            // const usersList = JSON.parse(data.slice(0, data.length -3) + "]");
+            
+            const usersList = data;
+            console.log(data);
             
             setUserList(usersList);
         }).
@@ -76,6 +85,7 @@ const Users: Function = () => {
                         </div>
                     </div>
                 ))}
+                <Pagination content={userList} set={setUserList}/>
             </section>
         </UsersBox>
     );
