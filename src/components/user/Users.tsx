@@ -6,8 +6,10 @@ import { profileImgs, profileImgsType } from "../../data/D_userList_img";
 import Icon_subNick from "../../assets/icon/Icon_subNick.png";
 import Icon_subOrgName from "../../assets/icon/Icon_subOrgName.png";
 import Icon_search from "../../assets/icon/Icon_search.png";
-import Icon_filter from "../../assets/icon/Icon_filter.svg";
+
 import Pagination from "../common/Pagination";
+import UserTap from "./UserTap";
+// import UserFilter from "../filter/UserFilter";
 
 export interface usersInterface{
     nickname: string;
@@ -16,8 +18,11 @@ export interface usersInterface{
 }
 
 const Users: Function = () => {
-
     const [ userList, setUserList ] = useState<usersInterface[]>();
+    const [renderItem, setRenderItem] = useState<usersInterface[]>();
+
+    const ITEM_COUNT_PER_PAGE = 8;
+
     const getUsersList = async () => {
         await axios.get(`https://raw.githubusercontent.com/jejodo-dev-team/open-api/main/frontend.json`)
         .then(( { data } ) => {
@@ -26,14 +31,14 @@ const Users: Function = () => {
             // return 되는 배열 마지막에 comma 때문에 데이터 가공하여 파싱
             
             // 2022.08.21 
-            // 데이터 신텍스 수정 확인 완료 -> 가공 필요 없어짐
-
+            // 데이터 신텍스 수정 확인 완료 -> 가공 필요 없어짐 -> 주석 처리
             // const usersList = JSON.parse(data.slice(0, data.length -3) + "]");
             
             const usersList = data;
-            console.log(data);
+            // console.log(data);
             
             setUserList(usersList);
+            if(!renderItem) setRenderItem(usersList.slice(0, ITEM_COUNT_PER_PAGE));
         }).
         catch(err => console.error(err));
     };
@@ -51,24 +56,18 @@ const Users: Function = () => {
                 </div>
             </section>
             <section className="searchBar">
-                <input type="text" placeholder="rewgerg"/>
-                <img src={Icon_search} alt="" />
+                <input type="text" placeholder="검색"/>
+                <button>
+                    <img src={Icon_search} alt="" />
+                </button>
             </section>
             <section className="userList">
-                <div className="userListTap">
-                    <p className="tap">
-                        <span>입주민들</span>
-                        <span>{userList?.length || 0}</span>
-                    </p>
-                    <p className="filterOptWrap">
-                        <img src={Icon_filter} alt="" className="filterOpt" />
-                    </p>
-                </div>
-                {userList?.map((v, i) => (
+                <UserTap totalUserCount={userList?.length || 0} />
+                {renderItem?.map((v, i) => (
                     <div key={i} className="userInfo">
                         {profileImgs.map((profile: profileImgsType, j: number) => {
                             if(v.oname === profile.oname){
-                                return <img src={ profile.profile_thumb } alt="" />
+                                return <img key={j} src={ profile.profile_thumb } alt="" />
                             }
                         })}
                         <div className="userInfoCon">
@@ -85,7 +84,11 @@ const Users: Function = () => {
                         </div>
                     </div>
                 ))}
-                <Pagination content={userList} set={setUserList}/>
+                <Pagination 
+                    content={userList} 
+                    set={setRenderItem}
+                    itemCountPerPage={ITEM_COUNT_PER_PAGE}
+                />
             </section>
         </UsersBox>
     );
@@ -135,6 +138,18 @@ const UsersBox = styled.article`
         align-items: center;
         justify-content: space-between;
         margin-bottom: 56px;
+
+        & > input{
+            width: 100%;
+
+            &::placeholder {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: -0.05em;
+                color: #999999;
+            }
+        }
     }
 
     .userList{
@@ -176,10 +191,10 @@ const UsersBox = styled.article`
                 }
             }
 
-            .filterOptWrap{
-                .filterOpt{
-                }
-            }
+            // .filterOptWrap{
+            //     .filterOpt{
+            //     }
+            // }
         }
 
         > .userInfo{
