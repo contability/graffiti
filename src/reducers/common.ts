@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    deviceType : ""
+    deviceType : "",
+    userSearchKeyword: ""
 };
 
 const common = createSlice({
@@ -10,6 +11,9 @@ const common = createSlice({
     reducers: {
         setDeviceType: (state, action) => {
             state.deviceType = action.payload;
+        },
+        setUserSearchKeyword: (state, action) => {
+            state.userSearchKeyword = action.payload;
         }
     }
 });
@@ -17,7 +21,8 @@ const common = createSlice({
 export { common };
 
 export const {
-    setDeviceType
+    setDeviceType,
+    setUserSearchKeyword
 } = common.actions;
 
 export default common.reducer;

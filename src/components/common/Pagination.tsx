@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 const Pagination: Function = ({ content, set, itemCountPerPage }: any) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pages, setPages] = useState<number>(1);
+    const [itemLength, setItemLength] = useState<number>(0);
     
     const onClickFirst = () => {
         setCurrentPage(1);
@@ -26,16 +27,19 @@ const Pagination: Function = ({ content, set, itemCountPerPage }: any) => {
     };
 
     useEffect(() => {
-        if(content) setPages(Math.ceil(content.length / itemCountPerPage));
-    }, [content]);
+        onClickFirst();
+    }, [itemLength]);
 
     useEffect(() => {
         if(content){
+            setItemLength(content.length);
+            setPages(Math.ceil(content.length / itemCountPerPage));
+
             let offSet = ((currentPage - 1) * itemCountPerPage);
             let limit = offSet + itemCountPerPage;
             set(content.slice(offSet, limit));
         }
-    }, [currentPage])
+    }, [content, currentPage]);
 
     return (
         <PaginationBox>
@@ -102,6 +106,9 @@ const PaginationBox = styled.div`
         }
     }
     
+    .first, .prev, .next, .last{
+        padding-top: 7px;
+    }
 
 `;
 

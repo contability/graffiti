@@ -5,9 +5,9 @@ import { setDeviceType } from "../reducers/common";
 
 const EventListener: Function = () => {
     // device type
-    const BREAK_POINT_MOBILE = 360;
-    const BREAK_POINT_TABLET = 1024;
-    const BREAK_POINT_PC = 1920;
+    const BREAK_POINT_MOBILE = 361;
+    const BREAK_POINT_TABLET = 1025;
+    const BREAK_POINT_PC = 1921;
 
     const dispatch = useDispatch();
 
@@ -16,8 +16,9 @@ const EventListener: Function = () => {
         else if(BREAK_POINT_PC > window.innerWidth && window.innerWidth > BREAK_POINT_TABLET) dispatch(setDeviceType("T"));
         else dispatch(setDeviceType("M"));
     };
-
+    
     useEffect(() => {
+        // console.log(window.innerWidth);
         if(window.innerWidth > BREAK_POINT_PC) dispatch(setDeviceType("P"));
         else if(BREAK_POINT_PC > window.innerWidth && window.innerWidth > BREAK_POINT_TABLET) dispatch(setDeviceType("T"));
         else dispatch(setDeviceType("M"));

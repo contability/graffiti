@@ -1,14 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-
-import Icon_filter from "../../assets/icon/Icon_filter.svg";
-import Icon_filter_active from "../../assets/icon/Icon_filter_active.png";
 import { userFilterList } from "../../data/D_user_filterList";
 import Filter from "../common/Filter";
+import { usersInterface } from "./Users";
 
-const UserTap: Function = ({ totalUserCount }: any) => {
+const UserTap: Function = ({ totalUserCount, content, set }: any) => {
     const [active, setActive] = useState<boolean>(false);
     const [filter, setFilter] = useState<string>("all");
+    const deviceType = useSelector((state: any) => state.common.deviceType);
+
+    const filtering: Function = () => {
+        let filteredList: usersInterface[] = [];
+        
+        if(filter === "all"){
+            // console.log(content);
+            set(content);
+        }else{
+            filteredList = content.filter((v: usersInterface, i: number) => {
+                if(filter === "5"){
+                    return v.building_count >= parseInt(filter);
+                }else{
+                    return v.building_count === parseInt(filter);
+                }
+            });
+            // console.log(filteredList);
+            set(filteredList);
+        }
+    };
+
+    useEffect(() => {
+        filtering();
+    }, [content, filter]);
 
     return(
         <UserTapBox>
@@ -23,7 +46,13 @@ const UserTap: Function = ({ totalUserCount }: any) => {
                 <div className="filterList">
                     <span>보유 아파트</span>
                     {userFilterList.map((v, i) => (
-                        <span key={i} className={`${v.id === filter ? "activeFilter" : "inactiveFilter"}`} onClick={() => setFilter(v.id)}>{v.name}</span>
+                        <span 
+                            key={i} 
+                            className={`${deviceType === "M" ? "isMobile" : "isNotMobile"} ${v.id === filter ? "activeFilter" : "inactiveFilter"}`} 
+                            onClick={() => setFilter(v.id)}
+                        >
+                            {v.name}
+                        </span>
                     ))}
                 </div>
             )}
@@ -39,13 +68,11 @@ const UserTapBox = styled.section`
 
         > span{
             padding: 4px 12px;
-            margin-right: 12px;
             font-weight: 500;
             font-size: 14px;
             line-height: 20px;
             letter-spacing: -0.05em;
             color: #999999;
-
 
             &:first-child{
                 padding-left: 12px;
@@ -54,12 +81,21 @@ const UserTapBox = styled.section`
                 line-height: 24px;
                 color: #000000;
             }
-
         }
+
+        .isMobile{
+            font-size: 12px;
+            padding: 4px 11px;
+        }
+
+        .isNotMobile{
+            margin-right: 12px;
+        }
+
         .inactiveFilter{
             &:hover{
                 font-weight: 700;
-                font-size: 14px;
+                // font-size: 14px;
                 line-height: 20px;
                 letter-spacing: -0.05em;
                 color: #000000;

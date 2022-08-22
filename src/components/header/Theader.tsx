@@ -11,18 +11,27 @@ const Theader: Function = () => {
     );
 };
 
-
-
 const TheaderBox = styled.header`
-    width: 1330px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1920px;
+    height: 348px;
+    z-index: 99;
 
     .headerBg{
-        position: absolute;
-        width: 1330px;
+        position: fixed;
+        width: 1920px;
+        height: 300px;
+        top: 0;
+        z-index: 99;
     }
 
     .headerChar{
-        position: absolute;
+        position: fixed;
+        height: 300px;
+        top: 0;
+        z-index: 100;
     }
 `;
 

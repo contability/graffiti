@@ -1,15 +1,13 @@
 import axios from "axios";
-import { profile } from "console";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { profileImgs, profileImgsType } from "../../data/D_userList_img";
 import Icon_subNick from "../../assets/icon/Icon_subNick.png";
 import Icon_subOrgName from "../../assets/icon/Icon_subOrgName.png";
-import Icon_search from "../../assets/icon/Icon_search.png";
-
 import Pagination from "../common/Pagination";
 import UserTap from "./UserTap";
-// import UserFilter from "../filter/UserFilter";
+import SearchBar from "../common/SearchBar";
+import { useSelector } from "react-redux";
 
 export interface usersInterface{
     nickname: string;
@@ -18,10 +16,13 @@ export interface usersInterface{
 }
 
 const Users: Function = () => {
-    const [ userList, setUserList ] = useState<usersInterface[]>();
-    const [renderItem, setRenderItem] = useState<usersInterface[]>();
-
     const ITEM_COUNT_PER_PAGE = 8;
+
+    const [ userList, setUserList ] = useState<usersInterface[]>([]);
+    const [ filteredItem, setFilteredItem ] = useState<usersInterface[]>([]);
+    const [renderItem, setRenderItem] = useState<usersInterface[]>([]);
+
+    const userSearchKeyword = useSelector((state: any) => state.common.userSearchKeyword);
 
     const getUsersList = async () => {
         await axios.get(`https://raw.githubusercontent.com/jejodo-dev-team/open-api/main/frontend.json`)
@@ -32,37 +33,41 @@ const Users: Function = () => {
             
             // 2022.08.21 
             // 데이터 신텍스 수정 확인 완료 -> 가공 필요 없어짐 -> 주석 처리
-            // const usersList = JSON.parse(data.slice(0, data.length -3) + "]");
+            // const listData = JSON.parse(data.slice(0, data.length -3) + "]");
             
-            const usersList = data;
             // console.log(data);
             
-            setUserList(usersList);
-            if(!renderItem) setRenderItem(usersList.slice(0, ITEM_COUNT_PER_PAGE));
-        }).
-        catch(err => console.error(err));
+            setUserList(data);
+            setFilteredItem(data);
+        })
+        .catch(err => console.error(err));
+    };
+
+    const chkText = (nickName: string) => {
+        let re = new RegExp(userSearchKeyword, "gi");
+        return nickName.replace(re, `<span class=containKeyword>${userSearchKeyword}</span>`);
     };
 
     useEffect(() => {
         getUsersList();
     }, []);
+    
     return (
         <UsersBox>
-            <section className="guide">
+            <section className="title">
                 <div>화섬 아파트 지구家 입주민들</div>
                 <div>
                     <p>화섬 아파트에 입주한 입주민들입니다.</p>
                     <p>같이 화성에 가는날을 기다리며 화목하게 지내봐요!</p>
                 </div>
             </section>
-            <section className="searchBar">
-                <input type="text" placeholder="검색"/>
-                <button>
-                    <img src={Icon_search} alt="" />
-                </button>
-            </section>
+            <SearchBar content={userList} set={setFilteredItem}/>
             <section className="userList">
-                <UserTap totalUserCount={userList?.length || 0} />
+                <UserTap 
+                    totalUserCount={userList?.length || 0} 
+                    content={userList}
+                    set={setFilteredItem}
+                />
                 {renderItem?.map((v, i) => (
                     <div key={i} className="userInfo">
                         {profileImgs.map((profile: profileImgsType, j: number) => {
@@ -72,7 +77,7 @@ const Users: Function = () => {
                         })}
                         <div className="userInfoCon">
                             <p>
-                                <span className="profileNick">{v.nickname}</span>
+                                <span className="profileNick" dangerouslySetInnerHTML={{__html: chkText(v.nickname)}}></span>
                                 <span className="buildingCount">{`지구家 아파트 ${v.building_count}개`}</span>
                             </p>
                             <p className="subUserInfo">
@@ -85,7 +90,7 @@ const Users: Function = () => {
                     </div>
                 ))}
                 <Pagination 
-                    content={userList} 
+                    content={filteredItem} 
                     set={setRenderItem}
                     itemCountPerPage={ITEM_COUNT_PER_PAGE}
                 />
@@ -94,18 +99,19 @@ const Users: Function = () => {
     );
 };
 
-const UsersBox = styled.article`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+const UsersBox: any = styled.article<any>`
     font-family: 'Noto Sans KR';
     font-style: normal;
+    position: relative;
+    width: 1024px;
+    overflow-y: auto;
+    z-index: 10;
 
-    .guide{
+    .title{
         margin-bottom: 48px;
+
         > div{
             &:first-child{
-                
                 font-weight: 700;
                 font-size: 40px;
                 line-height: 56px;
@@ -126,28 +132,43 @@ const UsersBox = styled.article`
         }
     }
 
-    .searchBar{
-        width: 400px;
-        height: 32px;
-        background: #FFFFFF;
-        border: 1px solid #000000;
-        border-radius: 20px;
-        padding: 0 17px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+    .searchBarWrap{
+        width: 100%;
         margin-bottom: 56px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        z-index: 10;
+        
+        .searchBar{
+            z-index: 7;
+            width: 400px;
+            height: 32px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            background: #FFFFFF;
+            border: 1px solid #000000;
+            border-radius: 20px;
+            padding: 0 12px 0 28px;
 
-        & > input{
-            width: 100%;
-
-            &::placeholder {
+            & > input{
+                width: 100%;
                 font-weight: 500;
                 font-size: 14px;
                 line-height: 20px;
                 letter-spacing: -0.05em;
-                color: #999999;
+                color: #000000;
+
+                &::placeholder {
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 20px;
+                    letter-spacing: -0.05em;
+                    color: #999999;
+                }
             }
         }
     }
@@ -157,6 +178,7 @@ const UsersBox = styled.article`
         flex-direction: column;
         align-items: center;
         gap: 16px;
+        padding-bottom: 16px;
 
         .userListTap{
             width: 560px;
@@ -172,7 +194,7 @@ const UsersBox = styled.article`
                 background: #000000;
                 border: 1px solid #000000;
                 border-radius: 10px 10px 0 0;
-                padding: 6px 16px;
+                padding: 0 16px;
 
                 > span{
                     font-weight: 700;
@@ -190,11 +212,6 @@ const UsersBox = styled.article`
                     }
                 }
             }
-
-            // .filterOptWrap{
-            //     .filterOpt{
-            //     }
-            // }
         }
 
         > .userInfo{
@@ -228,7 +245,13 @@ const UsersBox = styled.article`
                 letter-spacing: -0.05em;
                 color: #000000;
                 padding-right: 12px;
+
+                .containKeyword{
+                    color: #000000;
+                    background: #a2ccf9;
+                }
             }
+
 
             .buildingCount{
                 font-weight: 700;
@@ -251,7 +274,6 @@ const UsersBox = styled.article`
                     letter-spacing: -0.05em;
                     color: #999999;
                     padding: 0 12px 0 4px;
-                    
                 }
                 
                 .subNameIcon{
