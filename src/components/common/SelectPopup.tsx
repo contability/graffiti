@@ -36,7 +36,6 @@ const SelectPopup: Function = ({ set, off, content, keyword } : any) => {
 
 const SelectPopupBox = styled.div<any>`
     position: absolute;
-    // width: 400px;
     width: ${props => props.deviceType === "M" ? "360px" : "400px"};
     max-height: 172px;
     background: #FFFFFF;

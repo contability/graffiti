@@ -95,7 +95,6 @@ const UserTapBox = styled.section`
         .inactiveFilter{
             &:hover{
                 font-weight: 700;
-                // font-size: 14px;
                 line-height: 20px;
                 letter-spacing: -0.05em;
                 color: #000000;
