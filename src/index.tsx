@@ -1,15 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from "react-query/devtools";
 
+const queryClient = new QueryClient();  {/* react-query를 사용하기 위한 인스턴스 생성 */}
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>  {/* react-query 설치 */}
+      <ReactQueryDevtools initialIsOpen={true}/>  {/* Devtools를 보기 위해서 설치 */}
+      <App />
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
