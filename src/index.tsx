@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={store}>  {/* redux Provider. 이 안에 있는 컴포넌트는 redux 사용 가능 */}
       <App />
     </Provider>
   </React.StrictMode>

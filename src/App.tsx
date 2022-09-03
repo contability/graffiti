@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import styled from 'styled-components';
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import GlobalStyle from './components/GlobalStyle';
+import Main from './routers/Main';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppBox>
+      <HashRouter>    {/* 이 안에서 react-rouoter-dom 사용 가능.*/}
+        <GlobalStyle/>  {/* 전체 css 잡아주기*/}
+        <Routes>    {/* 이 안에 router들 정의하기 */}
+          <Route path='/' element={<Main/>}/>   {/* path마다 어떤 컴포넌트 띄워줄건지 정의 */}
+        </Routes>
+      </HashRouter>
+    </AppBox>
   );
 }
+
+const AppBox = styled.main``;
 
 export default App;
