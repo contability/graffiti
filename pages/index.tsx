@@ -1,12 +1,12 @@
-import { NextPage } from "next";
-import styled from "styled-components";
+import styled from 'styled-components';
+import { NextPage } from 'next';
 
 const Container = styled.div`
   font-size: italic;
 `;
 
-const index: NextPage = () => {
+const Index = () => {
   return <Container>hello Styled-components</Container>;
 };
 
-export default index;
+export default Index;
