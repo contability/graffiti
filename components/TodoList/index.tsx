@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
 import { TodoType } from '../../types/todo';
@@ -44,52 +44,79 @@ const Container = styled.div`
   .bg-blue {
     background-color: ${palette.blue};
   }
+  .bg-green {
+    background-color: ${palette.green};
+  }
+  .bg-navy {
+    background-color: ${palette.navy};
+  }
+  .bg-orange {
+    background-color: ${palette.orange};
+  }
+  .bg-red {
+    background-color: ${palette.red};
+  }
+  .bg-yellow {
+    background-color: ${palette.yellow};
+  }
 `;
 
 interface IProps {
   todos: TodoType[];
 }
 
+type ObjectIndexType = {
+  [key: string]: number | undefined;
+};
+
 const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
-  const getTodoColorNums = useCallback(() => {
-    let red = 0;
-    let orange = 0;
-    let yellow = 0;
-    let green = 0;
-    let blue = 0;
-    let navy = 0;
+  // const getTodoColorNums = useCallback(() => {
+  //   let red = 0;
+  //   let orange = 0;
+  //   let yellow = 0;
+  //   let green = 0;
+  //   let blue = 0;
+  //   let navy = 0;
 
+  //   todos.map(todo => {
+  //     switch (todo.color) {
+  //       case 'red':
+  //         red += 1;
+  //         break;
+  //       case 'orange':
+  //         orange += 1;
+  //         break;
+  //       case 'yellow':
+  //         yellow += 1;
+  //         break;
+  //       case 'green':
+  //         green += 1;
+  //         break;
+  //       case 'blue':
+  //         blue += 1;
+  //         break;
+  //       case 'navy':
+  //         navy += 1;
+  //         break;
+  //     }
+  //   });
+
+  //   return {
+  //     red,
+  //     orange,
+  //     yellow,
+  //     green,
+  //     blue,
+  //     navy,
+  //   };
+  // }, [todos]);
+
+  const getTodoColorNums = useMemo(() => {
+    const colors: ObjectIndexType = {};
     todos.map(todo => {
-      switch (todo.color) {
-        case 'red':
-          red += 1;
-          break;
-        case 'orange':
-          orange += 1;
-          break;
-        case 'yellow':
-          yellow += 1;
-          break;
-        case 'green':
-          green += 1;
-          break;
-        case 'blue':
-          blue += 1;
-          break;
-        case 'navy':
-          navy += 1;
-          break;
-      }
+      const value = colors[todo.color];
+      if (!value) colors[`${todo.color}`] = 1;
     });
-
-    return {
-      red,
-      orange,
-      yellow,
-      green,
-      blue,
-      navy,
-    };
   }, [todos]);
 
   return (
