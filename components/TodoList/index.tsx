@@ -102,7 +102,7 @@ const Container = styled.div`
         }
 
         .todo-trash-can {
-          width: 16px;
+          width: 22px;
           path {
             fill: ${palette.deep_red};
           }
@@ -209,12 +209,13 @@ const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
               <p className={`todo-text ${todo.checked ? 'checked-todo-text' : ''}`}>{todo.text}</p>
             </div>
             <div className="todo-right-side">
-              {/* {!todo.checked && <button type="button" className="todo-button" onClick={() => {}}></button>} */}
-              {todo.checked && (
+              {todo.checked ? (
                 <>
                   <TrashCanIcon className="todo-trash-can" onClick={() => {}} />
                   <CheckMarkIcon className="todo-check-mark" onClick={() => {}} />
                 </>
+              ) : (
+                <button type="button" className="todo-button" onClick={() => {}}></button>
               )}
             </div>
           </li>
