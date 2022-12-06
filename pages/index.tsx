@@ -1,7 +1,9 @@
 import styled from 'styled-components';
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import TodoList from '../components/TodoList';
 import { TodoType } from '../types/todo';
+import axios from 'axios';
+import { getTodosAPI } from '../lib/api/todos';
 
 const todos: TodoType[] = [
   {
@@ -44,6 +46,17 @@ const todos: TodoType[] = [
 
 const Index: NextPage = () => {
   return <TodoList todos={todos} />;
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const {data} = await getTodosAPI();
+    console.log(data);
+    return {props: {}};
+  } catch (error) {
+    console.log(error);
+    return {props: {}};
+  }
 };
 
 export default Index;
