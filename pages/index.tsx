@@ -45,17 +45,20 @@ const todos: TodoType[] = [
 ];
 
 const Index: NextPage = () => {
+  console.log(process.env.NEXT_PUBLIC_API_URL, '클라이언트');
   return <TodoList todos={todos} />;
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const {data} = await getTodosAPI();
+    console.log(process.env.NEXT_PUBLIC_API_URL, '서버');
+
+    const { data } = await getTodosAPI();
     console.log(data);
-    return {props: {}};
+    return { props: {} };
   } catch (error) {
     console.log(error);
-    return {props: {}};
+    return { props: {} };
   }
 };
 
