@@ -125,7 +125,7 @@ const Container = styled.div`
   }
 `;
 
-interface IProps {
+export interface IProps {
   todos: TodoType[];
 }
 
