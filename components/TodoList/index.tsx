@@ -4,6 +4,8 @@ import palette from '../../styles/palette';
 import { TodoType } from '../../types/todo';
 import CheckMarkIcon from '../../svg/icons/system/system_check.svg';
 import TrashCanIcon from '../../svg/icons/system/system_trash_can.svg';
+import { checkTodoAPI } from '../../lib/api/todos';
+import { useRouter } from 'next/router';
 
 const Container = styled.div`
   width: 100%;
@@ -134,6 +136,7 @@ type ObjectIndexType = {
 };
 
 const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
+  const router = useRouter();
   // const getTodoColorNums = useCallback(() => {
   //   let red = 0;
   //   let orange = 0;
@@ -186,6 +189,16 @@ const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
     return colors;
   }, [todos]);
 
+  const checkTodo = async (id: number) => {
+    try {
+      await checkTodoAPI(id);
+      console.log('체크하였습니다.');
+      router.push('/');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Container>
       <div className="todo-list-header">
@@ -212,10 +225,10 @@ const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
               {todo.checked ? (
                 <>
                   <TrashCanIcon className="todo-trash-can" onClick={() => {}} />
-                  <CheckMarkIcon className="todo-check-mark" onClick={() => {}} />
+                  <CheckMarkIcon className="todo-check-mark" onClick={() => checkTodo(todo.id)} />
                 </>
               ) : (
-                <button type="button" className="todo-button" onClick={() => {}}></button>
+                <button type="button" className="todo-button" onClick={() => checkTodo(todo.id)}></button>
               )}
             </div>
           </li>
