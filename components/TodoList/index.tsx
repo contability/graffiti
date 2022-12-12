@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
 import { TodoType } from '../../types/todo';
@@ -137,6 +137,7 @@ type ObjectIndexType = {
 
 const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
   const router = useRouter();
+  const [localTodos, setLocalTodos] = useState(todos);
   // const getTodoColorNums = useCallback(() => {
   //   let red = 0;
   //   let orange = 0;
@@ -193,7 +194,20 @@ const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
     try {
       await checkTodoAPI(id);
       console.log('체크하였습니다.');
-      router.push('/');
+
+      // 방법 1. 새로고침을 통하여 페이지를 새로 받아오기 때문에 여기서 적절하진 않은 것 같음.
+      // router.reload();
+
+      // 방법 2. 클라이언트 측 내비게이션을 이용하여 setServerSideProps를 실행 -> 데이터 다시 받아옴.
+      // router.push('/');
+
+      // 방법3.
+      const newTodos = localTodos.map(todo => {
+        if (todo.id === id) return { ...todo, checked: !todo.checked };
+        return todo;
+      });
+
+      setLocalTodos(newTodos);
     } catch (error) {
       console.error(error);
     }
