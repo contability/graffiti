@@ -136,7 +136,7 @@ type ObjectIndexType = {
 };
 
 const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
-  const router = useRouter();
+  // const router = useRouter();
   const [localTodos, setLocalTodos] = useState(todos);
   // const getTodoColorNums = useCallback(() => {
   //   let red = 0;
@@ -201,7 +201,7 @@ const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
       // 방법 2. 클라이언트 측 내비게이션을 이용하여 setServerSideProps를 실행 -> 데이터 다시 받아옴.
       // router.push('/');
 
-      // 방법3.
+      // 방법3. useState 활용
       const newTodos = localTodos.map(todo => {
         if (todo.id === id) return { ...todo, checked: !todo.checked };
         return todo;
@@ -217,7 +217,7 @@ const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
     <Container>
       <div className="todo-list-header">
         <p className="todo-list-last-todo">
-          남은 TODO <span>{todos.length}개</span>
+          남은 TODO <span>{localTodos.length}개</span>
         </p>
         <div className="todo-list-header-colors">
           {Object.keys(getTodoColorNums).map((color, colorIndex) => (
@@ -229,7 +229,7 @@ const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
         </div>
       </div>
       <ul className="todo-list">
-        {todos.map(todo => (
+        {localTodos.map(todo => (
           <li className="todo-item" key={todo.id}>
             <div className="todo-left-side">
               <div className={`todo-color-block bg-${todo.color}`} />
