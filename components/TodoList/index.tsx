@@ -6,6 +6,7 @@ import CheckMarkIcon from '../../svg/icons/system/system_check.svg';
 import TrashCanIcon from '../../svg/icons/system/system_trash_can.svg';
 import { checkTodoAPI } from '../../lib/api/todos';
 import { useRouter } from 'next/router';
+import AddTodo from '../AddTodo';
 
 const Container = styled.div`
   width: 100%;
@@ -228,6 +229,7 @@ const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
           ))}
         </div>
       </div>
+      <AddTodo />
       <ul className="todo-list">
         {localTodos.map(todo => (
           <li className="todo-item" key={todo.id}>
