@@ -14,3 +14,6 @@ export const checkTodoAPI = (id: number) => axios.patch(`api/todos/${id}`);
 
 /** post new todo */
 export const addTodoApi = (body: AddTodoBffBody) => axios.post('/api/todos', body);
+
+/** remove todo */
+export const deleteTodoAPI = (id: number) => axios.delete(`/api/todos/${id}`);
