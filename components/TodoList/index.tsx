@@ -240,7 +240,7 @@ const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
           ))}
         </div>
       </div>
-      <AddTodo />
+      {/* <AddTodo /> */}
       <ul className="todo-list">
         {localTodos.map(todo => (
           <li className="todo-item" key={todo.id}>
