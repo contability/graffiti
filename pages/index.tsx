@@ -4,6 +4,7 @@ import TodoList, { IProps } from '../components/TodoList';
 import { TodoType } from '../types/todo';
 import axios from 'axios';
 import { getTodosAPI } from '../lib/api/todos';
+import { wrapper } from '../store';
 
 // const todos: TodoType[] = [
 //   {
@@ -44,7 +45,7 @@ import { getTodosAPI } from '../lib/api/todos';
 //   },
 // ];
 
-const Index = ({todos} : IProps) => {
+const Index = ({ todos }: IProps) => {
   console.log(process.env.NEXT_PUBLIC_API_URL, '클라이언트');
   return <TodoList todos={todos} />;
 };
@@ -55,11 +56,22 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
     const { data } = await getTodosAPI();
     console.log(data);
-    return { props: { todos: data} };
+    return { props: { todos: data } };
   } catch (error) {
     console.log(error);
     return { props: { todos: [] } };
   }
 };
+
+// export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
+//   console.log(store);
+//   try {
+//     const { data } = await getTodosAPI();
+//     return { props: { todos: data } };
+//   } catch (error) {
+//     console.log(error);
+//     return { props: { todos: [] } };
+//   }
+// });
 
 export default Index;
