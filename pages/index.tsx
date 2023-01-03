@@ -5,6 +5,8 @@ import { TodoType } from '../types/todo';
 import axios from 'axios';
 import { getTodosAPI } from '../lib/api/todos';
 import { wrapper } from '../store';
+import { Context } from 'next-redux-wrapper';
+import { todoActions } from '../store/todo';
 
 // const todos: TodoType[] = [
 //   {
@@ -47,31 +49,34 @@ import { wrapper } from '../store';
 
 const Index = ({ todos }: IProps) => {
   console.log(process.env.NEXT_PUBLIC_API_URL, '클라이언트');
-  return <TodoList todos={todos} />;
+  // return <TodoList todos={todos} />;
+  return <TodoList todos={[]} />;
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  try {
-    console.log(process.env.NEXT_PUBLIC_API_URL, '서버');
-
-    const { data } = await getTodosAPI();
-    console.log(data);
-    return { props: { todos: data } };
-  } catch (error) {
-    console.log(error);
-    return { props: { todos: [] } };
-  }
-};
-
-// export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
-//   console.log(store);
+// export const getServerSideProps: GetServerSideProps = async () => {
 //   try {
+//     console.log(process.env.NEXT_PUBLIC_API_URL, '서버');
+
 //     const { data } = await getTodosAPI();
+//     console.log(data);
 //     return { props: { todos: data } };
 //   } catch (error) {
 //     console.log(error);
 //     return { props: { todos: [] } };
 //   }
-// });
+// };
+
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
+  // console.log(store);
+  try {
+    const { data } = await getTodosAPI();
+    // return { props: { todos: data } };
+    store.dispatch(todoActions.setTodo(data));
+    return { props: { todos: [] } };
+  } catch (error) {
+    console.log(error);
+    return { props: { todos: [] } };
+  }
+});
 
 export default Index;
