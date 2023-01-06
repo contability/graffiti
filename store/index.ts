@@ -1,7 +1,6 @@
-import { combineReducers } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import todo from './todo';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
-import { configureStore } from '@reduxjs/toolkit/dist/configureStore';
 
 /////////////////////////////////////////////// reducx
 // const rootReducer = combineReducers({

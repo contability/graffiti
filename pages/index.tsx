@@ -1,11 +1,6 @@
-import styled from 'styled-components';
-import { GetServerSideProps, NextPage } from 'next';
 import TodoList, { IProps } from '../components/TodoList';
-import { TodoType } from '../types/todo';
-import axios from 'axios';
 import { getTodosAPI } from '../lib/api/todos';
 import { wrapper } from '../store';
-import { Context } from 'next-redux-wrapper';
 import { todoActions } from '../store/todo';
 
 // const todos: TodoType[] = [
@@ -66,8 +61,10 @@ const Index = ({ todos }: IProps) => {
 //   }
 // };
 
-export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
-  // console.log(store);
+// export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
+export const getServerSideProps = wrapper.getServerSideProps(store => async context => {
+  console.log(store);
+  console.log(context);
   try {
     const { data } = await getTodosAPI();
     // return { props: { todos: data } };

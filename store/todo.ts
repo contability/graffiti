@@ -1,7 +1,7 @@
 // // ducks pattern
 
+import { createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit/dist/createAction';
-import { createSlice } from '@reduxjs/toolkit/dist/createSlice';
 import { TodoType } from '../types/todo';
 
 // import { TodoType } from '../types/todo';
