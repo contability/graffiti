@@ -7,6 +7,8 @@ import TrashCanIcon from '../../svg/icons/system/system_trash_can.svg';
 import { checkTodoAPI, deleteTodoAPI } from '../../lib/api/todos';
 import { useRouter } from 'next/router';
 import AddTodo from '../AddTodo';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 const Container = styled.div`
   width: 100%;
@@ -136,50 +138,10 @@ type ObjectIndexType = {
   [key: string]: number | undefined;
 };
 
-const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
-  // const router = useRouter();
+// const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
+const TodoList: React.FC<IProps> = () => {
+  const todos = useSelector((state: RootState) => state.todo.todos);
   const [localTodos, setLocalTodos] = useState(todos);
-  // const getTodoColorNums = useCallback(() => {
-  //   let red = 0;
-  //   let orange = 0;
-  //   let yellow = 0;
-  //   let green = 0;
-  //   let blue = 0;
-  //   let navy = 0;
-
-  //   todos.map(todo => {
-  //     switch (todo.color) {
-  //       case 'red':
-  //         red += 1;
-  //         break;
-  //       case 'orange':
-  //         orange += 1;
-  //         break;
-  //       case 'yellow':
-  //         yellow += 1;
-  //         break;
-  //       case 'green':
-  //         green += 1;
-  //         break;
-  //       case 'blue':
-  //         blue += 1;
-  //         break;
-  //       case 'navy':
-  //         navy += 1;
-  //         break;
-  //     }
-  //   });
-
-  //   return {
-  //     red,
-  //     orange,
-  //     yellow,
-  //     green,
-  //     blue,
-  //     navy,
-  //   };
-  // }, [todos]);
-
   const getTodoColorNums = useMemo(() => {
     const colors: ObjectIndexType = {};
     todos.map(todo => {

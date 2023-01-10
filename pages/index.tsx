@@ -63,7 +63,7 @@ const Index = ({ todos }: IProps) => {
 
 // export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
 export const getServerSideProps = wrapper.getServerSideProps(store => async context => {
-  console.log(store);
+  console.log('store is : ', store);
   console.log(context);
   try {
     const { data } = await getTodosAPI();
