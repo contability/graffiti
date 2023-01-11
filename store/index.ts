@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import todo from './todo';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
+import { TypedUseSelectorHook, useSelector as useReduxSelector } from 'react-redux';
 
 /////////////////////////////////////////////// reducx
 // const rootReducer = combineReducers({
@@ -37,6 +38,9 @@ import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 // export const wrapper = createWrapper(initStore);
 
 /////////////////////////////////////////////////// redux toolkit
+declare module 'react-redux' {
+  interface DefaultRootState extends RootState {}
+}
 const rootReducer = combineReducers({
   todo: todo.reducer,
 });
@@ -64,3 +68,5 @@ const initStore = () => {
 };
 
 export const wrapper = createWrapper(initStore);
+
+export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;

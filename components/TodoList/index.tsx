@@ -7,8 +7,10 @@ import TrashCanIcon from '../../svg/icons/system/system_trash_can.svg';
 import { checkTodoAPI, deleteTodoAPI } from '../../lib/api/todos';
 import { useRouter } from 'next/router';
 import AddTodo from '../AddTodo';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState, useSelector } from '../../store';
+import todo from '../../lib/data/todo';
+import { useDispatch } from 'react-redux';
+import { todoActions } from '../../store/todo';
 
 const Container = styled.div`
   width: 100%;
@@ -140,8 +142,10 @@ type ObjectIndexType = {
 
 // const TodoList: React.FC<IProps> = ({ todos }: IProps) => {
 const TodoList: React.FC<IProps> = () => {
-  const todos = useSelector((state: RootState) => state.todo.todos);
+  const todos = useSelector(state => state.todo.todos);
+  const dispatch = useDispatch();
   const [localTodos, setLocalTodos] = useState(todos);
+
   const getTodoColorNums = useMemo(() => {
     const colors: ObjectIndexType = {};
     todos.map(todo => {
@@ -156,7 +160,6 @@ const TodoList: React.FC<IProps> = () => {
   const checkTodo = async (id: number) => {
     try {
       await checkTodoAPI(id);
-      console.log('체크하였습니다.');
 
       // 방법 1. 새로고침을 통하여 페이지를 새로 받아오기 때문에 여기서 적절하진 않은 것 같음.
       // router.reload();
@@ -170,7 +173,8 @@ const TodoList: React.FC<IProps> = () => {
         return todo;
       });
 
-      setLocalTodos(newTodos);
+      dispatch(todoActions.setTodo(newTodos));
+      console.log('체크하였습니다.');
     } catch (error) {
       console.error(error);
     }
@@ -180,7 +184,7 @@ const TodoList: React.FC<IProps> = () => {
     try {
       await deleteTodoAPI(id);
       const newTodos = localTodos.filter(todo => todo.id !== id);
-      setLocalTodos(newTodos);
+      dispatch(todoActions.setTodo(newTodos));
       console.log('삭제했습니다.');
     } catch (error) {
       console.error(error);
