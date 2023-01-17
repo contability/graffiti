@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "babel-plugin-inline-react-svg": "^2.0.1",
     "babel-plugin-styled-components": "^2.0.7",
     "next": "^13.0.3",
     "react": "^18.2.0",
