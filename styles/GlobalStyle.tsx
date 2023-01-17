@@ -9,6 +9,7 @@ const globalStyle = css`
   }
   body {
     color: ${palette.black};
+    font-family: Noto Sans, Noto Sans KR;
   }
 `;
 
