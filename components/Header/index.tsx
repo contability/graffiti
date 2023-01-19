@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import SystemHeaderLogo from '../../svg/icons/system/system_header_logo.svg';
 import palette from '../../styles/palette';
-import ModalPortal from '../modal/ModalPortal';
+// import ModalPortal from '../modal/ModalPortal';
 import SignUpModal from '../auth/SignUpModal';
+import useModal from '../../hooks/useModal';
 
 const Container = styled.div`
   position: sticky;
@@ -85,19 +86,21 @@ const Container = styled.div`
 `;
 
 const Header: React.FC = () => {
-  const [modalOpened, setModalOpened] = useState(true);
+  // const [modalOpened, setModalOpened] = useState(false);
+  const { openModal, ModalPortal } = useModal();
+
   return (
     <Container>
       <Link className="header-logo-wrapper" href="/">
         <SystemHeaderLogo className="header-logo" />
       </Link>
       <div className="header-auth-buttons">
-        <button className="header-sign-up-button" onClick={() => setModalOpened(!modalOpened)}>
+        <button className="header-sign-up-button" onClick={openModal}>
           회원가입
         </button>
         <button className="header-login-button">로그인</button>
       </div>
-      {modalOpened && (
+      {/* {modalOpened && (
         // modal
         // <div className="modal-wrapper">
         //   <div className="modal-background" role="presentation" onClick={() => setModalOpened(false)} />
@@ -105,10 +108,16 @@ const Header: React.FC = () => {
         // </div>
 
         // modal portal
-        <ModalPortal closePortal={() => setModalOpened(false)}>
+        // <ModalPortal closePortal={() => setModalOpened(false)}>
+
+      )} */}
+
+      {
+        // useModal
+        <ModalPortal>
           <SignUpModal />
         </ModalPortal>
-      )}
+      }
     </Container>
   );
 };
