@@ -8,7 +8,7 @@ import OpenedEyeIcon from '../../../public/assets/images/icons/system/system_ope
 import ClosedEyeIcon from '../../../public/assets/images/icons/system/system_closed_eye.svg';
 import Input from '../../common/Input';
 import Selector from '../../common/Selector';
-import { monthList } from '../../../lib/staticData';
+import { dayList, monthList, yearList } from '../../../lib/staticData';
 
 const Container = styled.div`
   width: 400px;
@@ -51,6 +51,22 @@ const Container = styled.div`
     margin-bottom: 16px;
     color: ${palette.charcoal};
   }
+
+  .sign-up-modal-birthday-selectors {
+    display: flex;
+    margin-bottom: 24px;
+    .sign-up-modal-birthday-month-selector {
+      margin-right: 16px;
+      flex-grow: 1;
+    }
+    .sign-up-modal-birthday-day-selector {
+      margin-right: 16px;
+      width: 25%;
+    }
+    .sign-up-modal-birthday-year-selector {
+      width: 33.3333%;
+    }
+  }
 `;
 
 const SignUpModal: React.FC = () => {
@@ -59,6 +75,9 @@ const SignUpModal: React.FC = () => {
   const [firstName, setFirstName] = useState('');
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
+  const [birthYear, setBirthYear] = useState<string | undefined>();
+  const [birthMonth, setBirthMonth] = useState<string | undefined>();
+  const [birthDay, setBirthDay] = useState<string | undefined>();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     switch (event.target.className) {
@@ -73,6 +92,23 @@ const SignUpModal: React.FC = () => {
         break;
       case 'pw':
         setPassword(event.target.value);
+        break;
+    }
+  };
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    switch (event.target.className) {
+      case 'day':
+        setBirthDay(event.target.value);
+        break;
+      case 'month':
+        setBirthMonth(event.target.value);
+        break;
+      case 'year':
+        setBirthYear(event.target.value);
+        break;
+
+      default:
         break;
     }
   };
@@ -135,7 +171,38 @@ const SignUpModal: React.FC = () => {
       <p className="sign-up-modal-birthday-info">
         만 18세 이상의 성인만 회원으로 가입할 수 있습니다. 생일은 다른 이용자에게 공개되지 않습니다.
       </p>
-      <Selector options={monthList} defaultValue="월" disabledOptions={['월']} />
+      <div className="sign-up-modal-birthday-selectors">
+        <div className="sign-up-modal-birthday-month-selector">
+          <Selector
+            options={monthList}
+            defaultValue="월"
+            disabledOptions={['월']}
+            className="month"
+            value={birthMonth}
+            onChange={handleSelectChange}
+          />
+        </div>
+        <div className="sign-up-modal-birthday-day-selector">
+          <Selector
+            options={dayList}
+            defaultValue="일"
+            disabledOptions={['일']}
+            className="day"
+            value={birthDay}
+            onChange={handleSelectChange}
+          />
+        </div>
+        <div className="sign-up-modal-birthday-year-selector">
+          <Selector
+            options={yearList}
+            defaultValue="년"
+            disabledOptions={['년']}
+            className="year"
+            value={birthYear}
+            onChange={handleSelectChange}
+          />
+        </div>
+      </div>
     </Container>
   );
 };

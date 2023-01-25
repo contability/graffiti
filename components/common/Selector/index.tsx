@@ -16,7 +16,8 @@ const Container = styled.div`
     outline: none;
     -webkit-appearance: none;
     background-image: url('/assets/images/icons/system/system_select_down_arrow.svg');
-    background-position: right 11px center;
+    background-size: 17px;
+    background-position: right 20px center;
     background-repeat: no-repeat;
     font-size: 16px;
 
