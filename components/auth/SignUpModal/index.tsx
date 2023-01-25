@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../../styles/palette';
-import CloseXIcon from '../../../svg/icons/system/system_close_x_icon.svg';
-import MailIcon from '../../../svg/icons/system/system_mail.svg';
-import PersonIcon from '../../../svg/icons/system/system_person.svg';
-import OpenedEyeIcon from '../../../svg/icons/system/system_opened_eye.svg';
-import ClosedEyeIcon from '../../../svg/icons/system/system_closed_eye.svg';
+import CloseXIcon from '../../../public/assets/images/icons/system/system_close_x_icon.svg';
+import MailIcon from '../../../public/assets/images/icons/system/system_mail.svg';
+import PersonIcon from '../../../public/assets/images/icons/system/system_person.svg';
+import OpenedEyeIcon from '../../../public/assets/images/icons/system/system_opened_eye.svg';
+import ClosedEyeIcon from '../../../public/assets/images/icons/system/system_closed_eye.svg';
 import Input from '../../common/Input';
+import Selector from '../../common/Selector';
+import { monthList } from '../../../lib/staticData';
 
 const Container = styled.div`
   width: 400px;
@@ -31,6 +33,24 @@ const Container = styled.div`
       top: 16px;
     }
   }
+
+  .sign-up-password-input-wrapper {
+    svg {
+      cursor: pointer;
+    }
+  }
+
+  .sign-up-birthdat-label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+
+  .sign-up-modal-birthday-info {
+    margin-bottom: 16px;
+    color: ${palette.charcoal};
+  }
 `;
 
 const SignUpModal: React.FC = () => {
@@ -38,6 +58,7 @@ const SignUpModal: React.FC = () => {
   const [lastName, setLastName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [password, setPassword] = useState('');
+  const [hidePassword, setHidePassword] = useState(true);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     switch (event.target.className) {
@@ -56,11 +77,23 @@ const SignUpModal: React.FC = () => {
     }
   };
 
+  const toggleHidePassword = () => {
+    setHidePassword(!hidePassword);
+  };
+
   return (
     <Container>
       <CloseXIcon className="modal-close-x-icon" />
       <div className="input-wrapper">
-        <Input placeholder="이메일 주소" type={'email'} icon={<MailIcon />} className="email" onChange={handleChange} />
+        <Input
+          placeholder="이메일 주소"
+          type={'email'}
+          name={'email'}
+          icon={<MailIcon />}
+          className="email"
+          onChange={handleChange}
+          value={email}
+        />
       </div>
       <div className="input-wrapper">
         <Input
@@ -69,6 +102,7 @@ const SignUpModal: React.FC = () => {
           icon={<PersonIcon />}
           className="firstName"
           onChange={handleChange}
+          value={firstName}
         />
       </div>
       <div className="input-wrapper">
@@ -78,17 +112,30 @@ const SignUpModal: React.FC = () => {
           icon={<PersonIcon />}
           className="lastName"
           onChange={handleChange}
+          value={lastName}
         />
       </div>
       <div className="input-wrapper">
         <Input
           placeholder="비밀번호 설정하기"
-          type={'password'}
-          icon={<OpenedEyeIcon />}
+          type={hidePassword ? 'password' : 'text'}
+          icon={
+            hidePassword ? (
+              <OpenedEyeIcon onClick={toggleHidePassword} />
+            ) : (
+              <ClosedEyeIcon onClick={toggleHidePassword} />
+            )
+          }
           className="pw"
           onChange={handleChange}
+          value={password}
         />
       </div>
+      <p className="sign-up-birthdat-label">생일</p>
+      <p className="sign-up-modal-birthday-info">
+        만 18세 이상의 성인만 회원으로 가입할 수 있습니다. 생일은 다른 이용자에게 공개되지 않습니다.
+      </p>
+      <Selector options={monthList} defaultValue="월" disabledOptions={['월']} />
     </Container>
   );
 };
