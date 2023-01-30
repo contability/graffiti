@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import Data from '../../../lib/data';
 import bcrypt from 'bcryptjs';
 import { StoredUserType } from '../../../types/user';
+import jwt from 'jsonwebtoken';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
@@ -35,6 +36,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       birthday,
       profileImage: '../../../public/assets/images/profile/profile_user01.jpg',
     };
+
+    const token = jwt.sign(String(newUser.id), process.env.JWT_SECRET!);
+    res.setHeader(
+      'Set-Cookie',
+      `access_token=${token}; path=/; expires=${new Date(Date.now() + 60 * 60 * 24 * 1000 * 3)} httponly`,
+    ); //3 days만료, http 이외의 접근 불가
 
     Data.user.write([...users, newUser]);
     return res.end();
