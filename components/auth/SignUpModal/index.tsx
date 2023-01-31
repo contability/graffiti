@@ -11,6 +11,8 @@ import Selector from '../../common/Selector';
 import { dayList, monthList, yearList } from '../../../lib/staticData';
 import Button from '../../common/Button';
 import { signupAPI } from '../../../lib/api/auth';
+import { useDispatch } from 'react-redux';
+import { userActions } from '../../../store/user';
 
 const Container = styled.form`
   width: 400px;
@@ -87,6 +89,8 @@ const SignUpModal: React.FC = () => {
   const [birthMonth, setBirthMonth] = useState<string | undefined>();
   const [birthDay, setBirthDay] = useState<string | undefined>();
 
+  const dispatch = useDispatch();
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     switch (event.target.className) {
       case 'email':
@@ -137,7 +141,11 @@ const SignUpModal: React.FC = () => {
         birthday: new Date(`${birthYear}-${birthMonth!.replace('월', '')}-${birthDay}`).toISOString(),
       };
 
-      await signupAPI(signUpBody);
+      const { data } = await signupAPI(signUpBody);
+      console.log(data);
+      console.log('logged : ', { ...data, isLogged: true });
+
+      dispatch(userActions.setLoggedUser(data));
     } catch (error) {
       console.log(error);
     }

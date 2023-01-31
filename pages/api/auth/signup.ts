@@ -44,9 +44,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     ); //3 days만료, http 이외의 접근 불가
 
     Data.user.write([...users, newUser]);
-    return res.end();
-  }
-  res.statusCode = 405;
 
+    const newUserWithoutPassword: Partial<Pick<StoredUserType, 'password'>> = newUser;
+    delete newUserWithoutPassword.password;
+
+    res.statusCode = 200;
+    return res.send(newUser);
+  }
+
+  res.statusCode = 405;
   return res.end();
 };
