@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import SystemHeaderLogo from '../../svg/icons/system/system_header_logo.svg';
+import SystemHeaderLogo from '../../public/assets/images/icons/system/system_header_logo.svg';
 import palette from '../../styles/palette';
 // import ModalPortal from '../modal/ModalPortal';
 import SignUpModal from '../auth/SignUpModal';
