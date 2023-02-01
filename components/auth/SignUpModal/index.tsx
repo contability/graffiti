@@ -88,6 +88,7 @@ const SignUpModal: React.FC = () => {
   const [birthYear, setBirthYear] = useState<string | undefined>();
   const [birthMonth, setBirthMonth] = useState<string | undefined>();
   const [birthDay, setBirthDay] = useState<string | undefined>();
+  const [validateMode, setValidateMode] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -132,6 +133,10 @@ const SignUpModal: React.FC = () => {
   const onSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    setValidateMode(true);
+
+    if (!email || !lastName || !firstName || !password) return;
+
     try {
       const signUpBody = {
         email,
@@ -142,7 +147,6 @@ const SignUpModal: React.FC = () => {
       };
 
       const { data } = await signupAPI(signUpBody);
-      console.log('logged : ', { ...data, isLogged: true });
       dispatch(userActions.setLoggedUser({ ...data, isLogged: true }));
     } catch (error) {
       console.error(error);
@@ -161,6 +165,10 @@ const SignUpModal: React.FC = () => {
           className="email"
           onChange={handleChange}
           value={email}
+          validateMode
+          useValidation
+          isValid={!!email}
+          errorMessage="이메일이 필요합니다."
         />
       </div>
       <div className="input-wrapper">
@@ -171,6 +179,10 @@ const SignUpModal: React.FC = () => {
           className="firstName"
           onChange={handleChange}
           value={firstName}
+          validateMode
+          useValidation
+          isValid={!!firstName}
+          errorMessage="이름을 입력하세요."
         />
       </div>
       <div className="input-wrapper">
@@ -181,6 +193,10 @@ const SignUpModal: React.FC = () => {
           className="lastName"
           onChange={handleChange}
           value={lastName}
+          validateMode
+          useValidation
+          isValid={!!lastName}
+          errorMessage="성을 입력하세요."
         />
       </div>
       <div className="input-wrapper">
@@ -197,6 +213,10 @@ const SignUpModal: React.FC = () => {
           className="pw"
           onChange={handleChange}
           value={password}
+          validateMode
+          useValidation
+          isValid={!!password}
+          errorMessage="비밀번호를 입력하세요."
         />
       </div>
       <p className="sign-up-birthdat-label">생일</p>
