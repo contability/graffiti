@@ -142,12 +142,10 @@ const SignUpModal: React.FC = () => {
       };
 
       const { data } = await signupAPI(signUpBody);
-      console.log(data);
       console.log('logged : ', { ...data, isLogged: true });
-
-      dispatch(userActions.setLoggedUser(data));
+      dispatch(userActions.setLoggedUser({ ...data, isLogged: true }));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
