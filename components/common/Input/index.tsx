@@ -86,7 +86,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const Input: React.FC<IProps> = ({
   icon,
-  validateMode = true,
+  validateMode = false,
   isValid = false,
   useValidation = true,
   errorMessage,

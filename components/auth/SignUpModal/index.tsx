@@ -165,7 +165,7 @@ const SignUpModal: React.FC = () => {
           className="email"
           onChange={handleChange}
           value={email}
-          validateMode
+          validateMode={validateMode}
           useValidation
           isValid={!!email}
           errorMessage="이메일이 필요합니다."
@@ -179,7 +179,7 @@ const SignUpModal: React.FC = () => {
           className="firstName"
           onChange={handleChange}
           value={firstName}
-          validateMode
+          validateMode={validateMode}
           useValidation
           isValid={!!firstName}
           errorMessage="이름을 입력하세요."
@@ -193,7 +193,7 @@ const SignUpModal: React.FC = () => {
           className="lastName"
           onChange={handleChange}
           value={lastName}
-          validateMode
+          validateMode={validateMode}
           useValidation
           isValid={!!lastName}
           errorMessage="성을 입력하세요."
@@ -213,7 +213,7 @@ const SignUpModal: React.FC = () => {
           className="pw"
           onChange={handleChange}
           value={password}
-          validateMode
+          validateMode={validateMode}
           useValidation
           isValid={!!password}
           errorMessage="비밀번호를 입력하세요."
