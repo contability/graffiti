@@ -13,12 +13,14 @@ import Button from '../../common/Button';
 import { signupAPI } from '../../../lib/api/auth';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../../../store/user';
+import useValidateMode from '../../../hooks/useValidateMode';
 
 const Container = styled.form`
   width: 400px;
   padding: 32px;
   background-color: white;
   z-index: 11;
+  border-radius: 10px;
 
   .modal-close-x-icon {
     cursor: pointer;
@@ -79,7 +81,11 @@ const Container = styled.form`
   }
 `;
 
-const SignUpModal: React.FC = () => {
+interface SignUpModalProps {
+  closeModal: () => void;
+}
+
+const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
   const [email, setEmail] = useState('');
   const [lastName, setLastName] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -88,9 +94,9 @@ const SignUpModal: React.FC = () => {
   const [birthYear, setBirthYear] = useState<string | undefined>();
   const [birthMonth, setBirthMonth] = useState<string | undefined>();
   const [birthDay, setBirthDay] = useState<string | undefined>();
-  const [validateMode, setValidateMode] = useState(false);
 
   const dispatch = useDispatch();
+  const { setValidateMode } = useValidateMode();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     switch (event.target.className) {
@@ -133,6 +139,7 @@ const SignUpModal: React.FC = () => {
   const onSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    // dispatch(commonActions.setValidateMode(true));
     setValidateMode(true);
 
     if (!email || !lastName || !firstName || !password) return;
@@ -155,7 +162,7 @@ const SignUpModal: React.FC = () => {
 
   return (
     <Container onSubmit={onSubmitSignUp}>
-      <CloseXIcon className="modal-close-x-icon" />
+      <CloseXIcon className="modal-close-x-icon" onClick={closeModal} />
       <div className="input-wrapper">
         <Input
           placeholder="이메일 주소"
@@ -165,7 +172,6 @@ const SignUpModal: React.FC = () => {
           className="email"
           onChange={handleChange}
           value={email}
-          validateMode={validateMode}
           useValidation
           isValid={!!email}
           errorMessage="이메일이 필요합니다."
@@ -179,7 +185,6 @@ const SignUpModal: React.FC = () => {
           className="firstName"
           onChange={handleChange}
           value={firstName}
-          validateMode={validateMode}
           useValidation
           isValid={!!firstName}
           errorMessage="이름을 입력하세요."
@@ -193,7 +198,6 @@ const SignUpModal: React.FC = () => {
           className="lastName"
           onChange={handleChange}
           value={lastName}
-          validateMode={validateMode}
           useValidation
           isValid={!!lastName}
           errorMessage="성을 입력하세요."
@@ -213,7 +217,6 @@ const SignUpModal: React.FC = () => {
           className="pw"
           onChange={handleChange}
           value={password}
-          validateMode={validateMode}
           useValidation
           isValid={!!password}
           errorMessage="비밀번호를 입력하세요."

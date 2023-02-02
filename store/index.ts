@@ -1,9 +1,11 @@
 import { combineReducers, configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import { HYDRATE, MakeStore, createWrapper } from 'next-redux-wrapper';
+import { HYDRATE, createWrapper } from 'next-redux-wrapper';
 import { TypedUseSelectorHook, useSelector as useReduxSelector } from 'react-redux';
+import common from './common';
 import user from './user';
 
 const rootReducer = combineReducers({
+  common: common.reducer,
   user: user.reducer,
 });
 
