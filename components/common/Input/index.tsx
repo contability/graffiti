@@ -1,5 +1,7 @@
+import { log } from 'console';
 import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
+import useValidateMode from '../../../hooks/useValidateMode';
 import { useSelector } from '../../../store';
 import palette from '../../../styles/palette';
 
@@ -93,7 +95,9 @@ const Input: React.FC<IProps> = ({
   errorMessage,
   ...props
 }) => {
-  const validateMode = useSelector(state => (state.common ? state.common.validateMode : false));
+  // const validateMode = useSelector(state => state.common.validateMode);
+  const validateMode = useValidateMode().validateMode;
+
   return (
     <Container iconExist={!!icon} isValid={isValid} useValidation={validateMode && useValidation}>
       <input {...props} />
