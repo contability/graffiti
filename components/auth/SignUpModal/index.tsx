@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../../styles/palette';
 import CloseXIcon from '../../../public/assets/images/icons/system/system_close_x_icon.svg';
@@ -95,6 +95,8 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
   const [birthMonth, setBirthMonth] = useState<string | undefined>();
   const [birthDay, setBirthDay] = useState<string | undefined>();
 
+  const [passwordFocused, setPasswordFocused] = useState(false);
+
   const dispatch = useDispatch();
   const { setValidateMode } = useValidateMode();
 
@@ -160,6 +162,23 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
     }
   };
 
+  const onFocusPassword = () => {
+    setPasswordFocused(true);
+  };
+
+  const isPasswordHasNameOrEmail = useMemo(() => {
+    !password || !lastName || password.includes(lastName) || password.includes(email.split('@')[0]);
+  }, [password, lastName, email]);
+
+  const PASSWORD_MIN_LENGTH = 8;
+  /** 비밀번호 최소 자릿수를 8로 설정 */
+  const isPasswordOverMinLength = useMemo(() => !!password && password.length >= PASSWORD_MIN_LENGTH, [password]);
+  /** 비밀번호에 특수문자가 포함되어 있는지 || 숫자가 포함되어 있는지 체크*/
+  const isPasswordHasNumberOrSymbol = useMemo(
+    () => !(/[{}[\]/?.,;:|)*~`!^\-_+<>@#$%&\\=('"]/g.test(password) || /[0-9]/g.test(password)),
+    [password],
+  );
+
   return (
     <Container onSubmit={onSubmitSignUp}>
       <CloseXIcon className="modal-close-x-icon" onClick={closeModal} />
@@ -220,6 +239,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
           useValidation
           isValid={!!password}
           errorMessage="비밀번호를 입력하세요."
+          onFocus={onFocusPassword}
         />
       </div>
       <p className="sign-up-birthdat-label">생일</p>

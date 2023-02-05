@@ -95,7 +95,6 @@ const Input: React.FC<IProps> = ({
   errorMessage,
   ...props
 }) => {
-  // const validateMode = useSelector(state => state.common.validateMode);
   const validateMode = useValidateMode().validateMode;
 
   return (
