@@ -20,8 +20,10 @@ interface IProps {
 const PasswordWarning: React.FC<IProps> = ({ isValid, text }) => {
   return (
     <Container isValid={isValid}>
-      {/* {isValid ? <XIcon/> } */}
       <XIcon />
+      {text}
     </Container>
   );
 };
+
+export default PasswordWarning;

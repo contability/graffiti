@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../../styles/palette';
 import CloseXIcon from '../../../public/assets/images/icons/system/system_close_x_icon.svg';
@@ -14,6 +14,7 @@ import { signupAPI } from '../../../lib/api/auth';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../../../store/user';
 import useValidateMode from '../../../hooks/useValidateMode';
+import PasswordWarning from '../PassWordWarning';
 
 const Container = styled.form`
   width: 400px;
@@ -166,18 +167,25 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
     setPasswordFocused(true);
   };
 
-  const isPasswordHasNameOrEmail = useMemo(() => {
-    !password || !lastName || password.includes(lastName) || password.includes(email.split('@')[0]);
-  }, [password, lastName, email]);
+  /** 비밀번호에 이름 혹은 이메일 주소가 들어가는지 체크 */
+  const isPasswordHasNameOrEmail = useMemo(
+    () => !password || !lastName || password.includes(lastName) || password.includes(email.split('@')[0]),
+    [password, lastName, email],
+  );
 
-  const PASSWORD_MIN_LENGTH = 8;
   /** 비밀번호 최소 자릿수를 8로 설정 */
+  const PASSWORD_MIN_LENGTH = 8;
   const isPasswordOverMinLength = useMemo(() => !!password && password.length >= PASSWORD_MIN_LENGTH, [password]);
+
   /** 비밀번호에 특수문자가 포함되어 있는지 || 숫자가 포함되어 있는지 체크*/
   const isPasswordHasNumberOrSymbol = useMemo(
     () => !(/[{}[\]/?.,;:|)*~`!^\-_+<>@#$%&\\=('"]/g.test(password) || /[0-9]/g.test(password)),
     [password],
   );
+
+  useEffect(() => {
+    console.log(isPasswordOverMinLength);
+  }, [password]);
 
   return (
     <Container onSubmit={onSubmitSignUp}>
@@ -222,7 +230,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
           errorMessage="성을 입력하세요."
         />
       </div>
-      <div className="input-wrapper">
+      <div className="input-wrapper sign-up-password-input-wrapper">
         <Input
           placeholder="비밀번호 설정하기"
           type={hidePassword ? 'password' : 'text'}
@@ -237,11 +245,21 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
           onChange={handleChange}
           value={password}
           useValidation
-          isValid={!!password}
+          isValid={!isPasswordHasNameOrEmail && isPasswordOverMinLength && !isPasswordHasNumberOrSymbol}
           errorMessage="비밀번호를 입력하세요."
           onFocus={onFocusPassword}
         />
       </div>
+      {passwordFocused && (
+        <>
+          <PasswordWarning
+            isValid={isPasswordHasNameOrEmail}
+            text="비밀번호에 본인 이름이나 이메일 주소를 포함할 수 없습니다."
+          />
+          <PasswordWarning isValid={!isPasswordOverMinLength} text="최소 8자" />
+          <PasswordWarning isValid={isPasswordHasNumberOrSymbol} text="숫자나 기호를 포함하세요." />
+        </>
+      )}
       <p className="sign-up-birthdat-label">생일</p>
       <p className="sign-up-modal-birthday-info">
         만 18세 이상의 성인만 회원으로 가입할 수 있습니다. 생일은 다른 이용자에게 공개되지 않습니다.
