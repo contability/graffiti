@@ -139,27 +139,40 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
     setHidePassword(!hidePassword);
   };
 
+  /** 회원 가입 폼 입력 값 확인 */
+  const validateSignUpForm = () => {
+    // 인풋 값이 없을 때
+    if (!email || !lastName || !firstName || !password) return false;
+    // 비밀번호가 올바르지 않을 때
+    if (isPasswordHasNameOrEmail || !isPasswordOverMinLength || isPasswordHasNumberOrSymbol) return false;
+    // 생년월일 셀렉터 값이 없을 때
+    if (!birthDay || !birthMonth || !birthYear) return false;
+    return true;
+  };
+
   const onSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // dispatch(commonActions.setValidateMode(true));
     setValidateMode(true);
 
-    if (!email || !lastName || !firstName || !password) return;
+    if (validateSignUpForm()) {
+      try {
+        const signUpBody = {
+          email,
+          firstName,
+          lastName,
+          password,
+          birthday: new Date(`${birthYear}-${birthMonth!.replace('월', '')}-${birthDay}`).toISOString(),
+        };
 
-    try {
-      const signUpBody = {
-        email,
-        firstName,
-        lastName,
-        password,
-        birthday: new Date(`${birthYear}-${birthMonth!.replace('월', '')}-${birthDay}`).toISOString(),
-      };
+        const { data } = await signupAPI(signUpBody);
+        dispatch(userActions.setLoggedUser({ ...data, isLogged: true }));
 
-      const { data } = await signupAPI(signUpBody);
-      dispatch(userActions.setLoggedUser({ ...data, isLogged: true }));
-    } catch (error) {
-      console.error(error);
+        console.log('data is : ', data);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -273,6 +286,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
             className="month"
             value={birthMonth}
             onChange={handleSelectChange}
+            isValid={!!birthMonth}
           />
         </div>
         <div className="sign-up-modal-birthday-day-selector">
@@ -283,6 +297,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
             className="day"
             value={birthDay}
             onChange={handleSelectChange}
+            isValid={!!birthDay}
           />
         </div>
         <div className="sign-up-modal-birthday-year-selector">
@@ -293,6 +308,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
             className="year"
             value={birthYear}
             onChange={handleSelectChange}
+            isValid={!!birthYear}
           />
         </div>
       </div>
