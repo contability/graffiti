@@ -80,6 +80,12 @@ const Container = styled.form`
     padding-bottom: 16px;
     border-bottom: 1px solid ${palette.gray_eb};
   }
+
+  .sign-up-modal-set-login {
+    color: ${palette.dark_cyan};
+    margin-left: 8px;
+    cursor: pointer;
+  }
 `;
 
 interface SignUpModalProps {
@@ -168,6 +174,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
 
         const { data } = await signupAPI(signUpBody);
         dispatch(userActions.setLoggedUser({ ...data, isLogged: true }));
+        closeModal();
 
         console.log('data is : ', data);
       } catch (error) {
@@ -197,8 +204,10 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
   );
 
   useEffect(() => {
-    console.log(isPasswordOverMinLength);
-  }, [password]);
+    return () => {
+      setValidateMode(false);
+    };
+  }, []);
 
   return (
     <Container onSubmit={onSubmitSignUp}>
@@ -315,6 +324,12 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
       <div className="sign-up-modal-submit-button-wrapper">
         <Button type="submit">가입 하기</Button>
       </div>
+      <p>
+        이미 계정이 있나요?
+        <span className="sign-up-modal-set-login" role={'presentation'} onClick={() => {}}>
+          로그인
+        </span>
+      </p>
     </Container>
   );
 };
