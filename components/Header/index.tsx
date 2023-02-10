@@ -6,6 +6,8 @@ import palette from '../../styles/palette';
 // import ModalPortal from '../modal/ModalPortal';
 import SignUpModal from '../auth/SignUpModal';
 import useModal from '../../hooks/useModal';
+import { useSelector } from '../../store';
+import HamburgerIcon from '../../public/assets/images/icons/system/system_hamburger.svg';
 
 const Container = styled.div`
   position: sticky;
@@ -58,6 +60,30 @@ const Container = styled.div`
     }
   }
 
+  .header-user-profile {
+    display: flex;
+    align-items: center;
+    height: 42px;
+    padding: 0 6px 0 16px;
+    border: 0;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.18);
+    border-radius: 21px;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    .header-user-profile-image {
+      margin-left: 8px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+  }
+
   .modal-wrapper {
     width: 100%;
     height: 100%;
@@ -88,18 +114,26 @@ const Container = styled.div`
 const Header: React.FC = () => {
   // const [modalOpened, setModalOpened] = useState(false);
   const { openModal, closeModal, ModalPortal } = useModal();
+  const user = useSelector(state => state.user);
 
   return (
     <Container>
       <Link className="header-logo-wrapper" href="/">
         <SystemHeaderLogo className="header-logo" />
       </Link>
-      <div className="header-auth-buttons">
-        <button className="header-sign-up-button" onClick={openModal}>
-          회원가입
+      {!user.isLogged ? (
+        <div className="header-auth-buttons">
+          <button className="header-sign-up-button" onClick={openModal}>
+            회원가입
+          </button>
+          <button className="header-login-button">로그인</button>
+        </div>
+      ) : (
+        <button className="header-user-profile" type="button">
+          <HamburgerIcon />
+          <img src={user.profileImage} alt="" className="header-user-profile-image" />
         </button>
-        <button className="header-login-button">로그인</button>
-      </div>
+      )}
       {/* {modalOpened && (
         // modal
         // <div className="modal-wrapper">
