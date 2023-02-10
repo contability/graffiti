@@ -8,6 +8,7 @@ import SignUpModal from '../auth/SignUpModal';
 import useModal from '../../hooks/useModal';
 import { useSelector } from '../../store';
 import HamburgerIcon from '../../public/assets/images/icons/system/system_hamburger.svg';
+import AuthModal from '../auth/AuthModal';
 
 const Container = styled.div`
   position: sticky;
@@ -149,7 +150,7 @@ const Header: React.FC = () => {
       {
         // useModal
         <ModalPortal>
-          <SignUpModal closeModal={closeModal} />
+          <AuthModal closeModal={closeModal} />
         </ModalPortal>
       }
     </Container>

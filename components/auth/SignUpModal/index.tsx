@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { userActions } from '../../../store/user';
 import useValidateMode from '../../../hooks/useValidateMode';
 import PasswordWarning from '../PassWordWarning';
+import { authActions } from '../../../store/auth';
 
 const Container = styled.form`
   width: 400px;
@@ -203,6 +204,10 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
     [password],
   );
 
+  const changeToLoginModal = () => {
+    dispatch(authActions.setAuthMode('login'));
+  };
+
   useEffect(() => {
     return () => {
       setValidateMode(false);
@@ -258,9 +263,9 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
           type={hidePassword ? 'password' : 'text'}
           icon={
             hidePassword ? (
-              <OpenedEyeIcon onClick={toggleHidePassword} />
-            ) : (
               <ClosedEyeIcon onClick={toggleHidePassword} />
+            ) : (
+              <OpenedEyeIcon onClick={toggleHidePassword} />
             )
           }
           className="pw"
@@ -326,7 +331,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
       </div>
       <p>
         이미 계정이 있나요?
-        <span className="sign-up-modal-set-login" role={'presentation'} onClick={() => {}}>
+        <span className="sign-up-modal-set-login" role={'presentation'} onClick={changeToLoginModal}>
           로그인
         </span>
       </p>

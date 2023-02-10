@@ -12,11 +12,13 @@ import common from './common';
 import user from './user';
 import { TypedUseSelectorHook, useSelector as useReduxSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import auth, { AuthMode } from './auth';
 
 /** 리듀서들 state 타입 정의 */
 export interface ReducerStates {
   common: CommonState;
   user: UserState;
+  auth: AuthMode;
 }
 
 /** 루트 리듀서 생성.
@@ -35,6 +37,7 @@ const rootReducer = (state: ReducerStates, action: AnyAction): CombinedState<Red
       const combinedReducer = combineReducers({
         common: common.reducer,
         user: user.reducer,
+        auth: auth.reducer,
       });
       return combinedReducer(state, action);
     }
