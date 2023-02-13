@@ -9,6 +9,7 @@ import useModal from '../../hooks/useModal';
 import { useSelector } from '../../store';
 import HamburgerIcon from '../../public/assets/images/icons/system/system_hamburger.svg';
 import AuthModal from '../auth/AuthModal';
+import AVD from '../../public/assets/images/profile/profile_user01.svg';
 
 const Container = styled.div`
   position: sticky;
