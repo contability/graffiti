@@ -1,5 +1,6 @@
-import { AppProps } from 'next/app';
+import App, { AppContext, AppProps } from 'next/app';
 import Header from '../components/Header';
+import { cookieStringToObject } from '../lib/utlis';
 import { wrapper } from '../store';
 import GlobalStyle from '../styles/GlobalStyle';
 
@@ -12,6 +13,14 @@ const app = ({ Component, pageProps }: AppProps) => {
       <div id="root-modal" />
     </>
   );
+};
+
+app.getInitialProps = async (context: AppContext) => {
+  const appInitialProps = await App.getInitialProps(context);
+  const cookieObject = cookieStringToObject(context.ctx.req?.headers.cookie);
+  console.log('cookie object is : ', cookieObject);
+
+  return { ...appInitialProps };
 };
 
 // store 제공
