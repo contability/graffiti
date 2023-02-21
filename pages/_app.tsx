@@ -1,5 +1,7 @@
 import App, { AppContext, AppProps } from 'next/app';
 import Header from '../components/Header';
+import axios from '../lib/api';
+import { meAPI } from '../lib/api/auth';
 import { cookieStringToObject } from '../lib/utlis';
 import { wrapper } from '../store';
 import GlobalStyle from '../styles/GlobalStyle';
@@ -19,6 +21,19 @@ app.getInitialProps = async (context: AppContext) => {
   const appInitialProps = await App.getInitialProps(context);
   const cookieObject = cookieStringToObject(context.ctx.req?.headers.cookie);
   console.log('cookie object is : ', cookieObject);
+
+  const { store } = context.ctx;
+  const { isLogged } = store.getState().user;
+
+  try {
+    if (isLogged && cookieObject.access_token) {
+      // access_token 값을 api 요청 헤더에 함께 보내기 위해 axios 헤더 쿠키에 access_token 값 저장
+      axios.defaults.headers.cookie = cookieObject.access_token;
+      const { data } = await meAPI();
+    }
+  } catch (error) {
+    console.error(error);
+  }
 
   return { ...appInitialProps };
 };
