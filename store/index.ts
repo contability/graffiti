@@ -7,18 +7,18 @@ import { configureStore, getDefaultMiddleware, Reducer, ThunkAction } from '@red
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import { Action, AnyAction, CombinedState, combineReducers } from 'redux';
 import logger from 'redux-logger';
-import { CommonState, UserState } from '../types/reduxState';
+import { AuthState, CommonState, UserState } from '../types/reduxState';
 import common from './common';
 import user from './user';
 import { TypedUseSelectorHook, useSelector as useReduxSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import auth, { AuthMode } from './auth';
+import auth from './auth';
 
 /** 리듀서들 state 타입 정의 */
 export interface ReducerStates {
   common: CommonState;
   user: UserState;
-  auth: AuthMode;
+  auth: AuthState;
 }
 
 /** 루트 리듀서 생성.

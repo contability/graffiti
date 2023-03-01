@@ -4,6 +4,7 @@ import axios from '../lib/api';
 import { meAPI } from '../lib/api/auth';
 import { cookieStringToObject } from '../lib/utlis';
 import { wrapper } from '../store';
+import { userActions } from '../store/user';
 import GlobalStyle from '../styles/GlobalStyle';
 
 const app = ({ Component, pageProps }: AppProps) => {
@@ -30,6 +31,9 @@ app.getInitialProps = async (context: AppContext) => {
       // access_token 값을 api 요청 헤더에 함께 보내기 위해 axios 헤더 쿠키에 access_token 값 저장
       axios.defaults.headers.cookie = cookieObject.access_token;
       const { data } = await meAPI();
+
+      console.log('data log at app componenets : ', data);
+      store.dispatch(userActions.setLoggedUser({ ...data, isLogged }));
     }
   } catch (error) {
     console.error(error);
