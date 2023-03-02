@@ -18,13 +18,20 @@ const app = ({ Component, pageProps }: AppProps) => {
   );
 };
 
+// store 제공
+// wrapper로 App을 컴포넌트를 감싸준다.
+// 브라우저의 redux 상태 동기화는 물론 Provider store 까지 알아서 주입해줌.
+export default wrapper.withRedux(app);
+
 app.getInitialProps = async (context: AppContext) => {
   const appInitialProps = await App.getInitialProps(context);
+  console.log(Object.keys(context)); // ctx, Component, ...
+
   const cookieObject = cookieStringToObject(context.ctx.req?.headers.cookie);
   console.log('cookie object is : ', cookieObject);
 
-  const { store } = context.ctx;
-  const { isLogged } = store.getState().user;
+  const { store } = context.ctx; // ctx는 프론트 서버가 실행 하면서 next가 context를 전달해 줌
+  const { isLogged } = store.getState().user; // redux의 store에서 state를 getState를 통해 꺼내온다
 
   try {
     if (isLogged && cookieObject.access_token) {
@@ -41,8 +48,3 @@ app.getInitialProps = async (context: AppContext) => {
 
   return { ...appInitialProps };
 };
-
-// store 제공
-// wrapper로 App을 컴포넌트를 감싸준다.
-// 브라우저의 redux 상태 동기화는 물론 Provider store 까지 알아서 주입해줌.
-export default wrapper.withRedux(app);
