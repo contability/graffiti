@@ -12,6 +12,9 @@ import AuthModal from '../auth/AuthModal';
 import AVD from '../../public/assets/images/profile/profile_user01.svg';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../store/auth';
+import { logoutAPI } from '../../lib/api/auth';
 
 const Container = styled.div`
   position: sticky;
@@ -156,6 +159,16 @@ const Header: React.FC = () => {
   const user = useSelector(state => state.user);
 
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const logout = async () => {
+    try {
+      alert('k');
+      await logoutAPI();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Container>
@@ -167,7 +180,15 @@ const Header: React.FC = () => {
           <button className="header-sign-up-button" onClick={openModal}>
             회원가입
           </button>
-          <button className="header-login-button">로그인</button>
+          <button
+            className="header-login-button"
+            onClick={() => {
+              dispatch(authActions.setAuthMode('login'));
+              openModal();
+            }}
+          >
+            로그인
+          </button>
         </div>
       ) : (
         <OutsideClickHandler
@@ -220,7 +241,7 @@ const Header: React.FC = () => {
             <li>숙소 등록하기</li>
           </Link>
           <div className="header-usermenu-divider" />
-          <li role="presentation" onClick={() => {}}>
+          <li role="presentation" onClick={logout}>
             로그아웃
           </li>
         </ul>
