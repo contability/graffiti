@@ -16,6 +16,8 @@ import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/auth';
 import { logoutAPI } from '../../lib/api/auth';
 import { userActions } from '../../store/user';
+import HeaderAuths from '../HeaderAuths';
+import HeaderUserProfile from '../HeaderUserProfile';
 
 const Container = styled.div`
   position: sticky;
@@ -177,35 +179,7 @@ const Header: React.FC = () => {
       <Link className="header-logo-wrapper" href="/">
         <SystemHeaderLogo className="header-logo" />
       </Link>
-      {!user.isLogged ? (
-        <div className="header-auth-buttons">
-          <button className="header-sign-up-button" onClick={openModal}>
-            회원가입
-          </button>
-          <button
-            className="header-login-button"
-            onClick={() => {
-              dispatch(authActions.setAuthMode('login'));
-              openModal();
-            }}
-          >
-            로그인
-          </button>
-        </div>
-      ) : (
-        <OutsideClickHandler
-          onOutsideClick={() => {
-            if (isUsermenuOpened) setIsUsermenuOpened(false);
-          }}
-        >
-          <button className="header-user-profile" type="button" onClick={() => setIsUsermenuOpened(!isUsermenuOpened)}>
-            <HamburgerIcon />
-            {/* <img src={user.profileImage} alt="" className="header-user-profile-image" /> */}
-            <AVD className="header-user-profile-image" />
-          </button>
-          {/* {isUsermenuOpened && <div>유저 메뉴</div>} */}
-        </OutsideClickHandler>
-      )}
+      {!user.isLogged ? <HeaderAuths /> : <HeaderUserProfile />}
       {/* {modalOpened && (
         // modal
         // <div className="modal-wrapper">
