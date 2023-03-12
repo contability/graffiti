@@ -23,6 +23,12 @@ const user = createSlice({
       state = { ...action.payload };
       return state;
     },
+
+    // 유저 초기화
+    initUser(state) {
+      state = initialState;
+      return state;
+    },
   },
 });
 

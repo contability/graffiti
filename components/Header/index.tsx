@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/auth';
 import { logoutAPI } from '../../lib/api/auth';
+import { userActions } from '../../store/user';
 
 const Container = styled.div`
   position: sticky;
@@ -165,6 +166,7 @@ const Header: React.FC = () => {
     try {
       alert('k');
       await logoutAPI();
+      dispatch(userActions.initUser());
     } catch (error) {
       console.error(error);
     }
