@@ -108,4 +108,5 @@ const Input: React.FC<IProps> = ({
   );
 };
 
-export default Input;
+// props의 값이 같다면 리렌더링 방지. 최적화
+export default React.memo(Input);

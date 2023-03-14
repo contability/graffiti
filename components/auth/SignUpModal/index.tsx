@@ -102,8 +102,10 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
   const [birthYear, setBirthYear] = useState<string | undefined>();
   const [birthMonth, setBirthMonth] = useState<string | undefined>();
   const [birthDay, setBirthDay] = useState<string | undefined>();
-
   const [passwordFocused, setPasswordFocused] = useState(false);
+  const disabledMonths = ['월'];
+  const disabledDays = ['일'];
+  const disabledYears = ['년'];
 
   const dispatch = useDispatch();
   const { setValidateMode } = useValidateMode();
@@ -296,7 +298,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
           <Selector
             options={monthList}
             defaultValue="월"
-            disabledOptions={['월']}
+            disabledOptions={disabledMonths}
             className="month"
             value={birthMonth}
             onChange={handleSelectChange}
@@ -307,7 +309,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
           <Selector
             options={dayList}
             defaultValue="일"
-            disabledOptions={['일']}
+            disabledOptions={disabledDays}
             className="day"
             value={birthDay}
             onChange={handleSelectChange}
@@ -318,7 +320,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
           <Selector
             options={yearList}
             defaultValue="년"
-            disabledOptions={['년']}
+            disabledOptions={disabledYears}
             className="year"
             value={birthYear}
             onChange={handleSelectChange}

@@ -159,7 +159,8 @@ const Header: React.FC = () => {
   // const [modalOpened, setModalOpened] = useState(false);
   const [isUsermenuOpened, setIsUsermenuOpened] = useState(false);
   const { openModal, closeModal, ModalPortal } = useModal();
-  const user = useSelector(state => state.user);
+  // const user = useSelector(state => state.user);
+  const isLogged = useSelector(state => state.user.isLogged);
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -179,7 +180,7 @@ const Header: React.FC = () => {
       <Link className="header-logo-wrapper" href="/">
         <SystemHeaderLogo className="header-logo" />
       </Link>
-      {!user.isLogged ? <HeaderAuths /> : <HeaderUserProfile />}
+      {!isLogged ? <HeaderAuths /> : <HeaderUserProfile />}
       {/* {modalOpened && (
         // modal
         // <div className="modal-wrapper">

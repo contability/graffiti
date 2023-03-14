@@ -65,4 +65,5 @@ const Selector: React.FC<IProps> = ({ options = [], disabledOptions = [], isVali
   );
 };
 
-export default Selector;
+// props의 값이 같다면 리렌더링 방지. 최적화
+export default React.memo(Selector);
