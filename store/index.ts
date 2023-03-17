@@ -7,18 +7,20 @@ import { configureStore, getDefaultMiddleware, Reducer, ThunkAction } from '@red
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import { Action, AnyAction, CombinedState, combineReducers } from 'redux';
 import logger from 'redux-logger';
-import { AuthState, CommonState, UserState } from '../types/reduxState';
+import { AuthState, CommonState, RegisterRoomState, UserState } from '../types/reduxState';
 import common from './common';
 import user from './user';
 import { TypedUseSelectorHook, useSelector as useReduxSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import auth from './auth';
+import registerRoom from './registerRoom';
 
 /** 리듀서들 state 타입 정의 */
 export interface ReducerStates {
   common: CommonState;
   user: UserState;
   auth: AuthState;
+  registerRoom: RegisterRoomState;
 }
 
 /** 루트 리듀서 생성.
@@ -38,6 +40,7 @@ const rootReducer = (state: ReducerStates, action: AnyAction): CombinedState<Red
         common: common.reducer,
         user: user.reducer,
         auth: auth.reducer,
+        registerRoom: registerRoom.reducer,
       });
       return combinedReducer(state, action);
     }
