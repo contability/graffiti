@@ -13,6 +13,9 @@ export const monthList: string[] = [
   '12월',
 ];
 
+/** 큰 범위 건물 유형의 숙소*/
+export const largeBuildingTypeList = ['아파트', '주택', '별채', '독특한 숙소', 'B&B', '부티크호텔'];
+
 // 맵핑 함수의 첫번째 인자 언더스코어는 특별한 인자가 아니라, 불필요한 인자의 공간을 채우기 위한 용도.
 
 // dayList랑 똑같은 배열 return 받으려면
