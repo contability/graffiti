@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { largeBuildingTypeList } from '../../../lib/staticData';
@@ -29,11 +30,55 @@ const disabledLargeBuildingTypeOptions = ['하나를 선택해주세요.'];
 
 const RegisterRoomBuilding: React.FC = () => {
   const largeBuildingType = useSelector(state => state.registerRoom.largeBuildingType);
+  const buildingType = useSelector(state => state.registerRoom.buildingType);
+
   const dispatch = useDispatch();
 
   const onChangeLargeBuildingType = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(registerRoomActions.setLargeBuildingType(event.target.value));
   };
+
+  const onChangeBuildingType = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(registerRoomActions.setBuildingType(event.target.value));
+  };
+
+  const detailBuildingOptions = useMemo(() => {
+    switch (largeBuildingType) {
+      case '아파트': {
+        // 불필요한 정적 데이터를 불러오지 않기 위해 함수 내부에서 require 사용
+        const { apartmentBuildingTypeList } = require('../../../lib/staticData');
+        dispatch(registerRoomActions.setBuildingType(apartmentBuildingTypeList[0]));
+        return apartmentBuildingTypeList;
+      }
+      case '주택': {
+        const { houseBuildingTypeList } = require('../../../lib/staticData');
+        dispatch(registerRoomActions.setBuildingType(houseBuildingTypeList[0]));
+        return houseBuildingTypeList;
+      }
+      case '별채': {
+        const { secondaryUnitBuildingTypeList } = require('../../../lib/staticData');
+        dispatch(registerRoomActions.setBuildingType(secondaryUnitBuildingTypeList[0]));
+        return secondaryUnitBuildingTypeList;
+      }
+      case '독특한 숙소': {
+        const { uniqueSpaceBuildingTypeList } = require('../../../lib/staticData');
+        dispatch(registerRoomActions.setBuildingType(uniqueSpaceBuildingTypeList[0]));
+        return uniqueSpaceBuildingTypeList;
+      }
+      case 'B&B': {
+        const { bnbBuildingTypeList } = require('../../../lib/staticData');
+        dispatch(registerRoomActions.setBuildingType(bnbBuildingTypeList[0]));
+        return bnbBuildingTypeList;
+      }
+      case '부티크호텔': {
+        const { boutiquesHotelBuildingTypeList } = require('../../../lib/staticData');
+        dispatch(registerRoomActions.setBuildingType(boutiquesHotelBuildingTypeList[0]));
+        return boutiquesHotelBuildingTypeList;
+      }
+      default:
+        return [];
+    }
+  }, [largeBuildingType]);
 
   return (
     <Container>
@@ -48,6 +93,16 @@ const RegisterRoomBuilding: React.FC = () => {
           label="우선 범위를 좁혀볼까요?"
           options={largeBuildingTypeList}
           onChange={onChangeLargeBuildingType}
+        />
+      </div>
+      <div className="register-room-building-selector-wrapper">
+        <Selector
+          type="register"
+          value={buildingType || undefined}
+          disabled={!largeBuildingType}
+          label="건물 유형을 선택하세요."
+          options={detailBuildingOptions}
+          onChange={onChangeBuildingType}
         />
       </div>
     </Container>

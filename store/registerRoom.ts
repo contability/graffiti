@@ -15,6 +15,12 @@ const registerRoom = createSlice({
     setLargeBuildingType(state, action: PayloadAction<string>) {
       state.largeBuildingType = action.payload;
     },
+
+    setBuildingType(state, action: PayloadAction<string>) {
+      if (action.payload === '') state.buildingType = null;
+      state.buildingType = action.payload;
+      return state;
+    },
   },
 });
 
