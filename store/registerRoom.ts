@@ -21,6 +21,11 @@ const registerRoom = createSlice({
       state.buildingType = action.payload;
       return state;
     },
+
+    setRoomType(state, action: PayloadAction<'entire' | 'private' | 'public'>) {
+      state.roomType = action.payload;
+      return state;
+    },
   },
 });
 
