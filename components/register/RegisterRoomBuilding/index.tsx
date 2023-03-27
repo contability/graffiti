@@ -30,6 +30,10 @@ const Container = styled.div`
     max-width: 485px;
     margin-bottom: 50px;
   }
+
+  .register-room-is-setup-for-guest-radio {
+    margin-bottom: 50px;
+  }
 `;
 
 /** 숙소 유형 radio options */
@@ -52,12 +56,24 @@ const roomTypeRadioOptions = [
   },
 ];
 
+const isSetUpForGuestOptions = [
+  {
+    label: '예, 게스트용으로 따로 마련된 숙소입니다.',
+    value: true,
+  },
+  {
+    label: '아니요, 제 개인 물건이 숙소에 있습니다.',
+    value: false,
+  },
+];
+
 const disabledLargeBuildingTypeOptions = ['하나를 선택해주세요.'];
 
 const RegisterRoomBuilding: React.FC = () => {
   const largeBuildingType = useSelector(state => state.registerRoom.largeBuildingType);
   const buildingType = useSelector(state => state.registerRoom.buildingType);
   const roomType = useSelector(state => state.registerRoom.roomType);
+  const isSetUpForGuest = useSelector(state => state.registerRoom.isSetUpForGuest);
 
   const dispatch = useDispatch();
 
@@ -72,6 +88,10 @@ const RegisterRoomBuilding: React.FC = () => {
   const onChangeRoomType = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selected = event.target.value;
     dispatch(registerRoomActions.setRoomType(selected as 'entire' | 'private' | 'public'));
+  };
+
+  const onChangeIsSetUpForGuest = (value: boolean) => {
+    dispatch(registerRoomActions.setIsSetUpForGuest(value));
   };
 
   const detailBuildingOptions = useMemo(() => {
@@ -138,15 +158,25 @@ const RegisterRoomBuilding: React.FC = () => {
         />
       </div>
       {buildingType && (
-        <div className="register-room-room-type-radio">
-          <RadioGroup
-            label="게스트가 묵게 될 숙소 유형을 골라주세요."
-            value={roomType}
-            options={roomTypeRadioOptions}
-            onChange={onChangeRoomType}
-            isValid={true}
-          />
-        </div>
+        <>
+          <div className="register-room-room-type-radio">
+            <RadioGroup
+              label="게스트가 묵게 될 숙소 유형을 골라주세요."
+              value={roomType}
+              options={roomTypeRadioOptions}
+              onChange={onChangeRoomType}
+              isValid={true}
+            />
+          </div>
+          <div className="register-room-is-setup-for-guest-radio">
+            <RadioGroup
+              label="게스트만 사용하도록 만들어진 숙소인가요?"
+              value={isSetUpForGuest}
+              onChange={onChangeIsSetUpForGuest}
+              options={isSetUpForGuestOptions}
+            />
+          </div>
+        </>
       )}
     </Container>
   );
