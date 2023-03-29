@@ -95,6 +95,11 @@ const RegisterRoomBuilding: React.FC = () => {
     dispatch(registerRoomActions.setIsSetUpForGuest(value));
   };
 
+  const isValid = useMemo(() => {
+    if (!largeBuildingType || !buildingType || !roomType || !isSetUpForGuest === null) return false;
+    return true;
+  }, [largeBuildingType, buildingType, roomType, isSetUpForGuest]);
+
   const detailBuildingOptions = useMemo(() => {
     switch (largeBuildingType) {
       case '아파트': {
@@ -146,6 +151,7 @@ const RegisterRoomBuilding: React.FC = () => {
           label="우선 범위를 좁혀볼까요?"
           options={largeBuildingTypeList}
           onChange={onChangeLargeBuildingType}
+          isValid={!!largeBuildingType}
         />
       </div>
       <div className="register-room-building-selector-wrapper">
@@ -156,6 +162,7 @@ const RegisterRoomBuilding: React.FC = () => {
           label="건물 유형을 선택하세요."
           options={detailBuildingOptions}
           onChange={onChangeBuildingType}
+          isValid={!!buildingType}
         />
       </div>
       {buildingType && (
@@ -166,7 +173,7 @@ const RegisterRoomBuilding: React.FC = () => {
               value={roomType}
               options={roomTypeRadioOptions}
               onChange={onChangeRoomType}
-              isValid={true}
+              isValid={!!roomType}
             />
           </div>
           <div className="register-room-is-setup-for-guest-radio">
@@ -175,11 +182,12 @@ const RegisterRoomBuilding: React.FC = () => {
               value={isSetUpForGuest}
               onChange={onChangeIsSetUpForGuest}
               options={isSetUpForGuestOptions}
+              isValid={isSetUpForGuest !== null}
             />
           </div>
         </>
       )}
-      <RegisterRoomFooter isValid={false} prevHref="/" nextHref="/room/register/bedrooms" />
+      <RegisterRoomFooter isValid={isValid} prevHref="/" nextHref="/room/register/bedrooms" />
     </Container>
   );
 };
