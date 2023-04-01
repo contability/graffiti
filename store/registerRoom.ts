@@ -6,6 +6,11 @@ const initialState: RegisterRoomState = {
   buildingType: null,
   roomType: null,
   isSetUpForGuest: null,
+  maximumGuestCount: 1,
+  bedroomCount: 0,
+  bedCount: 1,
+  bedList: [],
+  publicBedList: [],
 };
 
 const registerRoom = createSlice({

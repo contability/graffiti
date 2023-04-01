@@ -1,3 +1,4 @@
+import { BedType } from './room';
 import { UserType } from './user';
 
 export type UserState = UserType & {
@@ -13,12 +14,22 @@ export type AuthState = {
 };
 
 export type RegisterRoomState = {
-  // 건물 유형 큰 범주
+  /**  건물 유형 큰 범주*/
   largeBuildingType: string | null;
-  // 건물 유형
+  /**  건물 유형*/
   buildingType: string | null;
-  // 숙소 유형
+  /**  숙소 유형*/
   roomType: string | null;
-  // 게스트만을 위해 만들어진 숙소인가
+  /**  게스트만을 위해 만들어진 숙소인가*/
   isSetUpForGuest: boolean | null;
+  /**  최대 숙박 인원*/
+  maximumGuestCount: number;
+  /** 침실 개수*/
+  bedroomCount: number;
+  /** 침대 개수 */
+  bedCount: number;
+  /** 침대 유형 */
+  bedList: { id: number; beds: { type: BedType; count: number }[] }[];
+  /** 공용공간 침대 유형*/
+  publicBedList: { type: BedType; count: number }[];
 };
