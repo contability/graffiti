@@ -118,3 +118,6 @@ export const boutiquesHotelBuildingTypeList = [
 export const dayList = Array.from(Array(31), (_, i) => String(i + 1));
 
 export const yearList = Array.from(Array(124), (_, i) => String(2023 - i));
+
+/** 침실 개수 */
+export const bedroomCountList = Array.from(Array(16), (_, i) => `침실 ${i}개`);
