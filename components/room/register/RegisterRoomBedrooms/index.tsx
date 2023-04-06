@@ -8,6 +8,7 @@ import Selector from '../../../common/Selector';
 import { bedroomCountList } from '../../../../lib/staticData';
 import { getNumber } from '../../../../lib/utlis';
 import Button from '../../../common/Button';
+import RegisterRoomBedTypes from '../RegisterRoomBedTypes';
 
 const Container = styled.div`
   padding: 62px 30px 100px;
@@ -128,17 +129,7 @@ const RegisterRoomBedrooms: React.FC = () => {
       </p>
       <div className="register-room-bed-type-list-wrapper">
         {bedList.map(bedroom => (
-          <div className="register-room-bedroom">
-            <div className="register-room-bed-type-top">
-              <div className="register-room-bed-type-bedroom-texts">
-                <p className="register-room-bed-type-bedroom">{bedroom.id}번 침실</p>
-                <p className="register-room-bed-type-bedroom-counts">침대 0개</p>
-              </div>
-              <Button styleType="register" color="white">
-                침대 추가하기
-              </Button>
-            </div>
-          </div>
+          <RegisterRoomBedTypes bedroom={bedroom} />
         ))}
       </div>
     </Container>
