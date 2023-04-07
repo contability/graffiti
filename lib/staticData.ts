@@ -1,3 +1,5 @@
+import { BedType } from '../types/room';
+
 export const monthList: string[] = [
   '1월',
   '2월',
@@ -105,6 +107,22 @@ export const boutiquesHotelBuildingTypeList = [
   '리조트',
   '레지던스',
   '객잔(중국)',
+];
+
+/** 침대 유형 */
+export const bedTypes: BedType[] = [
+  '소파',
+  '에어 매트릭스',
+  '요와 이불',
+  '싱글',
+  '더블',
+  '퀸',
+  '이층 침대',
+  '바닥용 에어매트릭스',
+  '유아 침대',
+  '유아용 침대',
+  '해먹',
+  '물침대',
 ];
 
 // 맵핑 함수의 첫번째 인자 언더스코어는 특별한 인자가 아니라, 불필요한 인자의 공간을 채우기 위한 용도.

@@ -4,6 +4,7 @@ import { BedType } from '../../../../types/room';
 import { useMemo, useState } from 'react';
 import Button from '../../../common/Button';
 import Selector from '../../../common/Selector';
+import { bedTypes } from '../../../../lib/staticData';
 
 const Container = styled.li`
   width: 100%;
@@ -27,6 +28,16 @@ const Container = styled.li`
   .register-room-bed-type-selector-wrapper {
     width: 320px;
   }
+
+  .register-room-bed-type-counters {
+    width: 320px;
+    margin-top: 28px;
+  }
+
+  .register-room-bed-type-counter {
+    width: 290px;
+    margin-bottom: 18px;
+  }
 `;
 
 interface IProps {
@@ -41,6 +52,8 @@ interface IProps {
 
 const RegisterRoomBedTypes: React.FC<IProps> = ({ bedroom }) => {
   const [opened, setOpened] = useState(false);
+  // 선택된 침대 옵션들
+  const [activedBedOptions, setActivedBedOptions] = useState<BedType[]>([]);
 
   const totalBedsCount = useMemo(() => {
     let total = 0;
@@ -50,6 +63,13 @@ const RegisterRoomBedTypes: React.FC<IProps> = ({ bedroom }) => {
 
     return total;
   }, [bedroom]);
+
+  /** 남은 침대 옵션들 */
+  const lastBedOptions = useMemo(() => {
+    return bedTypes.filter(bedType => !activedBedOptions.includes(bedType));
+  }, [activedBedOptions, bedroom]);
+
+  console.log(activedBedOptions);
 
   const toggleOpened = () => setOpened(!opened);
 
@@ -68,9 +88,11 @@ const RegisterRoomBedTypes: React.FC<IProps> = ({ bedroom }) => {
         <div className="register-room-bed-type-selector-wrapper">
           <Selector
             type="register"
+            options={lastBedOptions}
             defaultValue="다른 침대 추가"
             value="다른 침대 추가"
             disabledOptions={['다른 침대 추가']}
+            onChange={e => setActivedBedOptions([...activedBedOptions, e.target.value as BedType])}
           />
         </div>
       )}
