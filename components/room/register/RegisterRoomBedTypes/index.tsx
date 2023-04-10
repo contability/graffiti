@@ -41,6 +41,11 @@ const Container = styled.li`
     width: 290px;
     margin-bottom: 18px;
   }
+
+  .register-room-bed-type-bedroom-counts {
+    font-size: 19px;
+    color: ${palette.gray_76};
+  }
 `;
 
 interface IProps {
@@ -55,8 +60,9 @@ interface IProps {
 
 const RegisterRoomBedTypes: React.FC<IProps> = ({ bedroom }) => {
   const [opened, setOpened] = useState(false);
+  const initialBedOptions = bedroom.beds.map(bed => bed.type);
   // 선택된 침대 옵션들
-  const [activedBedOptions, setActivedBedOptions] = useState<BedType[]>([]);
+  const [activedBedOptions, setActivedBedOptions] = useState<BedType[]>(initialBedOptions);
 
   const dispatch = useDispatch();
 
@@ -76,20 +82,52 @@ const RegisterRoomBedTypes: React.FC<IProps> = ({ bedroom }) => {
 
   console.log(activedBedOptions);
 
+  const bedsText = useMemo(() => {
+    const texts = bedroom.beds.map(bed => `${bed.type} ${bed.count}개`);
+    return texts.join(',');
+  }, [bedroom]);
+
   const toggleOpened = () => setOpened(!opened);
+
+  const onChangeBedTypeCount = (value: number, type: BedType) => {
+    dispatch(
+      registerRoomActions.setBedTypeCount({
+        bedroomId: bedroom.id,
+        type,
+        count: value,
+      }),
+    );
+  };
 
   return (
     <Container>
       <div className="register-room-bed-type-top">
         <div className="register-room-bed-type-bedroom-texts">
           <p className="register-room-bed-type-bedroom">{bedroom.id}번 침실</p>
-          <p className="register-room-bed-type-bedroom-counts">침대 {totalBedsCount}개</p>
+          <p className="register-room-bed-type-bedroom-counts">
+            침대 {totalBedsCount}개<br />
+            {bedsText}
+          </p>
           <Button onClick={toggleOpened} styleType="register" color="white">
             {opened ? '완료' : totalBedsCount === 0 ? '침대 추가하기' : '침대 수정하기'}
           </Button>
         </div>
       </div>
       {opened && (
+        <div className="register-room-bed-type-selector-wrapper">
+          {activedBedOptions.map(type => (
+            <div className="register-room-bed-type-counter" key={type}>
+              <Counter
+                label={type}
+                value={bedroom.beds.find(bed => bed.type === type)?.count || 0}
+                key={type}
+                onChange={value => onChangeBedTypeCount(value, type)}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+      {/* {opened && (
         <div className="register-room-bed-type-counters">
           {activedBedOptions.map(type => (
             <div className="register-room-bed-type-counter" key={type}>
@@ -110,7 +148,7 @@ const RegisterRoomBedTypes: React.FC<IProps> = ({ bedroom }) => {
             </div>
           ))}
         </div>
-      )}
+      )} */}
       {opened && (
         <div className="register-room-bed-type-selector-wrapper">
           <Selector
