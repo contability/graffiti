@@ -5,6 +5,9 @@ import { useMemo, useState } from 'react';
 import Button from '../../../common/Button';
 import Selector from '../../../common/Selector';
 import { bedTypes } from '../../../../lib/staticData';
+import Counter from '../../../common/Counter';
+import { useDispatch } from 'react-redux';
+import { registerRoomActions } from '../../../../store/registerRoom';
 
 const Container = styled.li`
   width: 100%;
@@ -55,6 +58,8 @@ const RegisterRoomBedTypes: React.FC<IProps> = ({ bedroom }) => {
   // 선택된 침대 옵션들
   const [activedBedOptions, setActivedBedOptions] = useState<BedType[]>([]);
 
+  const dispatch = useDispatch();
+
   const totalBedsCount = useMemo(() => {
     let total = 0;
     bedroom.beds.forEach(bed => {
@@ -84,6 +89,28 @@ const RegisterRoomBedTypes: React.FC<IProps> = ({ bedroom }) => {
           </Button>
         </div>
       </div>
+      {opened && (
+        <div className="register-room-bed-type-counters">
+          {activedBedOptions.map(type => (
+            <div className="register-room-bed-type-counter" key={type}>
+              <Counter
+                label={type}
+                value={bedroom.beds.find(bed => bed.type === type)?.count || 0}
+                key={type}
+                onChange={value =>
+                  dispatch(
+                    registerRoomActions.setBedTypeCount({
+                      bedroomId: bedroom.id,
+                      type,
+                      count: value,
+                    }),
+                  )
+                }
+              />
+            </div>
+          ))}
+        </div>
+      )}
       {opened && (
         <div className="register-room-bed-type-selector-wrapper">
           <Selector
