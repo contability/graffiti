@@ -9,6 +9,7 @@ import { bedroomCountList } from '../../../../lib/staticData';
 import { getNumber } from '../../../../lib/utlis';
 import Button from '../../../common/Button';
 import RegisterRoomBedTypes from '../RegisterRoomBedTypes';
+import RegisterRoomBedList from '../RegisterRoomBedList';
 
 const Container = styled.div`
   padding: 62px 30px 100px;
@@ -127,6 +128,7 @@ const RegisterRoomBedrooms: React.FC = () => {
       <p className="register-room-bed-type-info">
         각 침실에 놓인 침대 유형을 명시하면 숙소에 침대가 어떻게 구비되어 있는지 게스트가 잘 파악할 수 있습니다.
       </p>
+      <RegisterRoomBedList />
       <div className="register-room-bed-type-list-wrapper">
         {bedList.map(bedroom => (
           <RegisterRoomBedTypes bedroom={bedroom} />
