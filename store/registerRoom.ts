@@ -12,6 +12,8 @@ const initialState: RegisterRoomState = {
   bedCount: 1,
   bedList: [],
   publicBedList: [],
+  bathroomCount: 1,
+  bathroomType: null,
 };
 
 const registerRoom = createSlice({
@@ -102,6 +104,16 @@ const registerRoom = createSlice({
       else state.publicBedList[index].count = count;
 
       return state;
+    },
+
+    //* 욕실 개수 변경하기
+    setBathroomCount(state, action: PayloadAction<number>) {
+      state.bathroomCount = action.payload;
+    },
+
+    //* 욕실 유형 변경하기
+    setBathroomType(state, action: PayloadAction<'private' | 'public'>) {
+      state.bathroomType = action.payload;
     },
   },
 });

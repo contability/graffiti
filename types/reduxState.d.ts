@@ -32,4 +32,8 @@ export type RegisterRoomState = {
   bedList: { id: number; beds: { type: BedType; count: number }[] }[];
   /** 공용공간 침대 유형*/
   publicBedList: { type: BedType; count: number }[];
+  /** 욕실 개수 */
+  bathroomCount: number;
+  /** 욕실 유형 */
+  bathroomType: 'private' | 'public' | null;
 };
