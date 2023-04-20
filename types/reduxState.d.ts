@@ -36,4 +36,20 @@ export type RegisterRoomState = {
   bathroomCount: number;
   /** 욕실 유형 */
   bathroomType: 'private' | 'public' | null;
+  /** 국가/지역 */
+  country: string;
+  /** 시/도*/
+  city: string;
+  /** 시/군/구*/
+  district: string;
+  /** 도로명주소*/
+  streetAddress: string;
+  /** 동호수*/
+  detailAddress: string;
+  /** 우편번호*/
+  postcode: string;
+  /** 위도*/
+  latitude: number;
+  /** 경도*/
+  longitude: number;
 };
