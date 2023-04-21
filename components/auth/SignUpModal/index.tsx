@@ -329,7 +329,9 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal }) => {
         </div>
       </div>
       <div className="sign-up-modal-submit-button-wrapper">
-        <Button type="submit">가입 하기</Button>
+        <Button type="submit" color="bittersweet">
+          가입 하기
+        </Button>
       </div>
       <p>
         이미 계정이 있나요?
