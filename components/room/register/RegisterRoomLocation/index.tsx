@@ -5,6 +5,9 @@ import Button from '../../../common/Button';
 import NavigationIcon from '../../../../public/assets/images/icons/system/system_navigation.svg';
 import Selector from '../../../common/Selector';
 import { countryList } from '../../../../lib/staticData';
+import { useSelector } from '../../../../store';
+import { useDispatch } from 'react-redux';
+import { registerRoomActions } from '../../../../store/registerRoom';
 
 const Container = styled.div`
   padding: 62px 30px 100px;
@@ -34,6 +37,45 @@ const Container = styled.div`
 `;
 
 const RegisterRoomLocation: React.FC = () => {
+  const country = useSelector(state => state.registerRoom.country);
+  const city = useSelector(state => state.registerRoom.city);
+  const district = useSelector(state => state.registerRoom.district);
+  const streetAddress = useSelector(state => state.registerRoom.streetAddress);
+  const detailAddress = useSelector(state => state.registerRoom.detailAddress);
+  const postcode = useSelector(state => state.registerRoom.postcode);
+
+  const dispatch = useDispatch();
+
+  /** 나라 변경 시 */
+  const onChangeCountry = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(registerRoomActions.setCountry(event.target.value));
+  };
+
+  /** 시/도 변경 시 */
+  const onChangeCity = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(registerRoomActions.setCity(event.target.value));
+  };
+
+  /** 시/군/구 변경 시 */
+  const onChangeDistrict = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(registerRoomActions.setDistrict(event.target.value));
+  };
+
+  /** 도로명주소 변경 시 */
+  const onChangeStreetAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(registerRoomActions.setStreetAddress(event.target.value));
+  };
+
+  /** 동호수 변경 시 */
+  const onChangeDetailAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(registerRoomActions.setDetailAddress(event.target.value));
+  };
+
+  /** 우편번호 변경 시 */
+  const onChangePostcode = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(registerRoomActions.setPostcode(event.target.value));
+  };
+
   return (
     <Container>
       <h2>숙소의 위치를 알려주세요.</h2>
