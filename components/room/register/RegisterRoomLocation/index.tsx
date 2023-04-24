@@ -9,6 +9,8 @@ import { useSelector } from '../../../../store';
 import { useDispatch } from 'react-redux';
 import { registerRoomActions } from '../../../../store/registerRoom';
 import Input from '../../../common/Input';
+import { Coordinates } from '../../../../types/map';
+import { getLocationInfoAPI } from '../../../../lib/api/map';
 
 const Container = styled.div`
   padding: 62px 30px 100px;
@@ -36,11 +38,6 @@ const Container = styled.div`
     margin-bottom: 24px;
   }
 `;
-
-interface Coordinates {
-  latitude: number;
-  longitude: number;
-}
 
 const RegisterRoomLocation: React.FC = () => {
   const country = useSelector(state => state.registerRoom.country);
@@ -83,14 +80,22 @@ const RegisterRoomLocation: React.FC = () => {
   };
 
   /** 현재 위치 불러오기 성공했을 때 */
-  const onSuccessGetLocation = ({ coords }: { coords: Coordinates }) => {
-    console.log('latitude', coords.latitude);
-    console.log('longitude', coords.longitude);
+  const onSuccessGetLocation = async ({ coords }: { coords: Coordinates }) => {
+    try {
+      const { data } = await getLocationInfoAPI({
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+      });
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+      // alert(error?.message);
+    }
   };
 
   /** 현재 위치 사용 클릭 시 */
   const onClickGetCurrentLocation = () => {
-    // navigator.geolocation.getCurrentPosition(suceesFunction, failFunction);
+    // navigator.geolocation.getCurrentPosition(suceesFunction, failFunction);      //현재 위치에 대한 정보(longitude, latitude, ...)  반환
     navigator.geolocation.getCurrentPosition(onSuccessGetLocation, e => {
       console.log(e);
       alert(e?.message);
