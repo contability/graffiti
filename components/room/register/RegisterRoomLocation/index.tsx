@@ -8,6 +8,7 @@ import { countryList } from '../../../../lib/staticData';
 import { useSelector } from '../../../../store';
 import { useDispatch } from 'react-redux';
 import { registerRoomActions } from '../../../../store/registerRoom';
+import Input from '../../../common/Input';
 
 const Container = styled.div`
   padding: 62px 30px 100px;
@@ -85,13 +86,30 @@ const RegisterRoomLocation: React.FC = () => {
         <Button color="dark_cyan" colorReverse icon={<NavigationIcon />}>
           현재 위치 사용
         </Button>
+      </div>
+      <div className="register-room-location-country-selector-wrapper">
         <Selector
           type="register"
           options={countryList}
           useValidation={false}
           defaultValue="국가/지역 선택"
           disabledOptions={['국가/지역 선택']}
+          value={country}
+          onChange={onChangeCountry}
         />
+      </div>
+      <div className="register-room-location-city-district">
+        <Input label="시/도" value={city} onChange={onChangeCity} />
+        <Input label="시/군/구" value={district} onChange={onChangeDistrict} />
+      </div>
+      <div className="register-room-location-street-address">
+        <Input label="도로명주소" value={streetAddress} onChange={onChangeStreetAddress} />
+      </div>
+      <div className="register-room-location-detail-address">
+        <Input label="동호수(선택 사항)" value={detailAddress} onChange={onChangeDetailAddress} useValidation={false} />
+      </div>
+      <div className="register-room-location-postcode">
+        <Input label="우편번호" value={postcode} onChange={onChangePostcode} />
       </div>
     </Container>
   );
