@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Coordinates } from '../../types/map';
 
-type GetLocationInfoAPIResponse = {
+export type GetLocationInfoAPIResponse = {
   country: string;
   city: string;
   district: string;

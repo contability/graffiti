@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../../../styles/palette';
 import Button from '../../../common/Button';
@@ -11,6 +11,7 @@ import { registerRoomActions } from '../../../../store/registerRoom';
 import Input from '../../../common/Input';
 import { Coordinates } from '../../../../types/map';
 import { getLocationInfoAPI } from '../../../../lib/api/map';
+import RegisterRoomFooter from '../../../register/RegisterRoomFooter';
 
 const Container = styled.div`
   padding: 62px 30px 100px;
@@ -40,6 +41,8 @@ const Container = styled.div`
 `;
 
 const RegisterRoomLocation: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+
   const country = useSelector(state => state.registerRoom.country);
   const city = useSelector(state => state.registerRoom.city);
   const district = useSelector(state => state.registerRoom.district);
@@ -86,19 +89,29 @@ const RegisterRoomLocation: React.FC = () => {
         latitude: coords.latitude,
         longitude: coords.longitude,
       });
-      console.log(data);
+
+      dispatch(registerRoomActions.setCountry(data.country));
+      dispatch(registerRoomActions.setCity(data.city));
+      dispatch(registerRoomActions.setDistrict(data.district));
+      dispatch(registerRoomActions.setStreetAddress(data.streetAddress));
+      dispatch(registerRoomActions.setPostcode(data.postcode));
+      dispatch(registerRoomActions.setLatitude(data.latitude));
+      dispatch(registerRoomActions.setLongitude(data.longitude));
     } catch (error) {
       console.error(error);
       // alert(error?.message);
     }
+
+    setLoading(false);
   };
 
   /** 현재 위치 사용 클릭 시 */
   const onClickGetCurrentLocation = () => {
+    setLoading(true);
     // navigator.geolocation.getCurrentPosition(suceesFunction, failFunction);      //현재 위치에 대한 정보(longitude, latitude, ...)  반환
     navigator.geolocation.getCurrentPosition(onSuccessGetLocation, e => {
       console.log(e);
-      alert(e?.message);
+      // alert(e?.message);
     });
   };
 
@@ -109,7 +122,7 @@ const RegisterRoomLocation: React.FC = () => {
       <p className="register-room-step-info">정확한 숙소 주소는 게스트가 예약을 완료한 후에만 공개됩니다.</p>
       <div className="register-room-location-button-wrapper">
         <Button color="dark_cyan" colorReverse icon={<NavigationIcon />} onClick={onClickGetCurrentLocation}>
-          현재 위치 사용
+          {loading ? '불러오는 중...' : '현재 위치 사용'}
         </Button>
       </div>
       <div className="register-room-location-country-selector-wrapper">
@@ -136,6 +149,7 @@ const RegisterRoomLocation: React.FC = () => {
       <div className="register-room-location-postcode">
         <Input label="우편번호" value={postcode} onChange={onChangePostcode} />
       </div>
+      <RegisterRoomFooter prevHref="/room/register/bathroom" nextHref="/room/register/geometry" />
     </Container>
   );
 };
