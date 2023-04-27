@@ -109,3 +109,5 @@ const CheckboxGroup: React.FC<IProps> = ({ value = [], onChange, options = [] })
     </Container>
   );
 };
+
+export default CheckboxGroup;
