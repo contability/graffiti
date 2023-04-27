@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import palette from '../../../../styles/palette';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from '../../../../store';
+import throttle from 'lodash.throttle';
+import RegisterRoomFooter from '../../../register/RegisterRoomFooter';
+import { useDispatch } from 'react-redux';
+import { registerRoomActions } from '../../../../store/registerRoom';
 
 const Container = styled.div`
   padding: 62px 30px 100px;
@@ -27,6 +31,21 @@ const Container = styled.div`
       height: 100%;
     }
   }
+
+  //* 지도 위성 제거
+  .gmnoprint .gm-style-mtc {
+    display: none;
+  }
+
+  //* 로드뷰 아이콘 제거
+  .gm-svpc {
+    display: none;
+  }
+
+  //* 풀스크린 제거
+  .gm-fullscreen-control {
+    display: none;
+  }
 `;
 
 declare global {
@@ -40,6 +59,8 @@ const RegisterRoomGeometry: React.FC = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   const latitude = useSelector(state => state.registerRoom.latitude);
   const longitude = useSelector(state => state.registerRoom.longitude);
+
+  const dispatch = useDispatch();
 
   const loadMapScript = () => {
     return new Promise<void>(resolve => {
@@ -67,12 +88,40 @@ const RegisterRoomGeometry: React.FC = () => {
         },
         zoom: 14,
       });
+
+      //* 지도 중앙에 마커 생성
+      const marker = new window.google.maps.Marker({
+        position: {
+          lat: latitude || 37.5666784,
+          lng: longitude || 126.9778436,
+        },
+        map,
+      });
+
+      //* 지도를 드래그하여 중앙이 바뀔 때 마다 이벤트 동작. 최적화를 위해 throttle 먹임.
+      map.addListener(
+        'center_changed',
+        throttle(() => {
+          const centerLat = map.getCenter().lat();
+          const centerLng = map.getCenter().lng();
+
+          //* marker 위치 변경
+          marker.setPosition({
+            lat: centerLat,
+            lng: centerLng,
+          });
+
+          dispatch(registerRoomActions.setLatitude(centerLat));
+          dispatch(registerRoomActions.setLongitude(centerLng));
+        }, 150),
+      );
     }
   };
 
   useEffect(() => {
     loadMap();
   }, []);
+
   return (
     <Container>
       <h2>핀이 놓인 위치가 정확한가요?</h2>
@@ -81,6 +130,7 @@ const RegisterRoomGeometry: React.FC = () => {
       <div className="register-room-geometry-map-wrapper">
         <div ref={mapRef} id="map"></div>
       </div>
+      <RegisterRoomFooter prevHref="/room/register/location" nextHref="/room/register/amentities" />
     </Container>
   );
 };
