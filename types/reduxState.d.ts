@@ -52,4 +52,6 @@ export type RegisterRoomState = {
   latitude: number;
   /** 경도*/
   longitude: number;
+  /** 편의 시설 */
+  amentities: string[];
 };
