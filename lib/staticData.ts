@@ -402,6 +402,8 @@ export const amentityList = [
   '게스트 전용 출입문',
 ];
 
+export const convinienceList = ['주방', '세탁 공간 - 세탁기', '주차', '헬스장', '수영장', '자쿠지'];
+
 // 맵핑 함수의 첫번째 인자 언더스코어는 특별한 인자가 아니라, 불필요한 인자의 공간을 채우기 위한 용도.
 
 // dayList랑 똑같은 배열 return 받으려면

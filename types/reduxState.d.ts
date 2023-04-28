@@ -54,4 +54,6 @@ export type RegisterRoomState = {
   longitude: number;
   /** 편의 시설 */
   amentities: string[];
+  /** 편의 공간 */
+  conveniences: string[];
 };
