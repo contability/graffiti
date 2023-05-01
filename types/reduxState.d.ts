@@ -56,4 +56,6 @@ export type RegisterRoomState = {
   amentities: string[];
   /** 편의 공간 */
   conveniences: string[];
+  /** 숙소 사진 */
+  photos: string[];
 };
