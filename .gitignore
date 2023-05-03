@@ -42,6 +42,7 @@ swaggerFetcher.config.json
 # System Files
 .DS_Store
 Thumbs.db
+.env.local
 
 # temp file
 MEMO.md
