@@ -58,4 +58,6 @@ export type RegisterRoomState = {
   conveniences: string[];
   /** 숙소 사진 */
   photos: string[];
+  /** 숙소 설명 */
+  description: string;
 };
