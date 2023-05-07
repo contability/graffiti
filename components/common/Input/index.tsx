@@ -108,7 +108,6 @@ const Input: React.FC<IProps> = ({
 
   return (
     <Container iconExist={!!icon} isValid={isValid} useValidation={validateMode && useValidation}>
-      <input {...props} />
       {icon}
       {useValidation && validateMode && !isValid && errorMessage && (
         <p className="input-error-message">{errorMessage}</p>
