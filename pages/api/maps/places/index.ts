@@ -15,12 +15,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY
         }&language=ko&input=${encodeURI(keyword as string)}`,
       );
-      console.log(data);
+      console.log('data', data);
 
       const results = data.predictions.map((prediction: any) => ({
         description: prediction.description,
         placeId: prediction.place_id,
       }));
+
+      console.log('results', results);
 
       res.statusCode = 200;
       res.send(results);
