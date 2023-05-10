@@ -5,6 +5,8 @@ import { useSelector } from '../../../../store';
 import OutsideClickHandler from 'react-outside-click-handler';
 import Counter from '../../../common/Counter';
 import SearchRoomButton from '../SearchRoomButton';
+import { useDispatch } from 'react-redux';
+import { searchRoomActions } from '../../../../store/searchRoom';
 
 const Container = styled.div`
   position: relative;
@@ -78,6 +80,23 @@ const SearchRoomGuests: React.FC = () => {
   const childrenCount = useSelector(state => state.searchRoom.childrenCount);
   const infantsCount = useSelector(state => state.searchRoom.infantsCount);
 
+  const dispatch = useDispatch();
+
+  /** 성인 수 변경하기 Dispatch */
+  const setAdultCountDispatch = (value: number) => {
+    dispatch(searchRoomActions.setAdultCount(value));
+  };
+
+  /** 어린이 수 변경하기 Dispatch */
+  const setChildrenCountDispatch = (value: number) => {
+    dispatch(searchRoomActions.setChildrenCount(value));
+  };
+
+  /** 유아 수 변경하기 Dispatch */
+  const setInfantsCountDispatch = (value: number) => {
+    dispatch(searchRoomActions.setInfantsCount(value));
+  };
+
   return (
     <Container onClick={() => setPopupOpened(true)}>
       <OutsideClickHandler onOutsideClick={() => setPopupOpened(false)}>
@@ -91,13 +110,29 @@ const SearchRoomGuests: React.FC = () => {
         {popupOpened && (
           <div className="search-room-bar-guests-popup">
             <div className="search-room-bar-guests-counter-wrapper">
-              <Counter label="성인" description="만 13세 이상" minValue={1} value={adultCount} />
+              <Counter
+                label="성인"
+                description="만 13세 이상"
+                minValue={1}
+                value={adultCount}
+                onChange={count => setAdultCountDispatch(count)}
+              />
             </div>
             <div className="search-room-bar-guests-counter-wrapper">
-              <Counter label="어린이" description="2~12세" value={childrenCount} />
+              <Counter
+                label="어린이"
+                description="2~12세"
+                value={childrenCount}
+                onChange={count => setChildrenCountDispatch(count)}
+              />
             </div>
             <div className="search-room-bar-guests-counter-wrapper">
-              <Counter label="유아" description="2세 미만" value={infantsCount} />
+              <Counter
+                label="유아"
+                description="2세 미만"
+                value={infantsCount}
+                onChange={count => setInfantsCountDispatch(count)}
+              />
             </div>
           </div>
         )}
