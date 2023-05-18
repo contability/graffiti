@@ -1,33 +1,46 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Redirect, Req } from '@nestjs/common'
-import { WeaponDTO } from './weapon.dto'
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Redirect } from '@nestjs/common'
+import { WeaponDTO } from './dto/weapon.dto'
+import { WeaponService } from './weapon.service'
 
 @Controller('weapon')
 export class WeaponController {
+	//* DI
+	constructor(private weaponService: WeaponService) {}
+
+	/** /weapon/list */
 	@Get('list')
-	findAll(): string {
-		return 'weapon list'
+	findAll(): Array<WeaponDTO> {
+		return this.weaponService.findAll()
 	}
 
-	@Get(':name')
-	findOne(@Param('name') name: string): string {
+	/** /weapon/selectOne?name=example */
+	@Get('selectOne')
+	findOne(@Query('name') name: string): WeaponDTO {
 		console.log(`${name}  is weapon`)
-		return `${name} is weapon`
+		return new WeaponDTO()
 	}
 
-	@Post()
-	@Redirect('localhost:3000/weapon/list', 204)
+	/** /weapon/regist, Body */
+	@Post('regist')
+	// @Redirect('localhost:3000/weapon/list', 204)
 	create(@Body() weaponDTO: WeaponDTO) {
-		return 'new weapon'
+		return `new weapon is ${weaponDTO}`
 	}
 
-	@Patch()
-	// FIXME : pk 빼고 옵셔널하게 타입 재설정
+	/** /weapon/update, Body */
+	@Patch('update')
+	// @Redirect('localhost:3000/weapon/list')
+	// FIXME : pk 제외하고 옵셔널하게 타입 재설정
 	update(@Body() weaponDTO: WeaponDTO) {
-		return 'update Weapon'
+		return `update Weapon from ${weaponDTO}`
 	}
 
-	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return 'remove weapon'
+	/**
+	 * like pathVariable.
+	 * /weapon/remove/1
+	 * */
+	@Delete('remove/:id')
+	remove(@Param('id') id: number) {
+		return `remove ${id} weapon`
 	}
 }
