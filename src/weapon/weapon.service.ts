@@ -1,15 +1,57 @@
 import { Injectable } from '@nestjs/common'
-import { IWeapon } from 'src/weapon/interfaces/weapon.interface'
+import { PrismaService } from 'src/prisma.service'
+import { Prisma, WEAPON } from '@prisma/client'
 
 @Injectable()
 export class WeaponService {
-	private readonly weapons: IWeapon[] = []
+	constructor(private prisma: PrismaService) {}
 
-	create(weapon: IWeapon) {
-		this.weapons.push(weapon)
+	async weapon(weaponWhereUniqueInput: Prisma.WEAPONWhereUniqueInput): Promise<WEAPON | null> {
+		return this.prisma.wEAPON.findUnique({
+			where: weaponWhereUniqueInput
+		})
 	}
 
-	findAll(): IWeapon[] {
-		return this.weapons
+	async weapons(params: {
+		skip?: number
+		take?: number
+		cursor?: Prisma.WEAPONWhereUniqueInput
+		where?: Prisma.WEAPONWhereInput
+		orderBy?: Prisma.WEAPONOrderByWithRelationInput
+	}): Promise<WEAPON[]> {
+		const { skip, take, cursor, where, orderBy } = params
+
+		return this.prisma.wEAPON.findMany({
+			skip,
+			take,
+			cursor,
+			where,
+			orderBy
+		})
+	}
+
+	async createWeapon(params: { data: Prisma.WEAPONCreateInput }): Promise<WEAPON> {
+		const { data } = params
+		return this.prisma.wEAPON.create({
+			data
+		})
+	}
+
+	async updateWeapon(params: {
+		where: Prisma.WEAPONWhereUniqueInput
+		data: Prisma.WEAPONUpdateInput
+	}): Promise<WEAPON> {
+		const { where, data } = params
+
+		return this.prisma.wEAPON.update({
+			data,
+			where
+		})
+	}
+
+	async deleteWeapon(where: Prisma.WEAPONWhereUniqueInput): Promise<WEAPON> {
+		return this.prisma.wEAPON.delete({
+			where
+		})
 	}
 }

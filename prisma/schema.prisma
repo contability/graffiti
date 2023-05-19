@@ -5,13 +5,16 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// db properties 입력
 datasource db {
-  provider = "sqlite"
-  url      = env("jdbc:mariadb://localhost:3306/test")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
-model Test {
+// table schema 입력
+model WEAPON {
   id Int @id @default(autoincrement())
-  name string
-  portability Boolean
+  name String
+  isportable Boolean
+  description String
 }

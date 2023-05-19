@@ -1,46 +1,70 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Redirect } from '@nestjs/common'
-import { WeaponDTO } from './dto/weapon.dto'
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common'
 import { WeaponService } from './weapon.service'
+import { WEAPON as WeaponModel } from '@prisma/client'
 
 @Controller('weapon')
 export class WeaponController {
 	//* DI
-	constructor(private weaponService: WeaponService) {}
+	constructor(private readonly weaponService: WeaponService) {}
 
-	/** /weapon/list */
-	@Get('list')
-	findAll(): Array<WeaponDTO> {
-		return this.weaponService.findAll()
+	@Post('regist-weapon')
+	async postWeapon(@Body() postData: Omit<WeaponModel, 'id'>): Promise<WeaponModel> {
+		return this.weaponService.createWeapon({
+			data: postData
+		})
 	}
 
-	/** /weapon/selectOne?name=example */
-	@Get('selectOne')
-	findOne(@Query('name') name: string): WeaponDTO {
-		console.log(`${name}  is weapon`)
-		return new WeaponDTO()
+	/** selectOne. /weapon/weapon/:id. */
+	@Get('/:id')
+	async getWeaponById(@Param('id') id: number): Promise<WeaponModel | null> {
+		// @Param is like pathVariable.
+		return this.weaponService.weapon({ id: Number(id) })
 	}
 
-	/** /weapon/regist, Body */
-	@Post('regist')
-	// @Redirect('localhost:3000/weapon/list', 204)
-	create(@Body() weaponDTO: WeaponDTO) {
-		return `new weapon is ${weaponDTO}`
+	/** selectList searchKeyword. /weapon/filtered-weapons/:searchString */
+	@Get('filtered-weapons/:searchString')
+	async getFilteredWeapons(@Param('searchString') searchString: string): Promise<WeaponModel[]> {
+		return this.weaponService.weapons({
+			where: {
+				OR: [
+					{
+						name: { contains: searchString }
+					},
+					{
+						description: { contains: searchString }
+					}
+				]
+			}
+		})
 	}
 
-	/** /weapon/update, Body */
-	@Patch('update')
-	// @Redirect('localhost:3000/weapon/list')
-	// FIXME : pk 제외하고 옵셔널하게 타입 재설정
-	update(@Body() weaponDTO: WeaponDTO) {
-		return `update Weapon from ${weaponDTO}`
+	@Get('isportable-weapons/:isPortable')
+	async getIsportableWeapons(@Param('isPortable') isPortable: string): Promise<WeaponModel[]> {
+		return this.weaponService.weapons({
+			where: {
+				isportable: JSON.parse(isPortable)
+			}
+		})
 	}
 
-	/**
-	 * like pathVariable.
-	 * /weapon/remove/1
-	 * */
-	@Delete('remove/:id')
-	remove(@Param('id') id: number) {
-		return `remove ${id} weapon`
+	/** update. /weapon/modify/:id */
+	@Put('modify/:id')
+	async updateWeapon(
+		@Param('id') id: number,
+		@Body() weaponData: { name: string; isportable: boolean; description: string }
+	): Promise<WeaponModel> {
+		const { name, isportable, description } = weaponData
+
+		return this.weaponService.updateWeapon({
+			data: { name, isportable, description },
+			where: { id }
+		})
+	}
+
+	/** delete. /weapon/remove?id=1 */
+	@Delete('remove')
+	async deleteWeapon(@Query('id') id: number): Promise<WeaponModel> {
+		// @Query is query string.
+		return this.weaponService.deleteWeapon({ id: Number(id) })
 	}
 }
