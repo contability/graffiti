@@ -24,18 +24,36 @@ const Detail: NextPage = () => {
 
   return (
     <>
-      <header>
-        <p>{postsData?.id}</p>
-        <p>{postsData?.userId}</p>
-      </header>
-      <section>
-        <div>{postsData?.title}</div>
-      </section>
-      <section>
-        <div>{postsData?.body}</div>
-      </section>
+      <table style={{ border: '1px solid #000000', borderSpacing: '40px' }}>
+        <colgroup>
+          <col width="20%" />
+          <col width="80%" />
+          <col />
+        </colgroup>
+        <tr>
+          <th>id</th>
+          <td>{postsData?.id}</td>
+        </tr>
+        <tr>
+          <th>user id</th>
+          <td>{postsData?.userId}</td>
+        </tr>
+        <tr>
+          <th>title</th>
+          <td>{postsData?.title}</td>
+        </tr>
+        <tr>
+          <th>body</th>
+          <td>{postsData?.body}</td>
+        </tr>
+      </table>
       <footer>
-        <button onClick={() => router.back()}>BACK</button>
+        <button
+          style={{ float: 'right', margin: '5px 0 0 0 ' }}
+          onClick={() => router.back()}
+        >
+          BACK
+        </button>
       </footer>
     </>
   );

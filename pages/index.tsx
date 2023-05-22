@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { NextPage, NextPageContext } from 'next';
 import List from '../components/List';
+import { fetchPlaceHolderList } from './apis/placeholderAPI';
 
 export interface IPosts {
   userId: number;
@@ -18,10 +19,12 @@ const index: NextPage<PageProps> = ({ dataList }) => {
 };
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  // const data = await axios.get('http://localhost:3000/apis/placeholderAPI');
-  const { data } = await axios.get<IPosts[]>(
-    'https://jsonplaceholder.typicode.com/posts',
-  );
+  const data = fetchPlaceHolderList();
+  console.log(data);
+
+  // const { data } = await axios.get<IPosts[]>(
+  //   'https://jsonplaceholder.typicode.com/posts',
+  // );
 
   return { props: { dataList: data } };
 };
