@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { NextPage, NextPageContext } from 'next';
 import List from '../components/List';
-import { fetchPlaceHolderList } from './apis/placeholderAPI';
 
 export interface IPosts {
   userId: number;
@@ -12,21 +11,24 @@ export interface IPosts {
 
 interface PageProps {
   dataList: IPosts[];
+  message?: string;
 }
 
-const index: NextPage<PageProps> = ({ dataList }) => {
-  return <List dataList={dataList} />;
+const index: NextPage<PageProps> = ({ dataList, message }) => {
+  return (
+    <>{dataList.length > 0 ? <List dataList={dataList} /> : <p>{message}</p>}</>
+  );
 };
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  const data = fetchPlaceHolderList();
-  console.log(data);
+  const { data } = await axios.get('http://localhost:3000/api/post');
 
-  // const { data } = await axios.get<IPosts[]>(
-  //   'https://jsonplaceholder.typicode.com/posts',
-  // );
-
-  return { props: { dataList: data } };
+  return {
+    props: {
+      dataList: data.data,
+      message: data.message,
+    },
+  };
 };
 
 export default index;

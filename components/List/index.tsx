@@ -3,17 +3,17 @@ import ListItem from '../ListItem';
 import { IPosts } from '../../pages';
 
 interface ListProps {
-  dataList?: IPosts[];
+  dataList: IPosts[];
   emptyMessage?: string;
 }
 
 const List: React.FC<ListProps> = ({
-  dataList = [],
+  dataList,
   emptyMessage = '데이터가 없습니다.',
 }) => {
   return (
     <div>
-      {dataList?.length > 0 ? (
+      {dataList.length > 0 ? (
         dataList.map((data, dataIndex) => (
           <div key={`List-${dataIndex}`}>
             <ListItem {...data} />
