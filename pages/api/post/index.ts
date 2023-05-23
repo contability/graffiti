@@ -6,12 +6,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const url = 'https://jsonplaceholder.typicode.com/posts';
     // const url = 'https://jsonplaceholder.typicode.com/postss';
 
-    const result: any = await axios
+    const result = await axios
       .get(url)
       .then((res) => {
         return {
           data: res.data,
-          //   data: [],
           status: res.status,
           message: '', // 선택
         };
