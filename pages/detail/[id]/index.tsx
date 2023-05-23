@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IPosts } from '../..';
 
-const Detail = ({ params }: { params: { id: string } }) => {
+const Detail = () => {
   const [postsData, setPostsData] = useState<IPosts | undefined>();
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();

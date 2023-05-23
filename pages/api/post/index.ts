@@ -11,6 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .then((res) => {
         return {
           data: res.data,
+          //   data: [],
           status: res.status,
           message: '', // 선택
         };
@@ -19,7 +20,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return {
           message: e.message,
           status: e.code,
-          data: [], // 에러가 발생하더라도 데이터는 기본적으로 빈값을 넘겨줘야 FE에서 처리하기 수월  (선택사항))>
+          data: [], // 에러가 발생하더라도 데이터는 기본적으로 빈값을 넘겨줘야 FE에서 처리하기 수월  (선택사항)
         };
       });
 

@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { IPosts } from '../../pages';
 import { useState } from 'react';
 
-const ListItem = (item: IPosts) => {
+const ListItem = ({ data }: { data: IPosts }) => {
   const [isHover, setIsHover] = useState<boolean>(false);
 
   const router = useRouter();
@@ -11,7 +11,7 @@ const ListItem = (item: IPosts) => {
     display: 'flex',
     justifyContent: 'center',
     color: isHover ? '#ff0000' : '#000000',
-    fontWeight: isHover ? 'bold' : '',
+    fontWeight: isHover ? 'bold' : 'normal',
     cursor: 'pointer',
   };
 
@@ -20,9 +20,9 @@ const ListItem = (item: IPosts) => {
       style={boxStyle}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
-      onClick={() => router.push(`/detail/${item.id}`)}
+      onClick={() => router.push(`/detail/${data.id}`)}
     >
-      {item.title}
+      {data.title}
     </div>
   );
 };
