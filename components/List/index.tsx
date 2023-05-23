@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import ListItem from '../ListItem';
 import { IPosts } from '../../pages';
 
