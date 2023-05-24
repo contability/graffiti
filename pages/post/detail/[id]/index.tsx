@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { IPosts } from '../..';
-import { NextPageContext } from 'next';
+import { IPosts } from '../../..';
 
 interface PostDetailParameter {
   id: string;
@@ -10,15 +9,14 @@ interface PostDetailParameter {
 
 /**
  * post 상세 정보 페이지
- *
- * @return {*}
+ * @param {string} {id}
+ * @return {NextPage}
  */
-const Detail = ({ id }: PostDetailParameter) => {
+const DetailPost = ({ id }: PostDetailParameter) => {
   const [postsData, setPostsData] = useState<IPosts | undefined>();
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
 
-  // const id = router.query['id'];
   const getData = async () => {
     const { data } = await axios.get(`http://localhost:3000/api/post/${id}`);
 
@@ -77,7 +75,6 @@ const Detail = ({ id }: PostDetailParameter) => {
   );
 };
 
-// export const getServerSideProps = ({ params }: { params: { id: string } }) => {
 export const getServerSideProps = ({
   params,
 }: {
@@ -87,4 +84,4 @@ export const getServerSideProps = ({
   return { props: { id: id } };
 };
 
-export default Detail;
+export default DetailPost;

@@ -7,7 +7,7 @@ const ListItem = ({ data }: { data: IPosts }) => {
   return (
     <div
       className="flex justify-center cursor-pointer hover:text-red-600 hover:font-bold p-5"
-      onClick={() => router.push(`/detail/${data.id}`)}
+      onClick={() => router.push(`/post/detail/${data.id}`)}
     >
       {data.title}
     </div>
