@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { NextPage, NextPageContext } from 'next';
+import { NextPageContext } from 'next';
 import List from '../components/List';
+import type { NextPage } from 'next';
 
 export interface IPosts {
   userId: number;
@@ -14,7 +15,7 @@ export interface ListProps {
   message?: string;
 }
 
-const index = (props: ListProps) => {
+const index: NextPage<ListProps> = (props) => {
   return <List props={props} />;
 };
 

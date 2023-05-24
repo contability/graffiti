@@ -9,7 +9,24 @@ module.exports = {
     // './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        // sans: ['Noto Sans KR', 'Montserrat', 'sans-serif'],
+        // noto: ['Noto Sans KR', 'sans-serif'],
+        // mont: ['Montserrat', 'sans-serif'],
+      },
+      colors: {
+        danger: '#e12343',
+        primary: '#17a37f',
+        white: '#FFF',
+      },
+    },
+    // spacing: {
+    //   sm: '8px',
+    //   md: '12px',
+    //   lg: '16px',
+    //   xl: '24px',
+    // },
   },
-  plugins: [],
+  plugins: [require('tailwindcss'), require('autoprefixer')],
 };

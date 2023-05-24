@@ -2,13 +2,23 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IPosts } from '../..';
+import { NextPageContext } from 'next';
 
-const Detail = () => {
+interface PostDetailParameter {
+  id: string;
+}
+
+/**
+ * post 상세 정보 페이지
+ *
+ * @return {*}
+ */
+const Detail = ({ id }: PostDetailParameter) => {
   const [postsData, setPostsData] = useState<IPosts | undefined>();
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
 
-  const id = router.query['id'];
+  // const id = router.query['id'];
   const getData = async () => {
     const { data } = await axios.get(`http://localhost:3000/api/post/${id}`);
 
@@ -24,10 +34,14 @@ const Detail = () => {
     <>
       {postsData ? (
         <>
-          <table style={{ border: '1px solid #000000', borderSpacing: '40px' }}>
+          <table
+            className={`border border-solid border-black h-96 ${
+              postsData?.id === 1 && 'bg-red-400'
+            }`}
+          >
             <colgroup>
               <col width="20%" />
-              <col width="80%" />
+              <col width="*" />
               <col />
             </colgroup>
             <tr>
@@ -49,7 +63,7 @@ const Detail = () => {
           </table>
           <footer>
             <button
-              style={{ margin: '5px 0 0 0 ' }}
+              className="rounded bg-slate-600 p-2 m-2 text-white"
               onClick={() => router.back()}
             >
               BACK
@@ -61,6 +75,16 @@ const Detail = () => {
       )}
     </>
   );
+};
+
+// export const getServerSideProps = ({ params }: { params: { id: string } }) => {
+export const getServerSideProps = ({
+  params,
+}: {
+  params: PostDetailParameter;
+}) => {
+  const { id } = params;
+  return { props: { id: id } };
 };
 
 export default Detail;

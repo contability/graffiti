@@ -9,6 +9,9 @@
 # dependencies
 /node_modules
 
+# documentation
+/documentation
+
 #next
 .next
 
