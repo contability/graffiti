@@ -2,7 +2,7 @@ interface GTagEvent {
   action: string;
   category: string;
   label: string;
-  value: number;
+  value: number | string;
 }
 
 export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;

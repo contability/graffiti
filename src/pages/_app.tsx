@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import * as gtag from "../../lib/gtag";
 import { AppProps } from "next/app";
+import Script from "next/script";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -21,7 +22,12 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <script
+        {/* 추적 코드 삽입 */}
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+        />
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -36,7 +42,6 @@ const App = ({ Component, pageProps }: AppProps) => {
         />
       </Head>
       {/* Global Site Tag (gtag.js) - Google Analytics */}
-
       <Component {...pageProps} />
     </>
   );
