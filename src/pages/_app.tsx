@@ -8,12 +8,14 @@ import { AppProps } from "next/app";
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   useEffect(() => {
-    const handleRouteChange = (url: string) => {
+    const handleRouteChange = (url: any) => {
       gtag.pageView(url);
     };
     router.events.on("routeChangeComplete", handleRouteChange);
+    router.events.on("hashChangeComplete", handleRouteChange);
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
+      router.events.off("hashChangeComplete", handleRouteChange);
     };
   }, [router.events]);
 
@@ -35,10 +37,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         />
       </Head>
       {/* Global Site Tag (gtag.js) - Google Analytics */}
-      <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-      />
+
       <Component {...pageProps} />
     </>
   );

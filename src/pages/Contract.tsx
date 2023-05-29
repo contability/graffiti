@@ -15,6 +15,7 @@ export default class Contact extends Component {
       action: "submit_form",
       category: "Contact",
       label: this.state.message,
+      value: 0,
     });
 
     this.setState({ message: "" });
