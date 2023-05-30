@@ -15,14 +15,12 @@
     "@netlify/plugin-nextjs": "^4.37.2",
     "@types/gapi": "^0.0.44",
     "@types/react-gtm-module": "^2.0.1",
-    "gapi": "^0.0.3",
     "next": "^13.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-gtm-module": "^2.0.11"
   },
   "devDependencies": {
-    "@types/gtag.js": "^0.0.12",
     "@types/node": "^20.2.4",
     "@types/react": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^5.43.0",

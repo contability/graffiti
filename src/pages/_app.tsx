@@ -22,6 +22,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
+        <script src="https://apis.google.com/js/client.js" />
         {/* 추적 코드 삽입 */}
         <script
           dangerouslySetInnerHTML={{

@@ -3,10 +3,10 @@ import Header from "../common/Header";
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
 
 const Statistics = () => {
-  const propertyId = process.env.NEXT_PUBLIC_GA_ID;
-  const CLIENT_ID = process.env.NEXT_PUBLIC_OAUTH_CLIENT_ID;
-  const SCOPES = ["https://www.googleapis.com/auth/analytics.readonly"];
-  const analyticsDataClient = new BetaAnalyticsDataClient();
+  //   const propertyId = process.env.NEXT_PUBLIC_GA_ID;
+  //   const CLIENT_ID = process.env.NEXT_PUBLIC_OAUTH_CLIENT_ID;
+  //   const SCOPES = ["https://www.googleapis.com/auth/analytics.readonly"];
+  //   const analyticsDataClient = new BetaAnalyticsDataClient();
 
   const sampleRunReport = () => {
     // fetch(
@@ -51,32 +51,32 @@ const Statistics = () => {
 
     const VIEW_ID = "378781622";
 
-    gapi.client
-      .request({
-        path: "https://analyticsreporting.googleapis.com/v4/reports:batchGet",
-        method: "POST",
-        body: {
-          reportRequest: [
-            {
-              viewId: VIEW_ID,
-              dataRanges: [
-                {
-                  stateDate: "7daysAgo",
-                  endDate: "today",
-                },
-              ],
-              metrics: [
-                {
-                  expression: "ga:sessions",
-                },
-              ],
-            },
-          ],
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      });
+    // gapi.client
+    //   .request({
+    //     path: "https://analyticsreporting.googleapis.com/v4/reports:batchGet",
+    //     method: "POST",
+    //     body: {
+    //       reportRequest: [
+    //         {
+    //           viewId: VIEW_ID,
+    //           dataRanges: [
+    //             {
+    //               stateDate: "7daysAgo",
+    //               endDate: "today",
+    //             },
+    //           ],
+    //           metrics: [
+    //             {
+    //               expression: "ga:sessions",
+    //             },
+    //           ],
+    //         },
+    //       ],
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   });
   };
 
   useEffect(() => {
