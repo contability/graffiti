@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "arboreal-retina-388303",
+  "private_key_id": "4e0ebad6a5edb78ad4d01895343313b4f29c8d19",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDBKnApGmTqIYrK\npBg+jCul8ztnM25q6XyX/Mz5UhJsoujA2cF1o4rEq4hOy5fHDEOzHETh7TDDQVf+\naGmXJXmzZPacpjwMDO94NOULqIADKHjvrsKIYXte7v7lVT9u3+oM5BTf7eHkAV3v\n+tpiB4VFG3+e5RIcobCaKGg8HlX09jUJbWKeh2jz8Nbal4Q4qsRwWJQsEep/akmS\n/iVbiYeEXcnIsvaBxL/pCFMmO+zJs8tBeCPpDcHZmYpz8ybHm6bKxDPa5SgffTgq\nEbNfTkUXLx51/b8zD4fjlT2lZ2Agbm7brCpBBF/gZ4h0r22MiR5Cl910r1jKKjlS\nIN57DhlPAgMBAAECggEAVV9RRQlSUpxSgC84O+StoeG3fmwfwAbDt1TWrtaUKAl0\nP0++jiSivztkuhaHVUTZYv76frPbGmD16A3zpQa+HAhiameaIGVTLViLZrSpJzwq\n/xvJBIe5BAMzCt67c2BpTBs+Ep5LeP8Vqmu/OxZB04JMzEhH0fmwWOHE99Ucfm/R\n/c0tx61dCEPjvfp+0IxWRqt9Mklrn4eDNJjcykkOE97THDp4+rECxg1hxJnuuv7w\nAhpo8eFRbYiy4ahsIDrhxQ0ya2ACr0Cx4JP+lLbjHy/9ow46NKmEIfrT0x1jg833\n4yXiWYrVgz5GIATDsldNvFctx8clHCpB1qtUA4kk0QKBgQDfHVa6QE1ICsh4em3A\nYRBagtoeLUM/aX6ObkIRgoTFHGs2Qi42W2wy0HhORW9Pu+UjeUR5HXzcbzangogA\nyuVRkWhpZB+q7QO0TpvGNRfNK+oAr1rqgrOibXMy1jYCPh4hdHboGx/1vfu3ZZ4V\nO6wEPdA7ANrrqx3YNibhXvHDmQKBgQDdow535Ds8ZGYjnr6lr4m80BLSLig+qs8P\n5H0jDFf8a8aABNsyGZVju3xNcLlaHRdt9jpN5MwA8G9YQkSo4n93DHOh36a0c5v3\nJl2wxpMzab6Qde9nM5wHTHqIVKqPZOvOKGWHTbc95fgqMuqr2qbsJrpyY/K3R8NQ\nPx2uLTPVJwKBgAgiFKhDcc2/fuFNbTTHFQaHoJXbBomIOfHNOSFURay9xXa74N1g\nZchQayJHS7B3Y/nwELvthECw2SgwDO8idkuL5md5G+JqM2leODV4d/6lrCkMO18z\nFoNERB/FSUC5rPWBPlhlrLuTilp8HNAfVbzt1+petJxEp5jbGH28rUl5AoGAMYAS\nYiqCJFnUCg6RS9XpsFbUbUbLzDs/5a/FVweRuxmjCsKK5iSandyoxW7wprSqn++H\nVBBOk8MfSxn51bJIf6EzTiryQ4kygz95W1ruU2RBoGgGoQkAxwyIrVwjf8UteSzC\niDaOP2/WPi6DBQDfmQyJRbUW52JKt+hwy47i7a8CgYEA3kCPPprNrh7cy4Wcvlg0\nfTSdVCjjjTNfy742tueywxK72XcEkGGcEQWVduAdZHpdgDx6KuRozXIQYtrKCxwF\nM6pAjeEwoVqFYNtNK5lGiFdjCT7nmdK8ddiVZfK1aFeCtTLrN8xIl4fhEoucQ5fk\njKJHgQ1rL+5nxALWv8AL0FQ=\n-----END PRIVATE KEY-----\n",
+  "client_email": "ga4-test@arboreal-retina-388303.iam.gserviceaccount.com",
+  "client_id": "108096785447022721994",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ga4-test%40arboreal-retina-388303.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
