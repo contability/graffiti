@@ -4,6 +4,8 @@ import { BetaAnalyticsDataClient } from "@google-analytics/data";
 
 const Statistics = () => {
   const propertyId = process.env.NEXT_PUBLIC_GA_ID;
+  const CLIENT_ID = process.env.NEXT_PUBLIC_OAUTH_CLIENT_ID;
+  const SCOPES = ["https://www.googleapis.com/auth/analytics.readonly"];
   const analyticsDataClient = new BetaAnalyticsDataClient();
 
   const sampleRunReport = () => {
@@ -18,35 +20,65 @@ const Statistics = () => {
     // )
     //   .then((res) => {
     //     console.log(res);
-
     //     // if (res) return res;
     //   })
     //   .catch((e) => {
     //     console.error(e);
     //   });
+    // const response = analyticsDataClient.runReport({
+    //   property: `properties/${propertyId}`,
+    //   dateRanges: [
+    //     {
+    //       startDate: "2023-05-26",
+    //       endDate: "today",
+    //     },
+    //   ],
+    //   dimensions: [
+    //     {
+    //       name: "city",
+    //     },
+    //   ],
+    //   metrics: [
+    //     {
+    //       name: "activeUsers",
+    //     },
+    //   ],
+    // });
+    // console.log("report result:", response);
 
-    const response = analyticsDataClient.runReport({
-      property: `properties/${propertyId}`,
-      dateRanges: [
-        {
-          startDate: "2023-05-26",
-          endDate: "today",
-        },
-      ],
-      dimensions: [
-        {
-          name: "city",
-        },
-      ],
-      metrics: [
-        {
-          name: "activeUsers",
-        },
-      ],
-    });
+    // const scope = "https://www.googleapis.com/auth/analytics.readonly";
+    // const keyFileLocation = "../../../arboreal-retina-388303-87db528f8f27.json";
 
-    console.log("report result:", response);
+    const VIEW_ID = "378781622";
+
+    gapi.client
+      .request({
+        path: "https://analyticsreporting.googleapis.com/v4/reports:batchGet",
+        method: "POST",
+        body: {
+          reportRequest: [
+            {
+              viewId: VIEW_ID,
+              dataRanges: [
+                {
+                  stateDate: "7daysAgo",
+                  endDate: "today",
+                },
+              ],
+              metrics: [
+                {
+                  expression: "ga:sessions",
+                },
+              ],
+            },
+          ],
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      });
   };
+
   useEffect(() => {
     sampleRunReport();
   }, []);

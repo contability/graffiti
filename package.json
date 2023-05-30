@@ -13,7 +13,9 @@
   "dependencies": {
     "@google-analytics/data": "^3.2.2",
     "@netlify/plugin-nextjs": "^4.37.2",
+    "@types/gapi": "^0.0.44",
     "@types/react-gtm-module": "^2.0.1",
+    "gapi": "^0.0.3",
     "next": "^13.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
