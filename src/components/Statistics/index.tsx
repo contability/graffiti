@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Header from "../common/Header";
 
 const Statistics = () => {
   const propertyId = process.env.NEXT_PUBLIC_GA_ID;
@@ -14,9 +15,9 @@ const Statistics = () => {
       }
     )
       .then((res) => {
-        console.log(res);
+        console.log(res.toString());
 
-        if (res) return res;
+        // if (res) return res;
       })
       .catch((e) => {
         console.error(e);
@@ -25,7 +26,12 @@ const Statistics = () => {
   useEffect(() => {
     sampleRunReport();
   }, []);
-  return <></>;
+  return (
+    <div>
+      <Header />
+      <h1>통계</h1>
+    </div>
+  );
 };
 
 export default Statistics;

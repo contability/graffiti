@@ -9,6 +9,9 @@ const Header = () => {
       <Link style={{ paddingRight: "10px" }} href="/contract">
         Contract
       </Link>
+      <Link style={{ paddingRight: "10px" }} href="/custom-event">
+        Custom-Event
+      </Link>
       <Link href="/statistics">Statistics</Link>
     </nav>
   );
