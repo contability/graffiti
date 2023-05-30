@@ -22,6 +22,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
+        {/* Global Site Tag (gtag.js) - Google Analytics */}
         {/* 추적 코드 삽입 */}
         <Script
           strategy="afterInteractive"
@@ -41,7 +42,6 @@ const App = ({ Component, pageProps }: AppProps) => {
           }}
         />
       </Head>
-      {/* Global Site Tag (gtag.js) - Google Analytics */}
       <Component {...pageProps} />
     </>
   );
