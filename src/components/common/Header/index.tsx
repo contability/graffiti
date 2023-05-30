@@ -6,7 +6,10 @@ const Header = () => {
       <Link style={{ paddingRight: "10px" }} href="/">
         Home
       </Link>
-      <Link href="/contract">Contract</Link>
+      <Link style={{ paddingRight: "10px" }} href="/contract">
+        Contract
+      </Link>
+      <Link href="/statistics">Statistics</Link>
     </nav>
   );
 };

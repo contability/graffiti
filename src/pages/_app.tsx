@@ -34,6 +34,8 @@ const App = ({ Component, pageProps }: AppProps) => {
             `,
           }}
         />
+        <Script />
+        <title>GA4-TEST</title>
       </Head>
       {/* Global Site Tag (gtag.js) - Google Analytics */}
       <Script
