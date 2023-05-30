@@ -4,10 +4,12 @@ import Script from "next/script";
 import { useEffect } from "react";
 import * as gtag from "../../lib/gtag";
 import { AppProps } from "next/app";
+import TagManager from "react-gtm-module";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   useEffect(() => {
+    TagManager.initialize({ gtmId: "GTM-WWF6CT5" });
     const handleRouteChange = (url: any) => {
       gtag.pageView(url);
     };
@@ -34,7 +36,6 @@ const App = ({ Component, pageProps }: AppProps) => {
             `,
           }}
         />
-        <Script />
         <title>GA4-TEST</title>
       </Head>
       {/* Global Site Tag (gtag.js) - Google Analytics */}

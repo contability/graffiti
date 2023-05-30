@@ -13,9 +13,11 @@
   "dependencies": {
     "@google-analytics/data": "^3.2.2",
     "@netlify/plugin-nextjs": "^4.37.2",
+    "@types/react-gtm-module": "^2.0.1",
     "next": "^13.4.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-gtm-module": "^2.0.11"
   },
   "devDependencies": {
     "@types/gtag.js": "^0.0.12",
