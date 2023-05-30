@@ -15,7 +15,7 @@ const Statistics = () => {
       }
     )
       .then((res) => {
-        console.log(res.toString());
+        console.log(res);
 
         // if (res) return res;
       })
