@@ -1,5 +1,6 @@
 import { Component } from "react";
 import * as gtag from "../../lib/gtag";
+import Header from "../components/common/Header";
 
 export default class Contact extends Component {
   state = { message: "" };
@@ -24,6 +25,7 @@ export default class Contact extends Component {
   render() {
     return (
       <div>
+        <Header />
         <h1>This is the Contact page</h1>
         <form onSubmit={this.handleSubmit}>
           <label>
