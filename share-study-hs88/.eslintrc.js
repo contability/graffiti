@@ -1,26 +1,16 @@
 module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: ["tsconfig.json", "tsconfig.server.json"],
+    project: ["tsconfig.json", "tsconfig.server.json"]
   },
   plugins: ["@typescript-eslint", "prettier"],
-  extends: [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-  ],
+  extends: ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended", "plugin:storybook/recommended"],
   root: true,
   env: {
     node: true,
-    jest: true,
+    jest: true
   },
-  ignorePatterns: [
-    ".eslintrc.js",
-    ".next/*",
-    ".vscode/*",
-    "node_modules",
-    "ecosystem.config.js",
-    "next.config.js",
-  ],
+  ignorePatterns: [".eslintrc.js", ".next/*", ".vscode/*", "node_modules", "ecosystem.config.js", "next.config.js"],
   rules: {
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
@@ -49,10 +39,10 @@ module.exports = {
     "@typescript-eslint/no-extra-semi": "error",
     "semi-spacing": ["error"],
     "comma-spacing": "off",
-    "@typescript-eslint/comma-spacing": [
-      "error",
-      { before: false, after: true },
-    ],
+    "@typescript-eslint/comma-spacing": ["error", {
+      before: false,
+      after: true
+    }],
     "block-spacing": ["error"],
     "no-loop-func": "off",
     "no-redeclare": "off",
@@ -67,6 +57,6 @@ module.exports = {
     "no-await-in-loop": "warn",
     "max-nested-callbacks": ["error", 3],
     "no-return-await": "error",
-    "@typescript-eslint/await-thenable": "error",
-  },
+    "@typescript-eslint/await-thenable": "error"
+  }
 };
