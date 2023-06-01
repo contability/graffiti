@@ -1,7 +1,8 @@
-import * as gtag from '../../../lib/gtag';
+import { NextPage } from 'next';
+import CustomEvent from '../../components/CustomEvent';
 
-const CustomEvent = () => {
+const CustomEventPage: NextPage = () => {
   return <CustomEvent />;
 };
 
-export default CustomEvent;
+export default CustomEventPage;
