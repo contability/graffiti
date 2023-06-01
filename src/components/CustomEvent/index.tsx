@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import * as gtag from '../../../lib/gtag';
 
 const CustomEvent: React.FC = () => {
