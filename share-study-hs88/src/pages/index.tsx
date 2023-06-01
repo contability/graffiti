@@ -2,6 +2,7 @@ import axios from 'axios';
 import { NextPageContext } from 'next';
 import List from '../components/List';
 import type { NextPage } from 'next';
+import ButtonBar from '../components/ButtonBar';
 
 export interface IPosts {
   userId: number;
@@ -16,7 +17,26 @@ export interface ListProps {
 }
 
 const index: NextPage<ListProps> = (props) => {
-  return <List props={props} />;
+  const buttons = [
+    {
+      label: '버튼1',
+      clickEvent: () => alert('버튼1 클릭'),
+    },
+    {
+      label: '버튼2',
+      clickEvent: () => alert('버튼2 클릭'),
+    },
+    {
+      label: '버튼2',
+      clickEvent: () => alert('버튼2 클릭'),
+    },
+  ];
+  return (
+    <>
+      <List props={props} />
+      <ButtonBar buttons={buttons} isFixed={true} />
+    </>
+  );
 };
 
 export const getServerSideProps = async (context: NextPageContext) => {
