@@ -1,72 +1,68 @@
 module.exports = {
+  env: {
+    browser: true,
+    es6: true,
+  },
+  extends: ['airbnb', 'plugin:react/recommended', 'standard-with-typescript'],
+  overrides: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: ['tsconfig.json', 'tsconfig.server.json'],
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'prettier'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
-  root: true,
-  env: {
-    node: true,
-    jest: true,
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
   },
-  ignorePatterns: [
-    '.eslintrc.js',
-    '.next/*',
-    '.vscode/*',
-    'node_modules',
-    'ecosystem.config.js',
-    'next.config.js',
-  ],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-inferrable-types': 'off',
-    '@typescript-eslint/no-unused-vars': 'off',
-    '@typescript-eslint/no-empty-function': 'off',
-    eqeqeq: ['error', 'always'],
-    'no-nested-ternary': 'error',
-    'no-unexpected-multiline': 'error',
-    '@typescript-eslint/no-non-null-asserted-nullish-coalescing': 'warn',
-    '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
-    '@typescript-eslint/no-non-null-assertion': 'error',
-    '@typescript-eslint/no-require-imports': 'error',
-    '@typescript-eslint/no-unnecessary-type-arguments': 'error',
-    '@typescript-eslint/no-unnecessary-type-assertion': 'error',
-    '@typescript-eslint/no-unnecessary-type-constraint': 'error',
-    '@typescript-eslint/no-var-requires': 'error',
-    '@typescript-eslint/prefer-enum-initializers': 'error',
-    '@typescript-eslint/prefer-function-type': 'error',
-    '@typescript-eslint/promise-function-async': 'error',
-    'no-dupe-class-members': 'off',
-    '@typescript-eslint/no-dupe-class-members': 'error',
-    'no-extra-semi': 'off',
-    '@typescript-eslint/no-extra-semi': 'error',
-    'semi-spacing': ['error'],
-    'comma-spacing': 'off',
-    '@typescript-eslint/comma-spacing': [
+    quotes: ['error', 'double'], // 더블 쿼테이션 사용
+    '@typescript-eslint/quotes': ['error', 'double'], // 더블 쿼테이션 사용
+    'no-unused-vars': 'off', // 사용 안 한 변수 경고 중복
+    'spaced-comment': 'off', // 주석을 뒤에 달 수 있다.
+    '@typescript-eslint/no-unused-vars': 'warn', // 사용 안 한 변수는 경고
+    'jsx-ally/control-has-associated-label': 'off', // 상호 작용하는 엘리먼트에 label을 넣는다.
+    'react/no-array-index-key': 'off', // key 값으로 index를 사용할 수 있다.
+    'comma-dangle': 'off', // 마지막에 , 을 넣어주지 않는다.
+    'arrow-body-style': 'off', // 화살표 함수 안에 return을 사용할 수 있다.
+    'react/no-unescaped-entities': 'off', // 문자열 내에서 " ' > } 허용
+    'react/prop-types': 'off', // prototypes를 사용하지 않는다.
+    'object-curly-newline': 'off', // { 다음 줄 바꿈을 강제로 사용하지 않는다.
+    'react/jsx-one-expression-per-line': 'off', // 한 라인에 여러 개의 JSX를 사용할 수 있다.
+    'implict-arrow-linebreak': 'off', // 화살표 함수 다음에 줄 바꿈을 사용할 수 있다.
+    'no-shadow': 'off', // 파일 내에서 중복 이름을 사용할 수 있다.
+    'operator-linebreak': 'off', // 연산자 다음 줄 바꿈을 사용할 수 있다.
+    'react/react-in-jsx-scope': 'off', // jsx를 사용하여도 React를 꼭 import 하지 않아도 된다.
+    'react/jsx-props-no-spreading': 'off', // props를 스프레드 할 수 있다.
+    'jsx-ally/anchor-is-valid': 'off', // next js에서는 a에 href 없이 사용
+    'global-require': 'off', // 함수 내에서 require 사용 가능
+    'no-use-before-define': 'off', // 선언 전에 사용하지 말라
+    'import/prefer-default-export': 'off', // export default를 사용하라.
+    'no-param-reassign': 'off', // param assign 하지 않기
+    'jsx-ally/label-has-associated-control': 'off', // label htmlFor을 사용하지 않아도 된다.
+    // "no-invald-css": "off",
+    // "no-confusing-arrow": "off",
+    'react/jsx-curly-newline': 'off', // jsx 안에 }를 새로운 라인에 사용할 수 있다.
+    indent: 'off',
+    'react/jsx-filename-extension': [
       'error',
-      { before: false, after: true },
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      }, // import 시 확장자명은 사용하지 않는다.
     ],
-    'block-spacing': ['error'],
-    'no-loop-func': 'off',
-    'no-redeclare': 'off',
-    '@typescript-eslint/no-redeclare': 'error',
-    'no-throw-literal': 'off',
-    '@typescript-eslint/no-throw-literal': 'error',
-    'no-return-await': 'off',
-    '@typescript-eslint/return-await': 'error',
-    semi: 'error',
-    '@typescript-eslint/semi': 'error',
-    'no-promise-executor-return': 'error',
-    'no-await-in-loop': 'warn',
-    'max-nested-callbacks': ['error', 3],
-    'no-return-await': 'error',
-    '@typescript-eslint/await-thenable': 'error',
+    settings: {
+      'import/resolver': {
+        node: {
+          extenstions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
+        },
+      },
+    },
   },
 };
