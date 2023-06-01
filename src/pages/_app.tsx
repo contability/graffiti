@@ -1,5 +1,3 @@
-// /pages/_app.tsx
-
 import Head from 'next/head';
 import * as gtag from '../../lib/gtag';
 import { AppProps } from 'next/app';

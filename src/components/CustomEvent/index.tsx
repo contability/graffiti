@@ -12,6 +12,8 @@ const CustomEvent: React.FC = () => {
       label: '커스텀 이벤트',
       value: 0,
     });
+
+    console.log('custom-event');
   };
 
   return (
