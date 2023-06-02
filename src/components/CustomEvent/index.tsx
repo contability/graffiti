@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { MouseEventHandler, useEffect } from 'react';
 import * as gtag from '../../../lib/gtag';
 
 const CustomEvent: React.FC = () => {
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     // 이런 식으로 이벤트 보내기 가능
@@ -10,7 +10,7 @@ const CustomEvent: React.FC = () => {
       action: 'custom_event',
       category: 'ce',
       label: '커스텀 이벤트',
-      value: 0,
+      value: 10,
     });
 
     console.log('custom-event');
