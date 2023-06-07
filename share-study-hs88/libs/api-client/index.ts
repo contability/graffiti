@@ -14,7 +14,7 @@ const createAxios = (requestConfig: AxiosRequestConfig): AxiosInstance => {
     withCredentials: true,
   });
 
-  //   요청 인터셉터 추가. 요청 날리기 전에 매번 실행됨.
+  //   인터셉터 추가. 요청 날리기 전에 매번 실행됨.
   axiosInstance.interceptors.request.use(
     async (config) => {
       config.headers = config.headers || {};

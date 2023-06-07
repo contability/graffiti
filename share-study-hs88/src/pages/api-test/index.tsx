@@ -14,12 +14,11 @@ const ApiTestPage = () => {
   const headerChk = async () => {
     const res = await axiosGeneralAPI().get('/api/api-test');
 
-    alert('"api-test" request header "Authorization" check');
-
     const expiredTime = dayjs(getCookie('expiredTime') as string);
     const now = dayjs();
 
     setDiffTime(now.diff(expiredTime, 'second'));
+    alert('"api-test" request header "Authorization" check');
   };
 
   useEffect(() => {
