@@ -3,6 +3,7 @@ import { NextPageContext } from 'next';
 import List from '../components/List';
 import type { NextPage } from 'next';
 import ButtonBar from '../components/ButtonBar';
+import { useRouter } from 'next/router';
 
 export interface IPosts {
   userId: number;
@@ -17,18 +18,14 @@ export interface ListProps {
 }
 
 const index: NextPage<ListProps> = (props) => {
+  const router = useRouter();
+
   const buttons = [
     {
-      label: '버튼1',
-      clickEvent: () => alert('버튼1 클릭'),
-    },
-    {
-      label: '버튼2',
-      clickEvent: () => alert('버튼2 클릭'),
-    },
-    {
-      label: '버튼2',
-      clickEvent: () => alert('버튼2 클릭'),
+      label: '로그인',
+      clickEvent: () => {
+        router.push('/account/login');
+      },
     },
   ];
   return (
