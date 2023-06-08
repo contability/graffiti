@@ -1,0 +1,4 @@
+{
+  "/[lng]/second-page/page": "app/[lng]/second-page/page.js",
+  "/[lng]/page": "app/[lng]/page.js"
+}
