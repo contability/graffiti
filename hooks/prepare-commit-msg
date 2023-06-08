@@ -15,11 +15,11 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 # default_pattern="^(\($services\) )?(Add|Remove|Fix|Modify|Improve|Simplify|Refactor|Merge|Move)"
 default_pattern="^(\(Add|Remove|Fix|Modify|Improve|Simplify|Refactor|Merge|Move\) )"
 # `ticket_pattern` 변수에는 티켓 번호 패턴을 정규 표현식으로 나타낸 문자열이 저장됩니다. 예를 들어, "FRONTEND-123"과 같은 티켓 번호를 나타내는 형식입니다.
-ticket_pattern='FRONTEND-[0-9]+'
+# ticket_pattern='FRONTEND-[0-9]+'
 # 초기에 빈 문자열로 초기화된 변수입니다.
-target_service=''
+# target_service=''
 # 초기에 빈 문자열로 초기화된 변수입니다.
-target_ticket=''
+# target_ticket=''
 
 
 
