@@ -1,11 +1,10 @@
 #!/bin/bash
 
 COMMITFORMAT="(Add|Remove|Fix|Modify|Improve|Simplify|Refactor|Merge|Move)"
-default_pattern="^(\($COMMITFORMAT\) )?(Add|Remove|Fix|Modify|Improve|Simplify|Refactor|Merge|Move)"
+default_pattern="^(\($COMMITFORMAT\) )?"
 
 
 if [[ ! $message =~ $default_pattern ]]; then
-echo $default_pattern
   echo '🚨 Git 컨벤션을 준수해주세요! 👮'
   echo ''
   echo '🏃      🚓💨💨'
