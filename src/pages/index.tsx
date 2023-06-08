@@ -2,7 +2,7 @@ import React from "react";
 import { NextPage } from "next";
 
 const index: NextPage = () => {
-  return <div>hello nextJswef</div>;
+  return <div>hello nextJs</div>;
 };
 
 export default index;
