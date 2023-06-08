@@ -1,7 +1,10 @@
 #!/bin/bash
 
+message_file="$1"
+message=$(cat "$message_file")
+
 COMMITFORMAT="(Add|Remove|Fix|Modify|Improve|Simplify|Refactor|Merge|Move)"
-default_pattern="^(\($COMMITFORMAT\) )?"
+default_pattern="^(\($COMMITFORMAT\) )"
 
 
 if [[ ! $message =~ $default_pattern ]]; then
