@@ -1,130 +1,15 @@
 #!/bin/bash
 
-# message_file="$1"
-# git_dir=$(git rev-parse --git-dir)
+COMMITFORMAT="(Add|Remove|Fix|Modify|Improve|Simplify|Refactor|Merge|Move)"
 
-# message=$(cat "$message_file")
-# current_branch=$(git rev-parse --abbrev-ref HEAD)
-# default_pattern="^(\(Add|Remove|Fix|Modify|Improve|Simplify|Refactor|Merge|Move\) )"
+default_pattern="^(\($COMITFORMAT\) )"
 
-# if [[ ! $message =~ $default_pattern ]]; then
-#   echo '🚨 Git 컨벤션을 준수해주세요! 👮'
-#   echo ''
-#   echo '🏃      🚓💨💨'
-#   osascript -e 'display notification "🚨 Git 컨벤션을 준수해주세요! 👮" with title "컨벤션 경고"'
-#   exit 1
-# fi
-
-# exit 0
-
-
-
-# 스크립트를 실행할 때 사용자로부터 받은 첫 번째 인자를 message_file 변수에 저장합니다. 이 인자는 커밋 메시지가 있는 파일의 경로입니다.
-message_file="$1"
-# 현재 Git 저장소의 디렉토리 경로를 git_dir 변수에 저장합니다.
-git_dir=$(git rev-parse --git-dir)
-
-# `message_file` 변수에 저장된 파일을 읽어서 message 변수에 저장합니다. 이는 커밋 메시지 내용을 나타냅니다.
-message=$(cat "$message_file")
-# 현재 작업 중인 브랜치의 이름을 current_branch 변수에 저장합니다.
-current_branch=$(git rev-parse --abbrev-ref HEAD)
-# `services` 변수에는 일련의 서비스 이름을 정규 표현식으로 나타낸 문자열이 저장됩니다.
-services='(alba-talk|business|personal|services|shared|root)'
-
-# `default_pattern` 변수에는 커밋 메시지가 일정한 패턴을 따르는지 확인하기 위한 정규 표현식이 저장됩니다. 이 패턴은 다양한 작업 유형 (Add, Remove, Fix 등)을 포함하며, 선택적으로 services 문자열과 일치할 수 있습니다.
-
-## 이 정규 표현식은 다양한 작업 유형에 대한 패턴을 나타냅니다. 그리고 이 작업 유형은 Git 커밋 메시지의 시작 부분에 나타납니다.
-## 1. `^`: 문자열의 시작을 나타내는 메타 문자입니다. 이 경우, 커밋 메시지의 시작 부분과 일치해야 합니다.
-## 2. `(\($services\) )?`: 이 부분은 선택적으로 특정 서비스를 나타내는 부분입니다. `services` 변수에 저장된 서비스 목록과 일치해야 합니다. `\$services\`는 `services` 변수에 저장된 서비스 목록을 그룹화하고, `\(`와 `\)`로 그룹을 감싸는 이유는 괄호가 정규 표현식의 메타 문자로 사용되기 때문입니다. 뒤에 있는 `?`는 그룹이 0 또는 1회 발생할 수 있음을 나타냅니다. 즉, 선택적인 그룹입니다. 그룹 뒤에 있는 공백은 선택적 서비스 그룹 뒤에 공백이 있을 수 있다는 것을 의미합니다.
-## 3. `(Add|Remove|Fix|Modify|Improve|Simplify|Refactor|Merge|Move)`: 이 부분은 다양한 작업 유형을 나타냅니다. 이러한 작업 유형 중 하나와 일치해야 합니다. 예를 들어, "Add", "Remove", "Fix"와 같은 단어와 일치합니다.
-## 따라서, 이 정규 표현식은 커밋 메시지의 시작 부분에 선택적으로 특정 서비스를 나타낼 수 있고, 그 다음에는 작업 유형 중 하나가 올 수 있음을 의미합니다. 예를 들어, "(business) Add" 또는 "Fix"와 같은 형식의 커밋 메시지는 이 정규 표현식과 일치합니다.
-default_pattern="^(\($services\) )?(Add|Remove|Fix|Modify|Improve|Simplify|Refactor|Merge|Move)"
-
-# `ticket_pattern` 변수에는 티켓 번호 패턴을 정규 표현식으로 나타낸 문자열이 저장됩니다. 예를 들어, "FRONTEND-123"과 같은 티켓 번호를 나타내는 형식입니다.
-ticket_pattern='FRONTEND-[0-9]+'
-# 초기에 빈 문자열로 초기화된 변수입니다.
-target_service=''
-# 초기에 빈 문자열로 초기화된 변수입니다.
-target_ticket=''
-
-
-
-
-
-
-# Git 저장소에서 Rebase 작업이 진행 중인지 확인하는 조건문입니다. 만약 Rebase 작업 중이라면 스크립트를 즉시 종료합니다.
-if test -d "$git_dir/rebase-merge"; then
-  # Rebase in progress
-  # Exit immediately
-  exit 0
-fi
-
-
-
-
-# 커밋 메시지가 default_pattern에 일치하지 않는 경우를 확인하는 조건문입니다. 이 경우, 커밋 메시지가 지정된 규칙을 따르지 않는다는 경고 메시지가 출력되고 스크립트가 종료됩니다.
-## 이 부분은 커밋 메시지가 $default_pattern 정규 표현식과 일치하지 않는지 확인하는 조건문입니다. 즉, 커밋 메시지가 작업 유형과 서비스 패턴을 따르지 않는 경우를 나타냅니다.
 if [[ ! $message =~ $default_pattern ]]; then
-## 커밋 메시지가 규칙에 맞지 않는 경우 경고 메시지를 출력합니다. 즉, "Git 컨벤션을 준수해주세요! 👮"라는 메시지를 콘솔에 출력합니다.
   echo '🚨 Git 컨벤션을 준수해주세요! 👮'
   echo ''
   echo '🏃      🚓💨💨'
-## macOS에서는 osascript를 사용하여 알림(notification)을 표시할 수 있습니다. 이 명령은 "🚨 Git 컨벤션을 준수해주세요! 👮"라는 메시지와 함께 "컨벤션 경고"라는 제목의 알림을 표시합니다.
   osascript -e 'display notification "🚨 Git 컨벤션을 준수해주세요! 👮" with title "컨벤션 경고"'
-## 스크립트를 종료하고 종료 코드(exit code) 1을 반환합니다. 이는 스크립트가 비정상적으로 종료되었음을 나타냅니다.
   exit 1
 fi
 
-
-
-
-# 커밋 메시지가 `services` 문자열과 일치하지 않는 경우를 확인하는 조건문입니다. 
-# 이 경우, 변경된 파일 중에서 apps 또는 libs 디렉토리에서 해당 `services`에 해당하는 것을 찾아내고, 그 중 가장 빈도수가 높은 서비스를 target_service 변수에 저장합니다. 
-# 디렉토리에서 파일을 검색하기 위해 정규 표현식을 사용하고, grep 및 awk를 사용하여 작업을 수행합니다.
-if [[ ! $message =~ ^\($services\) ]]; then
-  tmp=()
-  files_changed=$(git diff --name-only HEAD)
-  dir_pattern="(apps|libs)\/$services"
-
-  # I can't use -P in mac's default bash ;(
-  # grep -P -E -o '(apps|libs)\/\K(alba-talk|business|personal|services|shared)' <<<$files_changed | sort -r | uniq -c | sort -n | tail -1
-
-  for file in $files_changed; do
-    if [[ $file =~ $dir_pattern ]]; then
-      service="${BASH_REMATCH[2]}"
-      tmp+=("$service")
-    fi
-  done
-
-  if ((${#tmp[@]})); then
-    target_service=$(printf '%s\n' "${tmp[@]}" | sort -r | uniq -c | sort -n | tail -1 | awk '{print $2}')
-    # Yes I think this is so weird, but I'm noob to bash.
-    # And to be honest, bash has always been weird too.
-    target_service="($target_service) "
-  else
-    target_service="(root) "
-  fi
-fi
-
-
-
-
-# 커밋 메시지에 `ticket_pattern` 패턴이 포함되어 있지 않은 경우를 확인하는 조건문입니다. 현재 작업 중인 브랜치 이름에서 `ticket_pattern`과 일치하는 티켓 번호를 추출하여 target_ticket 변수에 저장합니다.
-if [[ ! $message =~ \[$ticket_pattern\]$ ]]; then
-  if [[ $current_branch =~ $ticket_pattern ]]; then
-    target_ticket="
-
-[${BASH_REMATCH[0]}]"
-  fi
-fi
-
-
-
-#  최종적으로, `target_service`, `message`, `target_ticket`을 조합하여 새로운 커밋 메시지를 생성하고, 이를 `message_file`에 덮어씁니다.
-echo "$target_service$message$target_ticket" >$message_file
-
-
-
-
-# 스크립트가 정상적으로 종료되었음을 나타내는 코드입니다.
 exit 0
