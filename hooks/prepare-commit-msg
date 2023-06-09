@@ -7,7 +7,7 @@ COMMITFORMAT="(feat|fix|update|dev|doc)"
 default_pattern="^($COMMITFORMAT: )"
 
 
-if [[ ! $message =~ $default_pattern ]]; then
+if [[ ! $message =~ $default_pattern ]]; then 
   echo '🚨 Git 컨벤션을 준수해주세요! 👮'
   echo ''
   echo '🏃      🚓💨💨'
