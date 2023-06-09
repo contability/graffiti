@@ -1,6 +1,6 @@
 #!/bin/bash
 
-message_file="$1"
+message_file="$1" 
 message=$(cat "$message_file")
 
 COMMITFORMAT="(feat|fix|update|dev|doc)"
