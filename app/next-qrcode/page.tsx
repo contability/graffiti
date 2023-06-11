@@ -21,8 +21,8 @@ const NextQrCodePage = () => {
             scale: 4,
             width: 200,
             color: {
-              dark: "#010599FF",
-              light: "#FFBF60FF",
+              dark: "#331B3F",
+              light: "#ACC7B4",
             },
           }}
         />

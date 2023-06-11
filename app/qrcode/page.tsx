@@ -27,20 +27,27 @@ const QrCodePage = () => {
       "https://github.com/contability/qrcode-test",
       {
         errorCorrectionLevel: "M",
+        // scale: 4,
+        // },
+        width: 200,
         scale: 4,
-        darkcolor: "#010599FF",
-        lightcolor: "#FFBF60FF",
+        margin: 3,
+        color: {
+          dark: "#010599FF",
+          light: "#FFBF60FF",
+        },
       }
     );
   }, []);
   return (
     <div>
+      <code>yarn add qrcode</code>
       <p>
         <canvas ref={emptyOptionsCanvasRef} />
         empty options
       </p>
       <p>
-        <canvas ref={addOptionsCanvasRef} width={200} height={200} />
+        <canvas ref={addOptionsCanvasRef} />
         add options
       </p>
     </div>
