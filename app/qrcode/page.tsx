@@ -27,8 +27,6 @@ const QrCodePage = () => {
       "https://github.com/contability/qrcode-test",
       {
         errorCorrectionLevel: "M",
-        // scale: 4,
-        // },
         width: 200,
         scale: 4,
         margin: 3,
