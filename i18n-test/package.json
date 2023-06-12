@@ -11,6 +11,7 @@
   "dependencies": {
     "accept-language": "^3.0.18",
     "i18next": "^22.5.1",
+    "i18next-browser-languagedetector": "^7.0.2",
     "i18next-resources-to-backend": "^1.1.4",
     "next": "^13.4.4",
     "next-i18next": "^13.3.0",

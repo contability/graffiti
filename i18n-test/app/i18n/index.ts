@@ -3,7 +3,7 @@ import resourcesToBackend from "i18next-resources-to-backend";
 import { initReactI18next } from "react-i18next/initReactI18next";
 import { getOptions } from "./settings";
 
-const initI18next = async (lng, ns) => {
+const initI18next = async (lng: string, ns: string | string[]) => {
   const i18nInstance = createInstance();
   await i18nInstance
     .use(initReactI18next)
@@ -17,7 +17,23 @@ const initI18next = async (lng, ns) => {
   return i18nInstance;
 };
 
-export async function useTranslation(lng, ns, options = {}) {
+/**
+ *
+ *
+ * @export
+ * 언어
+ * @param {*} lng
+ * 읽어들일 파일 이름
+ * @param {*} ns
+ * 옵션
+ * @param {*} [options={}]
+ * @return {*}
+ */
+export async function useTranslation(
+  lng: string,
+  ns: string | string[] = "",
+  options: Record<string, any> = {}
+) {
   const i18nextInstance = await initI18next(lng, ns);
   return {
     t: i18nextInstance.getFixedT(

@@ -3,7 +3,7 @@ import { useTranslation } from "../i18n";
 import { Footer } from "./components/Footer";
 
 export default async function Page({ params: { lng } }) {
-  const { t } = await useTranslation(lng, "");
+  const { t } = await useTranslation(lng, "translation");
   return (
     <>
       <h1>{t("title")}</h1>
