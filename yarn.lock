@@ -52,6 +52,44 @@
   resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-13.4.4.tgz#faab69239f8a9d0be7cd473e65f5a07735ef7b0e"
   integrity sha512-AHRITu/CrlQ+qzoqQtEMfaTu7GHaQ6bziQln/pVWpOYC1wU+Mq6VQQFlsDtMCnDztPZtppAXdvvbNS7pcfRzlw==
 
+"@otplib/core@^12.0.1":
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/@otplib/core/-/core-12.0.1.tgz#73720a8cedce211fe5b3f683cd5a9c098eaf0f8d"
+  integrity sha512-4sGntwbA/AC+SbPhbsziRiD+jNDdIzsZ3JUyfZwjtKyc/wufl1pnSIaG4Uqx8ymPagujub0o92kgBnB89cuAMA==
+
+"@otplib/plugin-crypto@^12.0.1":
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/@otplib/plugin-crypto/-/plugin-crypto-12.0.1.tgz#2b42c624227f4f9303c1c041fca399eddcbae25e"
+  integrity sha512-qPuhN3QrT7ZZLcLCyKOSNhuijUi9G5guMRVrxq63r9YNOxxQjPm59gVxLM+7xGnHnM6cimY57tuKsjK7y9LM1g==
+  dependencies:
+    "@otplib/core" "^12.0.1"
+
+"@otplib/plugin-thirty-two@^12.0.1":
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/@otplib/plugin-thirty-two/-/plugin-thirty-two-12.0.1.tgz#5cc9b56e6e89f2a1fe4a2b38900ca4e11c87aa9e"
+  integrity sha512-MtT+uqRso909UkbrrYpJ6XFjj9D+x2Py7KjTO9JDPhL0bJUYVu5kFP4TFZW4NFAywrAtFRxOVY261u0qwb93gA==
+  dependencies:
+    "@otplib/core" "^12.0.1"
+    thirty-two "^1.0.2"
+
+"@otplib/preset-default@^12.0.1":
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/@otplib/preset-default/-/preset-default-12.0.1.tgz#cb596553c08251e71b187ada4a2246ad2a3165ba"
+  integrity sha512-xf1v9oOJRyXfluBhMdpOkr+bsE+Irt+0D5uHtvg6x1eosfmHCsCC6ej/m7FXiWqdo0+ZUI6xSKDhJwc8yfiOPQ==
+  dependencies:
+    "@otplib/core" "^12.0.1"
+    "@otplib/plugin-crypto" "^12.0.1"
+    "@otplib/plugin-thirty-two" "^12.0.1"
+
+"@otplib/preset-v11@^12.0.1":
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/@otplib/preset-v11/-/preset-v11-12.0.1.tgz#4c7266712e7230500b421ba89252963c838fc96d"
+  integrity sha512-9hSetMI7ECqbFiKICrNa4w70deTUfArtwXykPUvSHWOdzOlfa9ajglu7mNCntlvxycTiOAXkQGwjQCzzDEMRMg==
+  dependencies:
+    "@otplib/core" "^12.0.1"
+    "@otplib/plugin-crypto" "^12.0.1"
+    "@otplib/plugin-thirty-two" "^12.0.1"
+
 "@swc/helpers@0.5.1":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.5.1.tgz#e9031491aa3f26bfcc974a67f48bd456c8a5357a"
@@ -94,6 +132,11 @@ ansi-styles@^4.0.0:
   integrity sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==
   dependencies:
     color-convert "^2.0.1"
+
+base32.js@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/base32.js/-/base32.js-0.0.1.tgz#d045736a57b1f6c139f0c7df42518a84e91bb2ba"
+  integrity sha512-EGHIRiegFa62/SsA1J+Xs2tIzludPdzM064N9wjbiEgHnGnJ1V0WEpA4pEwCYT5nDvZk3ubf0shqaCS7k6xeUQ==
 
 busboy@1.6.0:
   version "1.6.0"
@@ -186,6 +229,11 @@ is-fullwidth-code-point@^3.0.0:
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
 
+jssha@~3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/jssha/-/jssha-3.3.0.tgz#44b5531bcf55a12f4a388476c647a9a1cca92839"
+  integrity sha512-w9OtT4ALL+fbbwG3gw7erAO0jvS5nfvrukGPMWIAoea359B26ALXGpzy4YJSp9yGnpUvuvOw1nSjSoHDfWSr1w==
+
 locate-path@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-5.0.0.tgz#1afba396afd676a6d42504d0a67a3a7eb9f62aa0"
@@ -234,6 +282,22 @@ next@^13.4.4:
     "@next/swc-win32-arm64-msvc" "13.4.4"
     "@next/swc-win32-ia32-msvc" "13.4.4"
     "@next/swc-win32-x64-msvc" "13.4.4"
+
+otpauth@^9.1.2:
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/otpauth/-/otpauth-9.1.2.tgz#2f3f4736b5b5f919af7cc7fed1ab90ea52930458"
+  integrity sha512-iI5nlVvMFP3aTPdjG/fnC4mhVJ/KZOSnBrvo/VnYHUwlTp9jVLjAe2B3i3pyCH+3/E5jYQRSvuHk/8oas3870g==
+  dependencies:
+    jssha "~3.3.0"
+
+otplib@^12.0.1:
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/otplib/-/otplib-12.0.1.tgz#c1d3060ab7aadf041ed2960302f27095777d1f73"
+  integrity sha512-xDGvUOQjop7RDgxTQ+o4pOol0/3xSZzawTiPKRrHnQWAy0WjhNs/5HdIDJCrqC4MBynmjXgULc6YfioaxZeFgg==
+  dependencies:
+    "@otplib/core" "^12.0.1"
+    "@otplib/preset-default" "^12.0.1"
+    "@otplib/preset-v11" "^12.0.1"
 
 p-limit@^2.2.0:
   version "2.3.0"
@@ -330,6 +394,13 @@ source-map-js@^1.0.2:
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
   integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
 
+speakeasy@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/speakeasy/-/speakeasy-2.0.0.tgz#85c91a071b09a5cb8642590d983566165f57613a"
+  integrity sha512-lW2A2s5LKi8rwu77ewisuUOtlCydF/hmQSOJjpTqTj1gZLkNgTaYnyvfxy2WBr4T/h+9c4g8HIITfj83OkFQFw==
+  dependencies:
+    base32.js "0.0.1"
+
 streamsearch@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/streamsearch/-/streamsearch-1.1.0.tgz#404dd1e2247ca94af554e841a8ef0eaa238da764"
@@ -357,6 +428,11 @@ styled-jsx@5.1.1:
   integrity sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==
   dependencies:
     client-only "0.0.1"
+
+thirty-two@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/thirty-two/-/thirty-two-1.0.2.tgz#4ca2fffc02a51290d2744b9e3f557693ca6b627a"
+  integrity sha512-OEI0IWCe+Dw46019YLl6V10Us5bi574EvlJEOcAkB29IzQ/mYD1A6RyNHLjZPiHCmuodxvgF6U+vZO1L15lxVA==
 
 tslib@^2.4.0:
   version "2.5.3"

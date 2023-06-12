@@ -23,6 +23,17 @@ export default function RootLayout({
           <li>
             <Link href="/qrcode">qrcode</Link>
           </li>
+          <li>
+            <Link href="/speakeasy">
+              use speakeasy for google-authenticator
+            </Link>
+          </li>
+          <li>
+            <Link href="/otplib">use otplib for google-authenticator</Link>
+          </li>
+          <li>
+            <Link href="/otpauth">use otpauth for google-authenticator</Link>
+          </li>
         </nav>
         {children}
       </body>

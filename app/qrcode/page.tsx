@@ -6,10 +6,7 @@ import QRCode from "qrcode";
 const QrCodePage = () => {
   const emptyOptionsCanvasRef = React.useRef<HTMLCanvasElement>();
   const addOptionsCanvasRef = React.useRef<HTMLCanvasElement>();
-
-  const initCanvas = (element, url, options = {}) => {
-    return QRCode.toCanvas(element, url, options);
-  };
+  const toDataURLCanvasRef = React.useRef<HTMLCanvasElement>();
 
   useEffect(() => {
     const emptyOptionsCanvas = emptyOptionsCanvasRef.current;
@@ -36,6 +33,31 @@ const QrCodePage = () => {
         },
       }
     );
+
+    const toDataURLCanvas = toDataURLCanvasRef.current;
+    QRCode.toDataURL(
+      // 이 ref를 담는 태그에
+      toDataURLCanvas,
+      // 이 내용을 가진 qrcode를 바인딩한다.
+      "https://github.com/contability/qrcode-test",
+      {
+        errorCorrectionLevel: "H",
+        type: "image/jpeg",
+        quality: 0.3,
+        margin: 5,
+        width: 400,
+        color: {
+          dark: "#A4193D",
+          light: "#FFDFB9",
+        },
+      },
+      (err, url) => {
+        if (err) throw err;
+
+        // url: 요청한 내용으로 생성되어 return 된 svg string.
+        console.log(url);
+      }
+    );
   }, []);
   return (
     <div>
@@ -47,6 +69,10 @@ const QrCodePage = () => {
       <p>
         <canvas ref={addOptionsCanvasRef} />
         add options
+      </p>
+      <p>
+        <canvas ref={toDataURLCanvasRef} />
+        toDataURL
       </p>
     </div>
   );
