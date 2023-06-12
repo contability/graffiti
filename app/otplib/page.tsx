@@ -33,8 +33,9 @@ const OtpLibPage = () => {
 
   return (
     <div>
+      <h1>otplib</h1>
       <p>
-        <code>yarn add speakeasy</code>
+        <code>yarn add otplib</code>
       </p>
       <p>
         <code>yarn add qrcode</code>

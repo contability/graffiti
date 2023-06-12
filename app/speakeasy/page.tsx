@@ -59,6 +59,7 @@ const SpeakEasyPage = () => {
 
   return (
     <div>
+      <h1>speakeasy</h1>
       <p>
         <code>yarn add speakeasy</code>
       </p>

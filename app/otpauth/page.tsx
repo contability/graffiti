@@ -32,7 +32,10 @@ const LoginPage = () => {
 
   return (
     <div>
-      <h1>Login Page</h1>
+      <h1>otpAuth</h1>
+      <p>
+        <code>yarn add otpauth</code>
+      </p>
       <img src={qrImg} alt="QR Code" />
       {/* QR 코드를 스캔한 후 입력 받는 폼 */}
       <form>
