@@ -27,14 +27,16 @@ export default function RootLayout({
             </li>
             <li>
               <Link href="/speakeasy">
-                use speakeasy for google-authenticator
+                use speakeasy for google-authenticator(미구현)
               </Link>
             </li>
             <li>
               <Link href="/otplib">use otplib for google-authenticator</Link>
             </li>
             <li>
-              <Link href="/otpauth">use otpauth for google-authenticator</Link>
+              <Link href="/otpauth">
+                use otpauth for google-authenticator(미구현)
+              </Link>
             </li>
           </nav>
           {children}
