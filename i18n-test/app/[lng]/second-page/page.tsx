@@ -8,6 +8,7 @@ export default async function Page({ params: { lng } }) {
     <>
       <h1>{t("title")}</h1>
       <Link href={`/${lng}`}>{t("back-to-home")}</Link>
+      {/* @ts-expect-error Server Component */}
       <Footer lng={lng} />
     </>
   );

@@ -6,6 +6,7 @@ const FooterBase = ({ t, lng }: any) => {
   return (
     <footer style={{ marginTop: 50 }}>
       <Trans i18nKey="languageSwitcher" t={t}>
+        {/* @ts-expect-error Trans interpolation */}
         Switch from <strong>{{ lng }}</strong> to:{" "}
       </Trans>
       {languages

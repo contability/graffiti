@@ -13,9 +13,6 @@ export default function RootLayout({
   locale?: string;
   children: React.ReactNode;
 }) {
-  console.log("rest", rest);
-  console.log("locale", locale);
-
   return (
     <html lang="en">
       <body>{children}</body>

@@ -1,7 +1,9 @@
 {
-  "name": "i18n-test",
+  "name": "qrcode-test",
   "version": "1.0.0",
   "main": "index.js",
+  "repository": "https://github.com/contability/qrcode-test.git",
+  "author": "FURIUM <shouldBnewB@gmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "next",
@@ -9,18 +11,18 @@
     "start": "next start"
   },
   "dependencies": {
-    "accept-language": "^3.0.18",
-    "i18next": "^22.5.1",
-    "i18next-browser-languagedetector": "^7.0.2",
-    "i18next-resources-to-backend": "^1.1.4",
     "next": "^13.4.4",
-    "next-i18next": "^13.3.0",
+    "next-qrcode": "^2.4.1",
+    "otpauth": "^9.1.2",
+    "otplib": "^12.0.1",
+    "qrcode": "^1.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-i18next": "^12.3.1"
+    "speakeasy": "^2.0.0",
+    "styled-components": "^6.0.0-rc.3"
   },
   "devDependencies": {
-    "@types/node": "^20.2.5",
+    "@types/node": "^20.2.6",
     "@types/react": "^18.2.9",
     "typescript": "^5.1.3"
   }
