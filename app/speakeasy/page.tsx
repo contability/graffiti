@@ -42,6 +42,8 @@ const SpeakEasyPage = () => {
   };
 
   useEffect(() => {
+    console.log("url is: ", url);
+
     const qrcodeCanvasRef = qrcodeCanvas.current;
     QRCode.toDataURL(qrcodeCanvasRef, url, (err, imageData) => {
       if (err) console.error(err);
@@ -54,7 +56,6 @@ const SpeakEasyPage = () => {
 
   useEffect(() => {
     //   if (token.length === 6) executeVerified();
-    console.log(secret.ascii);
   }, [token]);
 
   return (
