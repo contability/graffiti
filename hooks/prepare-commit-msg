@@ -24,6 +24,6 @@ if [[ ! $message =~ \[$ticket_pattern\]$ ]]; then
   fi
 fi
 
-echo "$message$target_ticket" >$message_file
+echo "$message $target_ticket" >$message_file
 
 exit 0
