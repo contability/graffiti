@@ -20,7 +20,7 @@ fi
 
 if [[ ! $message =~ \[$ticket_pattern\]$ ]]; then
   if [[ $current_branch =~ $ticket_pattern ]]; then
-    target_ticket=""
+    target_ticket="" 
     fi
     fi
 
