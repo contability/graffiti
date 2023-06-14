@@ -20,7 +20,7 @@ fi
 
 if [[ ! $message =~ \[$ticket_pattern\]$ ]]; then
   if [[ $current_branch =~ $ticket_pattern ]]; then
-    target_ticket="[${BASH_REMATCH[0]}]"
+    target_ticket="[${BASH_REMATCH[0]}]" 
   fi
 fi
 
