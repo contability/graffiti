@@ -1,7 +1,9 @@
+"use client";
+
 import React from "react";
 import { NextPage } from "next";
 import { useTranslation } from "react-i18next";
-import ChangeLng from "../ui/change-language";
+import Link from "next/link";
 
 const RootPage: NextPage = () => {
   const { t } = useTranslation();
@@ -9,11 +11,10 @@ const RootPage: NextPage = () => {
   return (
     <div>
       <p>{t("title")}</p>
-      <p>{t("to-second-page")}</p>
+      <p>
+        <Link href="/second-page">{t("to-second-page")}</Link>
+      </p>
       <p>{t("to-client-page")}</p>
-      <div>
-        <ChangeLng />
-      </div>
     </div>
   );
 };
