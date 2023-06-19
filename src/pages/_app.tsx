@@ -67,7 +67,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <script src="/firebase-messaging-sw.js" />
       </Head>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
   );
 }
