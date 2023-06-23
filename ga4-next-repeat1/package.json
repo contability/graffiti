@@ -1,0 +1,36 @@
+{
+  "name": "ga4-next",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/contability/ga4-next.git",
+  "author": "contability <shouldBnewB@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@google-analytics/data": "^3.2.2",
+    "@netlify/plugin-nextjs": "^4.37.2",
+    "@types/gapi": "^0.0.44",
+    "@types/react-gtm-module": "^2.0.1",
+    "googleapis": "^118.0.0",
+    "next": "^13.4.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-gtm-module": "^2.0.11"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.4",
+    "@types/react": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "eslint": "^8.0.1",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.32.2",
+    "typescript": "*"
+  }
+}
