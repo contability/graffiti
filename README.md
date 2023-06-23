@@ -1,19 +1,3 @@
-# TOEIC 공부하는 친구를 위해 간단한거 만들어보는 중
-
-typeScript 적용 후 module not found Error 발생.
-ts, tsx 확장자를 자동으로 못읽어주는건가? 하는 의심이 들었음.
-그럼 설정일 것 같은데
-
-1. dependency 다 밀고 다시 npm install 해봄 -> 실패
-2. webPack 설정 파일 꺼내서 resolve 부분 수정 -> 실패
-
-어차피 표현법에 익숙해지기 위해 현재 과정은 반복할 거기 때문에
-새로운 프로젝트 만들어서 또 해보고 다시 와서 수정하자
-
-단, 에러 수정 실패로 느낀건 React 프로젝트의 개념과 설정에 대한 이해도가 낮기 때문이라고 보고
-CRA 없이 만들어보자
-
-그럼 설정에 대한 이해가 어느정도 생기지 않을까?
 
 # Getting Started with Create React App
 
