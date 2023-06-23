@@ -1,0 +1,20 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// db properties 입력
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// table schema 입력
+model WEAPON {
+  id Int @id @default(autoincrement())
+  name String
+  isportable Boolean
+  description String
+}
