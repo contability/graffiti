@@ -1,31 +1,41 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Home = () => {
+  const [startDate, setStartDate] = useState(new Date());
   // 폰 번호 정규표현식
   const phoneRegex = new RegExp(/^\d{3}-\d{3,4}-\d{4}$/);
+
   const userInfoSchema = z
     .object({
-      id: z.string().min(6, { message: "6자 이상" }),
+      id: z
+        .string()
+        .min(1, { message: "필수 값 입니다" })
+        .min(6, { message: "6자 이상" }),
       password: z.string().min(4, { message: "4자 이상" }),
       confirmPassword: z
         .string()
         .min(1, { message: "confirm password is required" }),
+
       // 숫자가 한 개 이상일 것. 즉 필드가 필수인지 확인
-      age: z.number().min(1),
+      age: z.coerce.number().min(1, { message: "필수 값 입니다" }),
       email: z.string().email(),
-      phone: z.string().regex(phoneRegex, "폰 번 맞음?"),
+      phone: z.string().regex(phoneRegex, { message: "폰 번 맞음?" }),
       date: z.date(),
     })
     .refine((data) => data.password === data.confirmPassword, {
       path: ["confirmPassword"],
-      message: "Password don't match",
+      message: "패스워드를 다시 한 번 입력해주세요.",
     });
 
   type UserInfo = z.infer<typeof userInfoSchema>;
 
   const {
+    control,
     register,
     handleSubmit,
     watch,
@@ -38,7 +48,7 @@ const Home = () => {
 
   return (
     <main>
-      <form style={{ width: "300px" }} onSubmit={handleSubmit(onSubmit)}>
+      <form style={{ width: "300px" }}>
         <div
           style={{
             display: "flex",
@@ -60,8 +70,11 @@ const Home = () => {
           }}
         >
           <label htmlFor="">password</label>
-          <input type="password" />
+          <input type="password" {...register("password")} />
         </div>
+        {errors.password && (
+          <p style={{ color: "red" }}>{errors.password.message}</p>
+        )}
         <div
           style={{
             display: "flex",
@@ -71,8 +84,11 @@ const Home = () => {
           }}
         >
           <label htmlFor="">confirm password</label>
-          <input type="password" />
+          <input type="password" {...register("confirmPassword")} />
         </div>
+        {errors.confirmPassword && (
+          <p style={{ color: "red" }}>{errors.confirmPassword.message}</p>
+        )}
         <div
           style={{
             display: "flex",
@@ -82,8 +98,9 @@ const Home = () => {
           }}
         >
           <label htmlFor="">age</label>
-          <input type="number" />
+          <input type="number" {...register("age")} />
         </div>
+        {errors.age && <p style={{ color: "red" }}>{errors.age.message}</p>}
         <div
           style={{
             display: "flex",
@@ -93,8 +110,9 @@ const Home = () => {
           }}
         >
           <label htmlFor="">email</label>
-          <input type="email" />
+          <input type="email" {...register("email")} />
         </div>
+        {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
         <div
           style={{
             display: "flex",
@@ -104,8 +122,9 @@ const Home = () => {
           }}
         >
           <label htmlFor="">phone</label>
-          <input type="tel" />
+          <input type="tel" {...register("phone")} />
         </div>
+        {errors.phone && <p style={{ color: "red" }}>{errors.phone.message}</p>}
         <div
           style={{
             display: "flex",
@@ -115,6 +134,16 @@ const Home = () => {
           }}
         >
           <label htmlFor="">date</label>
+          <Controller
+            control={control}
+            name="date"
+            render={({ field }) => (
+              <DatePicker
+                onChange={(date) => field.onChange(date)}
+                selected={field.value}
+              />
+            )}
+          />
         </div>
         <div
           style={{
@@ -127,7 +156,7 @@ const Home = () => {
           <input type="file" />
         </div>
       </form>
-      <button type="submit">submit</button>
+      <button onClick={handleSubmit(onSubmit)}>submit</button>
     </main>
   );
 };
