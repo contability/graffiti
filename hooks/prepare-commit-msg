@@ -9,6 +9,10 @@ ticket_pattern='FRONTEND-[0-9]+'
 COMMITFORMAT="(feat|fix|update|dev|doc)"
 default_pattern="^($COMMITFORMAT: )" 
 
+if test -d "$git_dir/rebase-merge"; then
+  exit 0
+fi
+
 
 if [[ ! $message =~ $default_pattern ]]; then 
   echo -e '🚨 Git 컨벤션을 준수해주세요! 👮 (feat|fix|update|dev|doc): '
