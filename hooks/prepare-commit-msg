@@ -17,12 +17,12 @@ if [[ ! $message =~ $default_pattern ]]; then
   exit 1
 fi
 
-if [[ ! $message =~ \[$ticket_pattern\]$ ]]; then
-  if [[ $current_branch =~ $ticket_pattern ]]; then
-    target_ticket="[${BASH_REMATCH[0]}]" 
-  fi
-fi
+# if [[ ! $message =~ \[$ticket_pattern\]$ ]]; then
+#   if [[ $current_branch =~ $ticket_pattern ]]; then
+#     target_ticket="[${BASH_REMATCH[0]}]" 
+#   fi
+# fi
 
-echo "$message $target_ticket" >$message_file
+echo "$message [$current_branch]" >$message_file
 
 exit 0
