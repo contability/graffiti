@@ -1,0 +1,28 @@
+{
+  "name": "husky-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/contability/husky-test.git",
+  "author": "furium <shouldBnewB@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    // hooks path를 현재 프로젝트 내의 /hooks 디렉토리로 설정. 추천
+    "use-hooks": "git config core.hooksPath hooks",
+    // 이런식으로도 가능하지만 파일이 수정될 때 마다 파일 옮겨줘야 해서 비추천
+    "commit-config": "cp prepare-commit-msg ./.git/hooks && chmod 755 ./.git/hooks/prepare-commit-msg"
+  },
+  "dependencies": {
+    "next": "^13.4.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.5",
+    "@types/react": "^18.2.9",
+    "typescript": "^5.1.3"
+  }
+}
+
