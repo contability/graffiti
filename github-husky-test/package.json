@@ -1,0 +1,19 @@
+{
+  "name": "git-husky-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/contability/git-husky-test.git",
+  "author": "furium <shouldBnewB@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^14.2.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "husky": "^9.0.11"
+  },
+  "scripts": {
+    "prepare": "husky"
+  }
+}
