@@ -1,0 +1,35 @@
+#!/bin/bash
+
+message_file="$1"
+git_dir=$(git rev-parse --git-dir)
+
+message=$(cat "$message_file")
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+commit_type='(add|remove|fix|modify|improve|simplify|refactor|merge|move)'
+
+default_pattern="^(\($commit_type\) )"
+
+ticket_pattern='FRONTEND-[0-9]+'
+target_ticket=''
+
+if test -d "$git_dir/rebase-merge"; then
+  exit 0
+fi
+
+if [[ ! $message =~ $default_pattern ]]; then
+  echo '🚨 Git 컨벤션을 준수해주세요! 👮 (add|remove|fix|modify|improve|simplify|refactor|merge|move)'
+  echo ''
+  echo '🏃      🚓💨💨'
+  osascript -e 'display notification "🚨 Git 컨벤션을 준수해주세요! 👮" with title "컨벤션 경고"'
+  exit 1
+fi
+
+if [[ ! $message =~ \[$ticket_pattern\]$ ]]; then
+  if [[ $current_branch =~ $ticket_pattern ]]; then
+    target_ticket="[${BASH_REMATCH[0]}]" 
+  fi
+fi
+
+echo "$message    $target_ticket" >$message_file
+
+exit 0
